@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PruProspect Pro - Portal Resmi Agen & Portofolio Nasabah Prudential</title>
+  <meta name="description" content="Aplikasi asisten resmi agen asuransi Prudential: Database Calon Nasabah, portofolio polis nasabah in-force, panduan keberatan, dan target MDRT.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans (Modern Corporate Financial Typography) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css?v=20260920f">
+</head>
+<body>
+
+
+
+  <!-- ==========================================================================
+       EXECUTIVE APP HEADER (CLEAN, AIRY & ELEGANT BFI FINANCE STYLE)
+       ========================================================================== -->
+  <header class="app-header">
+    <div class="header-container">
+      
+      <!-- Brand Logo & Identity -->
+      <div class="brand-wrapper">
+        <div class="brand-emblem-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="brand-text-group">
+          <div class="brand-title-row">
+            <span class="brand-title-main">PruProspect</span>
+            <span class="brand-pill-badge">PRO</span>
+          </div>
+          <span class="brand-subtitle-tag">Portal Agen & Portofolio Nasabah</span>
+        </div>
+      </div>
+
+      <!-- Top Navigation Tabs (Desktop & Tablet) -->
+      <nav class="top-nav-tabs" id="topNavTabs">
+        <button type="button" class="nav-tab-btn active" data-section="project100">
+          <svg class="nav-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span class="nav-text">Calon Nasabah</span>
+          <span class="nav-badge" id="badgeNavProspects">0</span>
+        </button>
+
+        <button type="button" class="nav-tab-btn" data-section="policies">
+          <svg class="nav-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span class="nav-text">Portofolio Polis</span>
+          <span class="nav-badge" id="badgeNavPolicies">0</span>
+        </button>
+
+        <button type="button" class="nav-tab-btn" data-section="playbook">
+          <svg class="nav-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span class="nav-text">Panduan Keberatan</span>
+          <span class="nav-badge" id="badgeNavPlaybook">8</span>
+        </button>
+
+        <button type="button" class="nav-tab-btn" data-section="target" id="btnNavTarget">
+          <svg class="nav-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="6"/>
+            <circle cx="12" cy="12" r="2"/>
+          </svg>
+          <span class="nav-text">Target Penjualan</span>
+          <span class="nav-badge badge-gold" id="badgeNavTarget">0%</span>
+        </button>
+      </nav>
+
+      <!-- Right Header Actions & Agent Profile -->
+      <div class="header-right-group">
+          <button type="button" class="db-sync-indicator-btn compact-icon-btn" id="btnOpenSheetConfig" title="Google Sheets Terhubung (Klik untuk konfigurasi)">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            <span class="db-sync-dot" id="sheetSyncDot"></span>
+            <span id="sheetSyncText" style="display: none;"></span>
+          </button>
+          <button type="button" class="btn btn-primary btn-header-action btn-open-add-prospect" id="btnHeaderOpenAddProspect">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span>Prospek</span>
+          </button>
+          <button type="button" class="btn btn-outline btn-header-action" id="btnHeaderOpenAddPolicy" title="Daftarkan Polis In-Force">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <line x1="12" y1="8" x2="12" y2="14"/>
+              <line x1="9" y1="11" x2="15" y2="11"/>
+            </svg>
+            <span>Polis</span>
+          </button>
+        </div>
+
+        <!-- Agent Profile Dropdown -->
+        <div class="profile-dropdown-wrap">
+          <button type="button" class="agent-profile-pill" id="btnProfileDropdownTrigger" title="Menu Akun Agen">
+            <div class="agent-avatar-circle" id="agentAvatarInitial">BP</div>
+            <div class="agent-profile-info">
+              <div class="agent-name-label" id="agentDisplayName">Budi Pratama, CFP®</div>
+              <div class="agent-code-sub" id="agentCodeDisplay">Kode: PRU-001 • Jakarta</div>
+            </div>
+            <svg class="profile-caret-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+
+          <div class="profile-dropdown-menu" id="profileDropdownMenu">
+            <div class="dropdown-header">
+              <span class="status-pulse-dot" id="menuStatusDot"></span>
+              <span class="dropdown-status-text" id="menuDbStatusText">SQLite Database Aktif</span>
+            </div>
+            <div style="padding: 0.4rem 0 0.5rem; border-bottom: 1px solid var(--border-subtle);">
+              <button type="button" class="btn-account-switch" id="menuBtnOpenSheetConfig" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.4rem 0.5rem; font-weight: 700; background: #f0fdf4; border-color: #86efac; color: #166534;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                Database Google Sheets
+              </button>
+            </div>
+            <div class="dropdown-section-title">Ganti Akun Agen:</div>
+            <div class="account-btn-group">
+              <button type="button" class="btn-account-switch active" id="menuBtnDemoBudi" title="Budi Pratama (Jakarta)">Budi</button>
+              <button type="button" class="btn-account-switch" id="menuBtnDemoRina" title="Rina Amelia (Bandung)">Rina</button>
+              <button type="button" class="btn-account-switch" id="menuBtnOpenAuth" title="Login / Register">Lainnya...</button>
+            </div>
+            <button type="button" class="btn-sidebar-logout" id="menuBtnLogout">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              Keluar dari Akun
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Application Container (Full Width & Spacious) -->
+  <main class="main-layout">
+
+    <!-- ======================================================================
+         SECTION 1: DATABASE CALON NASABAH & PIPELINE
+         ====================================================================== -->
+    <section id="project100Section">
+      
+      <!-- Clean & Spacious Section Header -->
+      <div class="clean-section-header">
+        <div class="clean-section-title-wrap">
+          <h2 class="clean-section-title">Database Calon Nasabah</h2>
+          <p class="clean-section-subtitle">Daftar calon nasabah & tahapan penjualan aktif</p>
+        </div>
+      </div>
+
+      <!-- Slim Executive Metrics Ribbon -->
+      <div class="metric-ribbon">
+        <div class="metric-item">
+          <span class="metric-item-label">Total Calon Nasabah</span>
+          <div class="metric-item-val-group">
+            <span class="metric-item-val" id="kpiTotalProspects">0</span>
+            <span class="metric-item-sub">Orang</span>
+          </div>
+          <div class="mini-progress-bar">
+            <div class="mini-progress-fill" id="kpiProgressBar" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="metric-divider"></div>
+
+        <div class="metric-item">
+          <span class="metric-item-label">Pasar Dekat (Prioritas)</span>
+          <div class="metric-item-val-group">
+            <span class="metric-item-val" id="kpiHotMarket">0</span>
+            <span class="metric-item-sub">Keluarga & Sahabat</span>
+          </div>
+          <div class="mini-progress-bar">
+            <div class="mini-progress-fill" id="kpiHotProgressBar" style="width: 0%; background: var(--pru-red);"></div>
+          </div>
+        </div>
+
+        <div class="metric-divider"></div>
+
+        <div class="metric-item">
+          <span class="metric-item-label">Prospek Siap Presentasi</span>
+          <div class="metric-item-val-group">
+            <span class="metric-item-val" id="kpiManQualified">0</span>
+            <span class="metric-item-sub">Lolos M.A.N</span>
+          </div>
+          <div class="mini-progress-bar">
+            <div class="mini-progress-fill" id="kpiManProgressBar" style="width: 0%; background: #0284c7;"></div>
+          </div>
+        </div>
+
+        <div class="metric-divider"></div>
+
+        <div class="metric-item">
+          <span class="metric-item-label">Closing & Terbit Polis</span>
+          <div class="metric-item-val-group">
+            <span class="metric-item-val" id="kpiClosingWon">0</span>
+            <span class="metric-item-sub">Nasabah In-Force</span>
+          </div>
+          <div class="mini-progress-bar">
+            <div class="mini-progress-fill" id="kpiClosingProgressBar" style="width: 0%; background: #059669;"></div>
+          </div>
+        </div>
+
+        <!-- Add Prospect Action Trigger Button in Ribbon -->
+        <div class="metric-action-col">
+          <button type="button" id="btnRibbonOpenAddProspect" class="btn btn-primary btn-sm btn-open-add-prospect" style="box-shadow: 0 4px 12px rgba(237, 26, 59, 0.25);">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Tambah Calon Nasabah</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Follow-Up Due Alert Banner -->
+      <div id="followUpAlertBanner" class="compact-alert-banner" style="display: none;">
+        <div class="alert-left-group">
+          <strong id="alertBannerTitle">Pemberitahuan Follow-Up:</strong>
+          <span id="alertBannerSubtitle" style="margin-left: 0.35rem;">Terdapat calon nasabah yang dijadwalkan untuk dihubungi hari ini.</span>
+        </div>
+        <button id="btnFilterDueToday" class="btn btn-outline btn-sm" style="padding: 0.25rem 0.6rem; font-size: 0.725rem;">
+          Lihat Jadwal
+        </button>
+      </div>
+
+      <!-- Toolbar Strip -->
+      <div class="toolbar-strip">
+        <div class="toolbar-left">
+          <!-- View Switcher (Clean Pill Style) -->
+          <div class="view-tabs">
+            <button class="view-tab active" data-view="table">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+              <span>Daftar Calon Nasabah</span>
+            </button>
+            <button class="view-tab" data-view="kanban">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="11" y="3" width="5" height="12" rx="1"/><rect x="19" y="3" width="5" height="15" rx="1"/></svg>
+              <span>Papan Pipeline</span>
+            </button>
+            <button class="view-tab" data-view="agenda">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Jadwal Kontak</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filters Right -->
+        <div class="filters-group" style="display: flex; gap: 0.5rem; align-items: center;">
+          <div class="search-field">
+            <input type="text" id="searchInput" placeholder="Cari nama, pekerjaan, kendala...">
+          </div>
+
+          <select id="filterTemperature" class="filter-select">
+            <option value="all">Semua Kategori Pasar</option>
+            <option value="hot">Pasar Dekat (Keluarga/Sahabat)</option>
+            <option value="warm">Pasar Menengah (Teman/Rekan)</option>
+            <option value="cold">Pasar Baru (Kenalan/Referensi)</option>
+          </select>
+
+          <select id="filterRelation" class="filter-select">
+            <option value="all">Semua Relasi</option>
+          </select>
+
+          <button id="btnResetFilters" class="btn btn-outline btn-sm">
+            Atur Ulang
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW 1: TABLE VIEW (DEFAULT ACTIVE) -->
+      <div id="tableViewContainer" class="table-wrapper">
+        <table class="prospect-table">
+          <thead>
+            <tr>
+              <th>Nama & Relasi</th>
+              <th>Kontak & Domisili</th>
+              <th>Pekerjaan</th>
+              <th>Tahap Pipeline</th>
+              <th>Kategori Pasar</th>
+              <th>Terakhir Kontak</th>
+              <th>Target Follow-Up</th>
+              <th>Kendala</th>
+              <th style="text-align: right;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="prospectTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- VIEW 2: KANBAN BOARD (HIDDEN BY DEFAULT) -->
+      <div id="kanbanViewContainer" class="kanban-wrapper" style="display: none;">
+        <!-- Sub-bar Mode Kanban (Di bawah toolbar, tepat di atas board) -->
+        <div class="kanban-mode-bar">
+          <div class="kanban-mode-bar-label">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="11" y="3" width="5" height="12" rx="1"/><rect x="19" y="3" width="5" height="15" rx="1"/></svg>
+            <span>Tampilan Kolom Pipeline:</span>
+          </div>
+          <div id="pipelineModeToggleWrapper" class="pipeline-mode-toggle">
+            <button id="btnMode5Core" class="mode-toggle-btn active" title="Tampilan ringkas 5 Fase Utama">
+              5 Fase Utama
+            </button>
+            <button id="btnMode9Detailed" class="mode-toggle-btn" title="Tampilan detail 9 Tahap Lengkap">
+              9 Tahap Detail
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Stage Selector Bar (Only rendered on mobile screen < 768px) -->
+        <div id="mobileKanbanStageTabs" class="mobile-kanban-stage-tabs"></div>
+        <div id="kanbanBoard" class="kanban-board mode-5-core"></div>
+      </div>
+
+      <!-- VIEW 3: AGENDA VIEW -->
+      <div id="agendaViewContainer" style="display: none;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+          
+          <div style="background: white; border-radius: var(--r-sm); border: 1px solid #fecaca; padding: 1rem; box-shadow: var(--shadow-subtle);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+              <h3 style="font-size: 0.85rem; font-weight: 800; color: #dc2626;">Terlewat (Perlu Ditindaklanjuti)</h3>
+              <span id="badgeOverdueCount" class="badge badge-priority-high">0</span>
+            </div>
+            <div id="agendaOverdueList" style="display: flex; flex-direction: column; gap: 0.55rem;"></div>
+          </div>
+
+          <div style="background: white; border-radius: var(--r-sm); border: 1px solid #fed7aa; padding: 1rem; box-shadow: var(--shadow-subtle);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+              <h3 style="font-size: 0.85rem; font-weight: 800; color: #b45309;">Jadwal Kontak Hari Ini</h3>
+              <span id="badgeTodayCount" class="badge badge-priority-mid">0</span>
+            </div>
+            <div id="agendaTodayList" style="display: flex; flex-direction: column; gap: 0.55rem;"></div>
+          </div>
+
+          <div style="background: white; border-radius: var(--r-sm); border: 1px solid var(--border-subtle); padding: 1rem; box-shadow: var(--shadow-subtle);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+              <h3 style="font-size: 0.85rem; font-weight: 800; color: #0284c7;">Jadwal Mendatang</h3>
+              <span id="badgeUpcomingCount" class="badge badge-priority-new">0</span>
+            </div>
+            <div id="agendaUpcomingList" style="display: flex; flex-direction: column; gap: 0.55rem;"></div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================================
+         SECTION 2: PORTOFOLIO POLIS IN-FORCE
+         ====================================================================== -->
+    <section id="policiesSection" style="display: none;">
+      
+      <!-- Section 2 Editorial Header (State.gov Style) -->
+      <div class="section-editorial-header">
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <span class="section-kicker">ADMINISTRASI KONTRAK & RETENSI</span>
+            <h2 class="section-title">Portofolio Polis Nasabah In-Force</h2>
+            <p class="section-lead">Pengelolaan nasabah pemegang polis aktif, jadwal pemulihan manfaat, dan monitoring kepatuhan premi.</p>
+          </div>
+          <button id="btnOpenAddPolicy" class="btn btn-primary btn-sm">
+            + Daftarkan Polis Baru
+          </button>
+        </div>
+      </div>
+
+      <!-- Anti-Lapse Alert Banner -->
+      <div id="policyLapseAlert" class="compact-alert-banner" style="display: none; border-left-color: #ea580c;">
+        <div class="alert-left-group" style="color: #7c2d12;">
+          <strong>Pemberitahuan Jatuh Tempo Premi:</strong>
+          <span id="policyLapseAlertText" style="margin-left: 0.35rem;">Terdapat nasabah dengan tanggal jatuh tempo premi mendekati atau telah lewat.</span>
+        </div>
+      </div>
+
+      <!-- Table of In-Force Policies -->
+      <div class="table-wrapper">
+        <table class="prospect-table">
+          <thead>
+            <tr>
+              <th>Nomor Polis & Produk</th>
+              <th>Pemegang Polis / Tertanggung</th>
+              <th>No. WhatsApp</th>
+              <th>Premi & Frekuensi</th>
+              <th>Riwayat Klaim</th>
+              <th>Status Polis</th>
+              <th>Catatan Manfaat</th>
+              <th style="text-align: right;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="policyTableBody"></tbody>
+        </table>
+      </div>
+
+    </section>
+
+    
+    <!-- ======================================================================
+         SECTION 4: PLAYBOOK KENDALA ASURANSI (AI ASSISTED)
+         ====================================================================== -->
+    <section id="playbookSection" style="display: none;">
+      
+      <!-- Section 4 Editorial Header (State.gov Style) -->
+      <div class="section-editorial-header">
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <span class="section-kicker">DOKUMENTASI TAKTIS & NEGOSIASI</span>
+            <h2 class="section-title">Panduan Strategis Penanganan Keberatan Nasabah</h2>
+            <p class="section-lead">Kompilasi argumentasi teruji, prinsip psikologi nasabah, dan naskah percakapan diplomatis untuk mengatasi penolakan calon nasabah di lapangan.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+            <input type="text" id="playbookSearch" class="form-input form-input-sm" placeholder="Cari keberatan / skrip..." style="width: 220px;">
+            <select id="playbookCategoryFilter" class="form-select form-select-sm">
+              <option value="all">Semua Kategori Keberatan</option>
+            </select>
+            <button type="button" class="btn btn-primary btn-sm" id="btnOpenAddPlaybook">
+              + Tambah Panduan Baru
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diplomatic AI Coach Briefing Card -->
+      <div class="ai-coach-banner">
+        <div>
+          <strong style="color: #78350f; font-size: 0.875rem; font-family: var(--font-serif); font-weight: 700;">Konsultan Strategis AI: Rekomendasi Solusi & Argumentasi Finansial</strong>
+          <p style="font-size: 0.775rem; color: #854d0e; margin-top: 0.2rem;">Menghadapi sanggahan atau keberatan spesifik dari calon nasabah di lapangan? Klik tombol <strong>"+ Tambah Panduan Baru"</strong> untuk merumuskan pola pikir, logika aktuaria, dan skrip kata-kata terarah secara instan dengan mesin penalaran AI.</p>
+        </div>
+      </div>
+
+      <div id="playbookContainer" class="playbook-grid"></div>
+
+    </section>
+
+    <!-- ======================================================================
+         SECTION 4: TARGET & PROGRES PENJUALAN (GOOGLE SPREADSHEET SYNC)
+         ====================================================================== -->
+    <section id="targetSection" style="display: none;">
+      
+      <!-- Clean Section Header -->
+      <div class="clean-section-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <div class="clean-section-title-wrap">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+            <h2 class="clean-section-title" style="margin: 0;">Target & Progres Penjualan</h2>
+            <span class="db-sync-badge-live" id="targetSourceBadge">
+              <span class="db-sync-dot"></span> Google Spreadsheet Database
+            </span>
+          </div>
+          <p class="clean-section-subtitle">Pencapaian dihitung otomatis secara real-time dari data Calon Nasabah dan Portofolio Polis Anda di Google Spreadsheet.</p>
+        </div>
+
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <button type="button" class="btn btn-outline btn-sm" id="btnRefreshTargetProgress" title="Hitung ulang progres dari Google Spreadsheet">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            <span>Segarkan Progres</span>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="btnOpenEditTargets">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <span>Atur Angka Target</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3 Simple Target Cards Grid -->
+      <div class="target-cards-grid">
+        
+        <!-- Target 1: Calon Nasabah -->
+        <div class="target-card">
+          <div class="target-card-top">
+            <div class="target-icon-wrap icon-blue">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="target-percent-pill pill-blue" id="targetProspectPercent">0%</div>
+          </div>
+
+          <div class="target-card-label">Target Calon Nasabah</div>
+          <div class="target-main-num">
+            <span class="target-current-val" id="targetProspectCurrent">0</span>
+            <span class="target-divider">/</span>
+            <span class="target-goal-val" id="targetProspectGoal">100</span>
+            <span class="target-unit">Orang</span>
+          </div>
+
+          <div class="target-progress-wrap">
+            <div class="target-progress-bar">
+              <div class="target-progress-fill bar-blue" id="targetProspectBar" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="target-card-footer">
+            <span id="targetProspectStatus">Menghitung...</span>
+            <span class="target-src-tag">Sheet: Project100</span>
+          </div>
+        </div>
+
+        <!-- Target 2: Premi Tahunan (APE / MDRT) -->
+        <div class="target-card highlight-gold">
+          <div class="target-card-top">
+            <div class="target-icon-wrap icon-gold">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="8" r="7"/>
+                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+              </svg>
+            </div>
+            <div class="target-percent-pill pill-gold" id="targetApePercent">0%</div>
+          </div>
+
+          <div class="target-card-label">Target Premi Tahunan (APE)</div>
+          <div class="target-main-num">
+            <span class="target-current-val" id="targetApeCurrent">Rp 0</span>
+          </div>
+          <div class="target-sub-target">
+            Target: <strong id="targetApeGoal">Rp 600.000.000</strong>
+          </div>
+
+          <div class="target-progress-wrap">
+            <div class="target-progress-bar">
+              <div class="target-progress-fill bar-gold" id="targetApeBar" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="target-card-footer">
+            <span id="targetApeStatus">Menghitung...</span>
+            <span class="target-src-tag">Sheet: Portofolio Polis</span>
+          </div>
+        </div>
+
+        <!-- Target 3: Polis Terbit (Cases) -->
+        <div class="target-card">
+          <div class="target-card-top">
+            <div class="target-icon-wrap icon-green">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+            </div>
+            <div class="target-percent-pill pill-green" id="targetCasesPercent">0%</div>
+          </div>
+
+          <div class="target-card-label">Target Polis Terbit (Cases)</div>
+          <div class="target-main-num">
+            <span class="target-current-val" id="targetCasesCurrent">0</span>
+            <span class="target-divider">/</span>
+            <span class="target-goal-val" id="targetCasesGoal">30</span>
+            <span class="target-unit">Polis</span>
+          </div>
+
+          <div class="target-progress-wrap">
+            <div class="target-progress-bar">
+              <div class="target-progress-fill bar-green" id="targetCasesBar" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="target-card-footer">
+            <span id="targetCasesStatus">Menghitung...</span>
+            <span class="target-src-tag">Status: In Force</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Simple Pipeline Funnel Summary -->
+      <div class="target-summary-box">
+        <div class="target-summary-header">
+          <div>
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin: 0;">
+              📊 Rincian Progres Calon Nasabah di Spreadsheet
+            </h4>
+            <p style="font-size: 0.775rem; color: #64748b; margin: 0.2rem 0 0;">
+              Distribusi calon nasabah berdasarkan tahapan pipeline penjualan aktif
+            </p>
+          </div>
+        </div>
+
+        <div class="pipeline-summary-pills">
+          <div class="pipe-stat-card">
+            <span class="pipe-stat-num" id="pipeSuspectCount">0</span>
+            <span class="pipe-stat-label">1. Bank Nama</span>
+          </div>
+          <div class="pipe-stat-arrow">→</div>
+          <div class="pipe-stat-card">
+            <span class="pipe-stat-num" id="pipeApproachCount">0</span>
+            <span class="pipe-stat-label">2. Pendekatan / WA</span>
+          </div>
+          <div class="pipe-stat-arrow">→</div>
+          <div class="pipe-stat-card">
+            <span class="pipe-stat-num" id="pipeApptCount">0</span>
+            <span class="pipe-stat-label">3. Janji Temu</span>
+          </div>
+          <div class="pipe-stat-arrow">→</div>
+          <div class="pipe-stat-card">
+            <span class="pipe-stat-num" id="pipePresentCount">0</span>
+            <span class="pipe-stat-label">4. Presentasi / Solusi</span>
+          </div>
+          <div class="pipe-stat-arrow">→</div>
+          <div class="pipe-stat-card highlight">
+            <span class="pipe-stat-num" id="pipeClosingCount">0</span>
+            <span class="pipe-stat-label">5. Closing / Polis</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       MODAL: LOGIN & PENDAFTARAN AGEN (PORTAL AGEN PRUDENTIAL)
+       ========================================================================== -->
+  <div id="modalAuth" class="modal-overlay">
+    <div class="modal-container auth-modal-card" style="max-width: 440px;">
+      <div class="modal-header auth-modal-header">
+        <div class="modal-title-group">
+          <div class="auth-header-badge">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <span>PORTAL AGEN RESMI</span>
+          </div>
+          <h3 id="authModalTitle" style="margin: 0.25rem 0 0.2rem; font-size: 1.2rem; font-weight: 800; color: #ffffff;">Portal Agen Prudential</h3>
+          <p style="margin: 0; font-size: 0.775rem; color: #94a3b8;">Kelola calon nasabah, pipeline, dan portofolio polis Anda.</p>
+        </div>
+        <button class="btn-close-modal" data-close="modalAuth" title="Tutup">&times;</button>
+      </div>
+
+      <!-- Segmented Tab Switcher (Modern Pill Slider) -->
+      <div class="auth-tab-container">
+        <div class="auth-tabs-segmented">
+          <button type="button" id="tabShowLogin" class="auth-tab-pill active">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+              <polyline points="10 17 15 12 10 7"/>
+              <line x1="15" y1="12" x2="3" y2="12"/>
+            </svg>
+            <span>Masuk</span>
+          </button>
+          <button type="button" id="tabShowRegister" class="auth-tab-pill">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="8.5" cy="7" r="4"/>
+              <line x1="20" y1="8" x2="20" y2="14"/>
+              <line x1="23" y1="11" x2="17" y2="11"/>
+            </svg>
+            <span>Daftar Agen Baru</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Login Pane -->
+      <div id="loginPane" class="modal-body auth-modal-body">
+        <form id="loginForm">
+          <div class="form-group">
+            <label class="form-label" for="loginPhone">Nomor Telepon / WhatsApp Agen *</label>
+            <div class="input-with-icon-wrap">
+              <span class="input-leading-icon">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </span>
+              <input type="tel" id="loginPhone" class="form-input form-input-with-icon" placeholder="Contoh: 081234567890" value="081234567890" required autocomplete="tel">
+            </div>
+            <div class="auth-input-hint">Gunakan nomor telepon atau WhatsApp terdaftar.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="loginPassword">Kata Sandi *</label>
+            <div class="input-with-icon-wrap">
+              <span class="input-leading-icon">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </span>
+              <input type="password" id="loginPassword" class="form-input form-input-with-icon" placeholder="Masukkan kata sandi" value="password123" required autocomplete="current-password">
+            </div>
+          </div>
+
+          <div class="auth-quick-select-card">
+            <span class="auth-quick-label">⚡ Akses Cepat Akun Demo:</span>
+            <div class="auth-quick-buttons">
+              <button type="button" class="btn-demo-chip" id="btnDemoBudi" title="Budi Pratama (Senior Partner)">
+                <span>👤 Budi Pratama</span>
+                <span class="demo-chip-phone">081234567890</span>
+              </button>
+              <button type="button" class="btn-demo-chip" id="btnDemoRina" title="Rina Amelia (Bandung)">
+                <span>👤 Rina Amelia</span>
+                <span class="demo-chip-phone">081987654321</span>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary auth-submit-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+              <polyline points="10 17 15 12 10 7"/>
+              <line x1="15" y1="12" x2="3" y2="12"/>
+            </svg>
+            <span>Masuk ke Portal Agen</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Register Pane -->
+      <div id="registerPane" class="modal-body auth-modal-body" style="display: none;">
+        <form id="registerForm">
+          <div class="form-group">
+            <label class="form-label" for="regName">Nama Lengkap Agen *</label>
+            <div class="input-with-icon-wrap">
+              <span class="input-leading-icon">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+              </span>
+              <input type="text" id="regName" class="form-input form-input-with-icon" placeholder="Contoh: Ahmad Fauzi" required autocomplete="name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regPhone">Nomor Telepon / WhatsApp *</label>
+            <div class="input-with-icon-wrap">
+              <span class="input-leading-icon">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </span>
+              <input type="tel" id="regPhone" class="form-input form-input-with-icon" placeholder="Contoh: 081298765432" required autocomplete="tel">
+            </div>
+            <div class="auth-input-hint">Cukup nomor HP, tidak perlu nomor lisensi agen.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regPassword">Kata Sandi *</label>
+            <div class="input-with-icon-wrap">
+              <span class="input-leading-icon">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </span>
+              <input type="password" id="regPassword" class="form-input form-input-with-icon" placeholder="Minimal 6 karakter" required autocomplete="new-password">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regAgency">Kantor Pemasaran (KPM) / Agency (Opsional)</label>
+            <div class="input-with-icon-wrap">
+              <span class="input-leading-icon">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 21h18M3 7v14M21 7v14M6 11h2M6 15h2M11 11h2M11 15h2M16 11h2M16 15h2M12 3l9 4H3l9-4z"/>
+                </svg>
+              </span>
+              <input type="text" id="regAgency" class="form-input form-input-with-icon" placeholder="Contoh: KPM Pru Stars Jakarta">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary auth-submit-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="8.5" cy="7" r="4"/>
+              <polyline points="17 11 19 13 23 9"/>
+            </svg>
+            <span>Daftarkan Akun Agen</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: DAFTAR POLIS BARU (IN-FORCE)
+       ========================================================================== -->
+  <div id="modalPolicyForm" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3>Pencatatan Polis In-Force</h3>
+          <p>Mendaftarkan nomor polis nasabah yang telah resmi disetujui Underwriting.</p>
+        </div>
+        <button class="btn-close-modal" data-close="modalPolicyForm">&times;</button>
+      </div>
+
+      <form id="policyForm">
+        <div class="modal-body">
+          <div class="form-group" style="background: var(--color-slate-50); border: 1px solid var(--border-subtle); padding: 0.85rem; border-radius: var(--r-sm); margin-bottom: 1.25rem;">
+            <label class="form-label" for="polProspectSelect">Tautkan ke Database Calon Nasabah (Opsional):</label>
+            <select id="polProspectSelect" class="form-select">
+              <option value="">-- Bukan dari Daftar Prospek (Nasabah Baru) --</option>
+            </select>
+            <span style="font-size: 0.725rem; color: var(--color-slate-500); display: block; margin-top: 0.25rem;">
+              Jika dipilih, nama dan no. HP akan terisi otomatis, dan status prospek di database otomatis diupdate menjadi <strong>Closing / Polis Terbit</strong>.
+            </span>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="polNumber">Nomor Polis Prudential *</label>
+              <input type="text" id="polNumber" class="form-input" placeholder="POL-PRU-1234567" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="polHolderName">Nama Pemegang Polis *</label>
+              <input type="text" id="polHolderName" class="form-input" placeholder="Nama pembayar premi" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="polInsuredName">Nama Tertanggung Utama</label>
+              <input type="text" id="polInsuredName" class="form-input" placeholder="Nama orang yang diasuransikan">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="polPhone">No. WhatsApp Nasabah *</label>
+              <input type="tel" id="polPhone" class="form-input" placeholder="081234567890" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="polProduct">Produk Asuransi Prudential *</label>
+              <select id="polProduct" class="form-select" required>
+                <option value="PRUSolusi Sehat Plus Pro (PSSP)">PRUSolusi Sehat Plus Pro (PSSP)</option>
+                <option value="PRUCritical Protection">PRUCritical Protection</option>
+                <option value="PRUWarisan">PRUWarisan</option>
+                <option value="PRUCinta Syariah">PRUCinta Syariah</option>
+                <option value="PRULink Generasi Baru">PRULink Generasi Baru</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="polPremium">Besaran Premi (Rp) *</label>
+              <input type="number" id="polPremium" class="form-input" placeholder="1500000" step="10000" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="polFrequency">Frekuensi Pembayaran *</label>
+              <select id="polFrequency" class="form-select" required>
+                <option value="Bulanan">Bulanan</option>
+                <option value="Kuartalan">Kuartalan (3 Bulan)</option>
+                <option value="Tahunan">Tahunan</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="polIssuedDate">Tanggal Terbit Polis</label>
+              <input type="date" id="polIssuedDate" class="form-input">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="polClaimHistory">Riwayat Klaim Asuransi (Jika Pernah Klaim)</label>
+            <input type="text" id="polClaimHistory" class="form-input" placeholder="Contoh: Rawat inap DBD di RS Siloam Rp 8.500.000 (Cair 2025). Kosongkan bila belum ada klaim.">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="polNotes">Keterangan Tambahan / Manfaat Plan</label>
+            <input type="text" id="polNotes" class="form-input" placeholder="Contoh: Plan Diamond Kamar 1 Bed">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close="modalPolicyForm">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Polis</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: TAMBAH / EDIT PROSPEK (PROJECT 100)
+       ========================================================================== -->
+  <div id="modalProspectForm" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 id="formModalTitle">Tambah Calon Nasabah Baru</h3>
+          <p>Mencatat profil calon nasabah ke dalam database calon nasabah Anda.</p>
+        </div>
+        <button class="btn-close-modal" data-close="modalProspectForm">&times;</button>
+      </div>
+
+      <form id="prospectForm">
+        <div class="modal-body">
+          <input type="hidden" id="formProspectId">
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="formName">Nama Lengkap *</label>
+              <input type="text" id="formName" class="form-input" placeholder="Contoh: Budi Santoso" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="formPhone">Nomor WhatsApp / HP *</label>
+              <input type="tel" id="formPhone" class="form-input" placeholder="081234567890" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="formRelation">Hubungan / Relasi *</label>
+              <select id="formRelation" class="form-select" required></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="formTemperature">Kategori Kedekatan Pasar *</label>
+              <select id="formTemperature" class="form-select" required>
+                <option value="warm" selected>Pasar Menengah (Teman / Rekan Kerja)</option>
+                <option value="hot">Pasar Dekat (Keluarga Inti / Sahabat Karib)</option>
+                <option value="cold">Pasar Baru (Kenalan Baru / Referensi)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="formJob">Pekerjaan / Jabatan</label>
+              <input type="text" id="formJob" class="form-input" placeholder="Contoh: Manajer, Wiraswasta">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="formAddress">Alamat / Domisili</label>
+              <input type="text" id="formAddress" class="form-input" placeholder="Contoh: Menteng, Jakarta Pusat">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="formStage">Tahap Penjualan</label>
+              <select id="formStage" class="form-select"></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="formTargetFollowUp">Target Tanggal Hubungi</label>
+              <input type="date" id="formTargetFollowUp" class="form-input">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="formNotes">Catatan Latar Belakang</label>
+            <textarea id="formNotes" class="form-textarea" rows="3" placeholder="Contoh: Tertarik proteksi kesehatan keluarga..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close="modalProspectForm">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Prospek</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: DETAIL PROSPEK & RIWAYAT INTERAKSI
+       ========================================================================== -->
+  <!-- ==========================================================================
+       MODAL: DETAIL PROSPEK & RIWAYAT INTERAKSI (REVAMPED CLEAN TABS)
+       ========================================================================== -->
+  <div id="modalProspectDetail" class="modal-overlay">
+    <div class="modal-container modal-detail-custom" style="max-width: 780px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 id="detailTitleName">Detail Calon Nasabah</h3>
+          <p>Informasi profil dan rencana tindak lanjut</p>
+        </div>
+        <button class="btn-close-modal" data-close="modalProspectDetail">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Hero Card -->
+        <div class="prospect-hero-card">
+          <div class="prospect-hero-main">
+            <div class="prospect-hero-info">
+              <div class="prospect-hero-name-row">
+                <h2 id="heroName" class="prospect-hero-name">Nama Prospek</h2>
+                <span id="heroTempBadge" class="badge badge-priority-high">Pasar Dekat</span>
+                <span id="heroRelationBadge" class="badge badge-relation">Teman</span>
+              </div>
+              <div class="prospect-hero-meta">
+                <span id="heroPhone">0812...</span> • <span id="heroJobLocation">Pekerjaan, Lokasi</span>
+              </div>
+            </div>
+
+            <!-- Quick Action Buttons -->
+            <div class="prospect-hero-actions">
+              <button id="btnHeroWA" class="btn btn-whatsapp btn-sm">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <span>WhatsApp</span>
+              </button>
+              <button id="btnHeroConvertToPolicy" class="btn btn-primary btn-sm">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                <span>+ Polis</span>
+              </button>
+              <button id="btnHeroObjectionAI" class="btn btn-outline btn-sm">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                <span>Solusi AI</span>
+              </button>
+              <button id="btnHeroEdit" class="btn btn-outline btn-sm">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                <span>Ubah</span>
+              </button>
+              <button id="btnHeroDelete" class="btn btn-outline btn-sm btn-danger-soft" title="Hapus Prospek">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Segmented Tab Navigation -->
+        <div class="detail-segmented-nav">
+          <button type="button" class="detail-tab-btn active" id="btnTabDetailProfile" data-detail-tab="tabProfile">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profil Prospek</span>
+          </button>
+          <button type="button" class="detail-tab-btn" id="btnTabDetailAction" data-detail-tab="tabAction">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <span>Catat Follow-Up</span>
+          </button>
+          <button type="button" class="detail-tab-btn" id="btnTabDetailHistory" data-detail-tab="tabHistory">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Riwayat Interaksi</span>
+            <span class="detail-tab-badge" id="detailHistoryBadge">0</span>
+          </button>
+        </div>
+
+        <!-- PANE 1: PROFIL PROSPEK -->
+        <div id="paneDetailProfile" class="detail-tab-pane active">
+          <!-- Stage Status Bar -->
+          <div class="detail-stage-bar">
+            <div>
+              <span class="detail-stage-label">Tahap Pipeline Saat Ini:</span>
+              <strong id="currentStageLabel" class="detail-stage-val">1. Bank Nama (Suspect)</strong>
+            </div>
+            <div class="detail-stage-select-wrap">
+              <label for="selectUpdateStage">Pindah Tahap:</label>
+              <select id="selectUpdateStage" class="filter-select"></select>
+            </div>
+          </div>
+
+          <!-- Info Grid Cards -->
+          <div class="detail-info-grid">
+            <div class="detail-info-card">
+              <span class="detail-info-label">Nomor WhatsApp</span>
+              <strong id="detailPhoneVal" class="detail-info-val">-</strong>
+            </div>
+            <div class="detail-info-card">
+              <span class="detail-info-label">Pekerjaan / Profesi</span>
+              <strong id="detailJobVal" class="detail-info-val">-</strong>
+            </div>
+            <div class="detail-info-card">
+              <span class="detail-info-label">Domisili / Alamat</span>
+              <strong id="detailAddressVal" class="detail-info-val">-</strong>
+            </div>
+            <div class="detail-info-card">
+              <span class="detail-info-label">Target Kontak Berikutnya</span>
+              <strong id="detailTargetFollowUpVal" class="detail-info-val">-</strong>
+            </div>
+            <div class="detail-info-card">
+              <span class="detail-info-label">Terakhir Dihubungi</span>
+              <strong id="detailLastContactVal" class="detail-info-val">-</strong>
+            </div>
+          </div>
+
+          <!-- Notes Box -->
+          <div class="detail-notes-card">
+            <div class="detail-notes-header">Catatan Tambahan:</div>
+            <div id="heroNotes" class="detail-notes-content">-</div>
+          </div>
+        </div>
+
+        <!-- PANE 2: CATAT FOLLOW-UP & INTERAKSI -->
+        <div id="paneDetailAction" class="detail-tab-pane" style="display: none;">
+          <div id="stageActionContainer" class="add-log-box"></div>
+        </div>
+
+        <!-- PANE 3: RIWAYAT INTERAKSI (TIMELINE) -->
+        <div id="paneDetailHistory" class="detail-tab-pane" style="display: none;">
+          <div id="timelineContainer" class="timeline"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-close="modalProspectDetail">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: WHATSAPP LAUNCHER
+       ========================================================================== -->
+  <div id="modalWhatsApp" class="modal-overlay">
+    <div class="modal-container" style="max-width: 520px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3>Kirim Pesan WhatsApp</h3>
+          <p id="waProspectSubtitle">Pesan personal terarah ke calon nasabah</p>
+        </div>
+        <button class="btn-close-modal" data-close="modalWhatsApp">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="waTemplateSelect">Pilih Draf Pesan:</label>
+          <select id="waTemplateSelect" class="form-select"></select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Pratinjau Pesan:</label>
+          <div class="wa-preview-card">
+            <div class="wa-bubble" id="waMessagePreview"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="waCustomText">Sesuaikan Teks Sebelum Dikirim:</label>
+          <textarea id="waCustomText" class="form-textarea" style="min-height: 80px;"></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-close="modalWhatsApp">Batal</button>
+        <button id="btnLaunchWA" class="btn btn-whatsapp">
+          Buka WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: TAMBAH TARGET PRODUKSI (DYNAMIC GOALS)
+       ========================================================================== -->
+  <div id="modalAddGoal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 540px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3>Tambah Target Produksi Baru</h3>
+          <p>Tetapkan KPI atau target pribadi untuk memantau progress otomatis</p>
+        </div>
+        <button class="btn-close-modal" data-close="modalAddGoal">&times;</button>
+      </div>
+
+      <form id="goalForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="goalTitle">Nama Target / Program *</label>
+            <input type="text" id="goalTitle" class="form-input" placeholder="Contoh: Target MDRT 2026, 50 Polis PRUPrime, Trip Paris" required>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="goalCategory">Kategori Target *</label>
+              <select id="goalCategory" class="form-select">
+                <option value="MDRT">MDRT (APE / Premi)</option>
+                <option value="Cases">Jumlah Kasus / Polis</option>
+                <option value="Trip">Kontes Incentive Trip</option>
+                <option value="Contacts">Aktivitas Prospek (Project 100)</option>
+                <option value="Kustom">Target Kustom Lainnya</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="goalTargetVal">Nilai Sasaran Target *</label>
+              <input type="number" id="goalTargetVal" class="form-input" placeholder="600000000" step="any" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem;">
+            <div class="form-group">
+              <label class="form-label" for="goalUnit">Satuan</label>
+              <select id="goalUnit" class="form-select">
+                <option value="Rp">Rupiah (Rp)</option>
+                <option value="Kasus">Kasus / Polis</option>
+                <option value="Orang">Orang / Nasabah</option>
+                <option value="Poin">Poin Kontes</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="goalPeriod">Periode</label>
+              <select id="goalPeriod" class="form-select">
+                <option value="Tahunan">Tahunan (Annual)</option>
+                <option value="Semester">Semester (6 Bln)</option>
+                <option value="Triwulan">Triwulan (Q1-Q4)</option>
+                <option value="Bulanan">Bulanan</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="goalDeadline">Batas Waktu</label>
+              <input type="date" id="goalDeadline" class="form-input" value="2026-12-31">
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close="modalAddGoal">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Target</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: TAMBAH PANDUAN KEBERATAN & AI GENERATOR
+       ========================================================================== -->
+  <div id="modalAddPlaybook" class="modal-overlay">
+    <div class="modal-container" style="max-width: 620px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3>Tambah Panduan Keberatan Baru</h3>
+          <p>Dokumentasikan skrip atau gunakan AI Coach untuk merumuskan respon cerdas</p>
+        </div>
+        <button class="btn-close-modal" data-close="modalAddPlaybook">&times;</button>
+      </div>
+
+      <form id="playbookForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="pbFormTitle">Kalimat / Keberatan Calon Nasabah *</label>
+            <input type="text" id="pbFormTitle" class="form-input" placeholder="Contoh: Uang lebih baik diputar di bisnis sendiri daripada beli asuransi" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="pbFormCategory">Kategori Keberatan *</label>
+            <select id="pbFormCategory" class="form-select">
+              <option value="Premi & Biaya">Premi & Biaya (Finansial)</option>
+              <option value="Manfaat & Kebutuhan">Manfaat & Kebutuhan (Prioritas)</option>
+              <option value="Kepercayaan & Klaim">Kepercayaan & Riwayat Klaim</option>
+              <option value="Agen & Pelayanan">Agen & Layanan Jangka Panjang</option>
+              <option value="Skema & Investasi">Skema Produk & Instrumen Lain</option>
+              <option value="Syariah">Kesesuaian Syariah & Prinsip Tolong Menolong</option>
+              <option value="Lainnya">Kategori Lainnya</option>
+            </select>
+          </div>
+
+          <!-- AI Generate Trigger -->
+          <div style="margin: 0.75rem 0 1rem 0;">
+            <button type="button" id="btnGeneratePlaybookAI" class="btn-ai-generate" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: #fff5f5; border: 1px dashed var(--pru-red); color: var(--pru-red); font-weight: 700; padding: 0.65rem 1rem; border-radius: var(--r-sm); cursor: pointer; transition: all 0.2s ease;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              <span>Rumuskan Rekomendasi Respon AI (Prudential Coach)</span>
+            </button>
+            <p style="font-size: 0.7rem; color: var(--color-slate-500); margin-top: 0.25rem; text-align: center;">AI akan otomatis menyusun pola pikir, logika finansial, dan skrip kata-kata teruji.</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="pbFormMindset">Mindset Konsultan yang Direkomendasikan</label>
+            <textarea id="pbFormMindset" class="form-textarea" style="min-height: 55px;" placeholder="Pola pikir dan empati sebelum merespon calon nasabah..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="pbFormKeyInsight">Fakta Finansial & Logika Krusial</label>
+            <textarea id="pbFormKeyInsight" class="form-textarea" style="min-height: 55px;" placeholder="Inti logika finansial, analogi, atau mitigasi risiko..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="pbFormScript">Skrip Respon Langsung (Percakapan) *</label>
+            <textarea id="pbFormScript" class="form-textarea" style="min-height: 90px;" placeholder="“Bapak/Ibu, tentu saja saya sangat setuju bahwa bisnis Bapak/Ibu menghasilkan return tinggi...”" required></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close="modalAddPlaybook">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan ke Panduan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Konfigurasi Database Google Spreadsheet -->
+  <div class="modal-overlay" id="modalGoogleSheetConfig">
+    <div class="modal-container" style="max-width: 680px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.65rem;">
+          <div style="width: 38px; height: 38px; border-radius: var(--r-sm); background: #ecfdf5; border: 1px solid #a7f3d0; display: flex; align-items: center; justify-content: center; color: #059669;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <div>
+            <h3 class="modal-title" style="margin-bottom: 0.15rem; font-size: 1.1rem; font-weight: 700; color: var(--color-slate-900);">Koneksi Database Google Spreadsheet</h3>
+            <p style="font-size: 0.775rem; color: var(--color-slate-500); margin: 0;">Jadikan Google Spreadsheet pribadi Anda sebagai database cloud real-time 2 arah untuk Vercel & Web.</p>
+          </div>
+        </div>
+        <button type="button" class="btn-close-modal" data-close="modalGoogleSheetConfig">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 1.15rem;">
+        
+        <!-- Target Spreadsheet Information Card -->
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--r-sm); padding: 0.85rem 1rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+            <span style="font-size: 0.725rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-slate-700);">Target Google Spreadsheet:</span>
+            <a href="https://docs.google.com/spreadsheets/d/1ykj3cCMPYfhUI0n7H0cnY2TzdfXrEo4hG5HHp2-bejA/edit" target="_blank" rel="noopener noreferrer" style="font-size: 0.75rem; font-weight: 700; color: var(--pru-red); text-decoration: none; display: flex; align-items: center; gap: 0.25rem;">
+              <span>Buka Google Sheets</span>
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+          <div style="font-family: monospace; font-size: 0.775rem; color: var(--color-slate-700); word-break: break-all; background: #ffffff; padding: 0.4rem 0.6rem; border-radius: 6px; border: 1px solid #cbd5e1;">
+            https://docs.google.com/spreadsheets/d/1ykj3cCMPYfhUI0n7H0cnY2TzdfXrEo4hG5HHp2-bejA/edit
+          </div>
+        </div>
+
+        <!-- Web App URL Input Form -->
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label" for="inputSheetUrl" style="display: flex; justify-content: space-between;">
+            <span>URL Web App Google Apps Script *</span>
+            <span style="font-weight: normal; color: var(--color-slate-500); font-size: 0.725rem;">(Format: .../exec)</span>
+          </label>
+          <input type="url" id="inputSheetUrl" class="form-input" value="https://script.google.com/macros/s/AKfycbw1Sg2FiW-xPr3wiBHOjHQo7FoMGvnmeS3bmoLLj-FVa6AZzyXLU5nJP10vE7HJ98Dm1A/exec" autocomplete="off" spellcheck="false" style="font-family: monospace; font-size: 0.825rem;">
+          <p style="font-size: 0.725rem; color: var(--color-slate-500); margin-top: 0.35rem;">
+            URL ini didapatkan dari menu <strong>Extensions &gt; Apps Script &gt; Deploy &gt; New Deployment &gt; Web App</strong> di spreadsheet Anda.
+          </p>
+        </div>
+
+        <!-- Connection Test & Status Box -->
+        <div id="sheetTestFeedback" style="display: none; padding: 0.75rem 1rem; border-radius: var(--r-sm); font-size: 0.8rem; line-height: 1.4;">
+        </div>
+
+        <!-- Action Buttons in Body -->
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-outline" id="btnTestSheetConn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Tes Koneksi</span>
+          </button>
+          <button type="button" class="btn btn-primary" id="btnSaveSheetUrl" style="flex: 1.5; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            <span>Simpan & Aktifkan</span>
+          </button>
+          <button type="button" class="btn btn-outline" id="btnDisconnectSheet" style="display: flex; align-items: center; justify-content: center; gap: 0.4rem; color: #dc2626; border-color: #fca5a5;">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+            <span>Putuskan</span>
+          </button>
+        </div>
+
+        <!-- Collapsible 3-Step Setup Guide -->
+        <div style="border-top: 1px solid #e2e8f0; padding-top: 0.85rem;">
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--gov-navy); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span>Cara Deploy Apps Script ke Spreadsheet Anda (Hanya 3 Langkah):</span>
+          </div>
+          <ol style="margin: 0; padding-left: 1.25rem; font-size: 0.76rem; color: var(--color-slate-600); display: flex; flex-direction: column; gap: 0.35rem; line-height: 1.45;">
+            <li>Buka link spreadsheet Anda di atas, pilih menu <strong>Extensions &gt; Apps Script</strong>.</li>
+            <li>Salin seluruh kode dari file <code>google_apps_script/Code.gs</code> ke editor Apps Script, lalu klik icon Simpan.</li>
+            <li>Pilih fungsi <code>setupPrudentialSheets</code> di dropdown toolbar dan klik <strong>Run</strong> (1 kali untuk membuat struktur tabel).</li>
+            <li>Klik tombol biru <strong>Deploy &gt; New deployment</strong>, pilih jenis <strong>Web app</strong>:
+              <ul style="padding-left: 1rem; margin-top: 0.2rem;">
+                <li>Execute as: <strong>Me</strong></li>
+                <li>Who has access: <strong>Anyone</strong> (Wajib agar Web & Vercel bisa akses)</li>
+              </ul>
+            </li>
+            <li>Salin <strong>Web App URL</strong> yang berakhiran <code>/exec</code>, tempelkan di kotak isian di atas, lalu klik <strong>Simpan & Aktifkan</strong>.</li>
+          </ol>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-close="modalGoogleSheetConfig">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Atur Angka Target Penjualan -->
+  <div class="modal-overlay" id="modalEditTarget">
+    <div class="modal-container" style="max-width: 440px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 class="modal-title" style="margin: 0; font-size: 1.15rem; font-weight: 700; color: #ffffff;">Atur Angka Target Penjualan</h3>
+          <p style="margin: 0.2rem 0 0; font-size: 0.75rem; color: #cbd5e1;">Target ini disimpan di akun Anda dan dicocokkan otomatis dengan data Google Spreadsheet.</p>
+        </div>
+        <button type="button" class="btn-close-modal" data-close="modalEditTarget">&times;</button>
+      </div>
+
+      <form id="formEditTargets">
+        <div class="modal-body" style="padding: 1.25rem;">
+          <div class="form-group">
+            <label class="form-label" for="inputTargetProspect">Target Jumlah Calon Nasabah (Orang) *</label>
+            <input type="number" id="inputTargetProspect" class="form-input" min="1" max="10000" value="100" required>
+            <div class="auth-input-hint">Standar database calon nasabah: 100 orang.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="inputTargetApe">Target Premi Tahunan (APE) (Rp) *</label>
+            <input type="number" id="inputTargetApe" class="form-input" min="1000000" step="10000000" value="600000000" required>
+            <div class="auth-input-hint">Kualifikasi MDRT 2026: Rp 600.000.000 APE.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="inputTargetCases">Target Polis Terbit (Cases / Unit) *</label>
+            <input type="number" id="inputTargetCases" class="form-input" min="1" max="500" value="30" required>
+            <div class="auth-input-hint">Target jumlah polis baru yang aktif (In-Force).</div>
+          </div>
+        </div>
+
+        <div class="modal-footer" style="padding: 0.85rem 1.25rem;">
+          <button type="button" class="btn btn-outline" data-close="modalEditTarget">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Target</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js?v=20260920f"></script>
+</body>
+</html>

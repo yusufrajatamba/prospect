@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Local SQLite Database & Logs
+*.db
+*.db-journal
+*.log
+.system_generated/
+
+# Environment Variables
+.env
+.env.local
+
+# OS Files
+.DS_Store
+Thumbs.db
