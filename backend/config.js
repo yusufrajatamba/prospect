@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - BACKEND CONFIGURATION
+// AGENTPROSPECT PRO - BACKEND CONFIGURATION
 // ==========================================================================
 
 import path from 'node:path';
@@ -12,8 +12,8 @@ const rootDir = path.resolve(__dirname, '..');
 export const config = {
   port: process.env.PORT || 4173,
   rootDir,
-  dbPath: path.join(rootDir, 'prudential.db'),
-  jwtSecret: 'pru_secret_key_cfpesq_2026',
+  dbPath: path.join(rootDir, 'agentprospect.db'),
+  jwtSecret: 'agent_secret_key_cfpesq_2026',
   cors: {
     origin: '*',
     methods: 'GET, POST, PUT, DELETE, OPTIONS',

@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - PLAYBOOK & AI COACH CONTROLLER
+// AGENTPROSPECT PRO - PLAYBOOK & AI COACH CONTROLLER
 // ==========================================================================
 
 import { db } from '../database.js';
@@ -19,7 +19,7 @@ export function generateAIObjectionResponse(rawObjection, preferredCategory) {
 
 Namun izinkan saya berbagi satu sudut pandang perencana keuangan: jika Bapak/Ibu membangun gedung perkantoran bernilai miliaran rupiah, apakah Bapak/Ibu merasa perlu memasang instalasi pemadam kebakaran dan sistem proteksi gembok yang kokoh?
 
-Tentu ya. Bisnis dan portofolio Bapak/Ibu adalah gedungnya, sedangkan Prudential adalah sistem proteksinya. Kita tidak ingin ketika risiko medis atau sakit kritis datang mendadak dengan tagihan Rp 500 juta, Bapak/Ibu terpaksa menjual aset investasi atau menarik modal kerja bisnis di saat harga sedang turun.
+Tentu ya. Bisnis dan portofolio Bapak/Ibu adalah gedungnya, sedangkan asuransi adalah sistem proteksinya. Kita tidak ingin ketika risiko medis atau sakit kritis datang mendadak dengan tagihan Rp 500 juta, Bapak/Ibu terpaksa menjual aset investasi atau menarik modal kerja bisnis di saat harga sedang turun.
 
 Cukup alokasikan 5% uang likuid untuk proteksi, maka seluruh aset bisnis dan investasi Bapak/Ibu terlindungi 100%. Boleh kita telaah bagaimana struktur portofolio Bapak/Ibu tetap aman bertumbuh tanpa kekhawatiran risiko tak terduga?”`
     };
@@ -37,7 +37,7 @@ Namun izinkan saya bertanya satu hal penting: fasilitas asuransi kantor tersebut
 
 Jika suatu hari Bapak/Ibu memutuskan resign, pensiun di usia 55 tahun, atau amit-amit terjadi sakit berat yang membuat perusahaan terpaksa melakukan PHK, apakah fasilitas kesehatan tersebut tetap bisa dibawa pulang? Tentu tidak.
 
-Masalahnya, membuka asuransi pribadi saat usia sudah di atas 50 tahun atau setelah ada riwayat penyakit jauh lebih mahal atau bahkan ditolak oleh underwriter. Karena itu, para profesional bijak menyiapkan PRUPrime Healthcare Plus Pro sebagai 'pondasi pribadi' seumur hidup dengan kamar 1 bed privat, sementara kartu kantor tetap digunakan sebagai manfaat pendukung. Boleh kita hitung opsi premi hematnya?”`
+Masalahnya, membuka asuransi pribadi saat usia sudah di atas 50 tahun atau setelah ada riwayat penyakit jauh lebih mahal atau bahkan ditolak oleh underwriter. Karena itu, para profesional bijak menyiapkan proteksi kesehatan komprehensif kamar 1 bed privat sebagai 'pondasi pribadi' seumur hidup, sementara kartu kantor tetap digunakan sebagai manfaat pendukung. Boleh kita hitung opsi premi hematnya?”`
     };
   }
 
@@ -51,7 +51,7 @@ Masalahnya, membuka asuransi pribadi saat usia sudah di atas 50 tahun atau setel
 
 Namun mari kita lihat secara realistis: jika untuk menyisihkan premi Rp 30.000 hingga Rp 50.000 sehari—setara secangkir kopi—kita merasa perlu berpikir panjang, bayangkan betapa beratnya beban keluarga jika tiba-tiba rumah sakit meminta deposit tunai Rp 100 juta dalam 24 jam karena tindakan operasi darurat?
 
-Asuransi Prudential hadir bukan untuk menambah beban belanja, melainkan memindahkan risiko besar tersebut ke pundak Prudential dengan biaya yang sangat terjangkau. Kami bisa menyesuaikan plafon manfaat agar sesuai dengan alokasi kemampuan Bapak/Ibu saat ini tanpa mengganggu kebutuhan sehari-hari. Boleh kita hitung nominal paling nyaman untuk Bapak/Ibu?”`
+Asuransi hadir bukan untuk menambah beban belanja, melainkan memindahkan risiko besar tersebut ke perusahaan asuransi dengan biaya yang sangat terjangkau. Kami bisa menyesuaikan plafon manfaat agar sesuai dengan alokasi kemampuan Bapak/Ibu saat ini tanpa mengganggu kebutuhan sehari-hari. Boleh kita hitung nominal paling nyaman untuk Bapak/Ibu?”`
     };
   }
 
@@ -59,11 +59,11 @@ Asuransi Prudential hadir bukan untuk menambah beban belanja, melainkan memindah
     return {
       title: rawObjection || 'Premi hangus kalau tidak sakit / Merasa rugi bayar premi',
       category: 'Premi & Biaya',
-      mindset: 'Calon nasabah menghendaki kepastian pengembalian modal. Tawarkan solusi modern Prudential yang memiliki fitur Guaranteed Return of Premium (PRUCinta) atau berikan analogi helm dan rasa aman.',
-      key_insight: 'Paradigma Proteksi Modern: Kita membeli tabung pemadam api bukan berharap rumah terbakar, tapi berharap tidak panik saat api muncul. Selain itu, Prudential memiliki PRUCinta Syariah dengan fitur uang premi kembali 100% bila nasabah sehat walafiat hingga akhir masa kepesertaan.',
+      mindset: 'Calon nasabah menghendaki kepastian pengembalian modal. Tawarkan solusi modern yang memiliki fitur Guaranteed Return of Premium atau berikan analogi helm dan rasa aman.',
+      key_insight: 'Paradigma Proteksi Modern: Kita membeli tabung pemadam api bukan berharap rumah terbakar, tapi berharap tidak panik saat api muncul. Selain itu, tersedia program proteksi syariah dengan fitur uang premi kembali 100% bila nasabah sehat walafiat hingga akhir masa kepesertaan.',
       script: `“Sangat wajar jika Bapak/Ibu berpikir demikian. Kabar baiknya, industri asuransi modern telah bertransformasi!
 
-Prudential menghadirkan PRUCinta Syariah: jika selama masa perlindungan 20 tahun Bapak/Ibu senantiasa diberikan kesehatan prima oleh Tuhan Yang Maha Esa, maka 100% total premi yang telah disetorkan akan dikembalikan utuh tanpa potongan.
+Tersedia program asuransi syariah khusus: jika selama masa perlindungan 20 tahun Bapak/Ibu senantiasa diberikan kesehatan prima oleh Tuhan Yang Maha Esa, maka 100% total premi yang telah disetorkan akan dikembalikan utuh tanpa potongan.
 
 Artinya, jika terjadi risiko, keluarga menerima Uang Pertanggungan hingga miliaran rupiah. Jika sehat walafiat, seluruh uang kembali 100%. Jadi tidak ada istilah uang hangus. Boleh kita hitung simulasinya?”`
     };
@@ -74,12 +74,12 @@ Artinya, jika terjadi risiko, keluarga menerima Uang Pertanggungan hingga miliar
       title: rawObjection || 'Apakah asuransi sesuai dengan prinsip syariat Islam?',
       category: 'Syariah',
       mindset: 'Hormati komitmen keyakinan religius calon nasabah. Tunjukkan sertifikasi resmi Dewan Syariah Nasional (DSN-MUI) dan jelaskan konsep tolong-menolong (Ta’awun).',
-      key_insight: 'Prudential Syariah beroperasi secara mandiri di bawah pengawasan DSN-MUI dan OJK. Menggunakan akad Tabarru’ (hibah tolong-menolong antarpeserta), bebas dari Riba, Gharar, dan Maisir, serta memiliki fitur wakaf manfaat asuransi.',
+      key_insight: 'Asuransi Syariah beroperasi secara resmi di bawah pengawasan DSN-MUI dan OJK. Menggunakan akad Tabarru’ (hibah tolong-menolong antarpeserta), bebas dari Riba, Gharar, dan Maisir, serta memiliki fitur wakaf manfaat asuransi.',
       script: `“Pertanyaan yang sangat mulia Bapak/Ibu. Sebagai Muslim, memastikan setiap ikhtiar finansial kita sesuai syariat adalah kewajiban utama.
 
-Prudential Syariah adalah entitas resmi tersendiri yang diawasi langsung oleh Dewan Syariah Nasional Majelis Ulama Indonesia (DSN-MUI). Sistem kami tidak menggunakan jual-beli risiko, melainkan akad Tabarru’ di mana seluruh peserta saling menolong saat ada saudara peserta lain tertimpa musibah.
+Asuransi Syariah diawasi langsung oleh Dewan Syariah Nasional Majelis Ulama Indonesia (DSN-MUI). Sistem kami tidak menggunakan jual-beli risiko, melainkan akad Tabarru’ di mana seluruh peserta saling menolong saat ada saudara peserta lain tertimpa musibah.
 
-Bahkan, polis Prudential Syariah dilengkapi fitur Wakaf Manfaat Asuransi resmi ke lembaga nazhir bersertifikasi BWI, sehingga menjadi amal jariyah yang pahalanya terus mengalir abadi.”`
+Bahkan, polis asuransi syariah dilengkapi fitur Wakaf Manfaat Asuransi resmi ke lembaga nazhir bersertifikasi BWI, sehingga menjadi amal jariyah yang pahalanya terus mengalir abadi.”`
     };
   }
 

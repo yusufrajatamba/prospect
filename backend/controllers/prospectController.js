@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - PROSPECT CONTROLLER (PROJECT 100)
+// AGENTPROSPECT PRO - PROSPECT CONTROLLER (PROJECT 100)
 // ==========================================================================
 
 import { db } from '../database.js';

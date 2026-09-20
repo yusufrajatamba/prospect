@@ -1,6 +1,6 @@
 # Panduan Lengkap: Menghubungkan Google Spreadsheet Sebagai Database & Deploy ke Vercel
 
-Panduan ini memandu Anda mengaktifkan **Google Spreadsheet** milik Anda sebagai **Database Cloud Real-time 2-Arah (CRUD)** untuk aplikasi **PruProspect Pro**, dan cara melakukan deploy gratis ke **Vercel**.
+Panduan ini memandu Anda mengaktifkan **Google Spreadsheet** milik Anda sebagai **Database Cloud Real-time 2-Arah (CRUD)** untuk aplikasi **AgentProspect Pro**, dan cara melakukan deploy gratis ke **Vercel**.
 
 ---
 
@@ -27,10 +27,10 @@ Panduan ini memandu Anda mengaktifkan **Google Spreadsheet** milik Anda sebagai 
 2. Di menu atas Google Spreadsheet, klik menu **Ekstensi (Extensions)** ➔ **Apps Script**.
 3. Di editor Apps Script:
    - Buka file `Code.gs` bawaan (hapus fungsi `myFunction()` jika ada).
-   - Buka file [`google_apps_script/Code.gs`](file:///c:/Users/infokes/Documents/yusuf-playground/prudential/google_apps_script/Code.gs) di repositori ini, lalu **salin (copy) seluruh kodenya** dan **tempelkan (paste)** ke editor Apps Script.
+   - Buka file [`google_apps_script/Code.gs`](Code.gs) di repositori ini, lalu **salin (copy) seluruh kodenya** dan **tempelkan (paste)** ke editor Apps Script.
    - Klik tombol **Simpan** (ikon disket 💾 atau tekan `Ctrl + S`).
 4. **Jalankan Setup Struktur Otomatis**:
-   - Pada dropdown toolbar fungsi di bagian atas editor, pilih fungsi: **`setupPrudentialSheets`**.
+   - Pada dropdown toolbar fungsi di bagian atas editor, pilih fungsi: **`setupAgentSheets`**.
    - Klik tombol **Run (Jalankan)** (ikon segitiga `▶`).
    - *Jika muncul jendela Authorization Required / Perizinan:*
      - Klik **Review Permissions** (Tinjau Izin).
@@ -54,7 +54,7 @@ Agar aplikasi web di Vercel atau localhost dapat membaca & menulis ke spreadshee
 1. Di pojok kanan atas editor Apps Script, klik tombol biru **Deploy** ➔ pilih **New deployment** (Terapkan baru).
 2. Di jendela popup:
    - Klik ikon roda gigi (⚙️) di sebelah kiri tulisan *Select type* ➔ pilih **Web app**.
-   - **Description**: `PruProspect Pro Database API v2`
+   - **Description**: `AgentProspect Pro Database API v2`
    - **Execute as**: Pilih **`Me (<email-anda>@gmail.com)`**
    - **Who has access**: Pilih **`Anyone`** *(SANGAT PENTING: Harus "Anyone" agar browser Anda dapat mengirim data tanpa login Google pop-up)*.
 3. Klik tombol **Deploy**.
@@ -67,16 +67,16 @@ Agar aplikasi web di Vercel atau localhost dapat membaca & menulis ke spreadshee
 
 ---
 
-## 🔗 Langkah 3: Tautkan URL ke Website PruProspect Pro
+## 🔗 Langkah 3: Tautkan URL ke Website AgentProspect Pro
 
-1. Buka aplikasi web PruProspect Pro (bisa di `http://localhost:4173` saat ini, atau nanti di link Vercel Anda).
+1. Buka aplikasi web AgentProspect Pro (bisa di `http://localhost:4173` saat ini, atau nanti di link Vercel Anda).
 2. Di bagian sub-header atas (sebelah kanan tanggal), klik tombol:
    **`⚙️ Tautkan Google Spreadsheet`** (atau via menu avatar profil di pojok kanan atas ➔ `📊 Database Google Sheets`).
 3. Jendela pengaturan database akan muncul:
    - Tempelkan (*paste*) **Web App URL** yang Anda salin pada Langkah 2 ke kotak isian.
    - Klik tombol **`🧪 Tes Koneksi`**.
    - Sistem akan memverifikasi koneksi. Jika berhasil, akan muncul pesan hijau:
-     `✅ KONEKSI BERHASIL! Spreadsheet: Prudential Agent Suite`.
+     `✅ KONEKSI BERHASIL! Spreadsheet: AgentProspect Suite`.
    - Klik tombol biru **`💾 Simpan & Aktifkan`**.
 4. Selesai! Indikator di header akan berubah menjadi **`🟢 Google Sheets Terhubung`**.
    - Setiap kali Anda menambah prospek, menggeser stage di Kanban, mencatat polis baru, atau mencatat log interaksi, semuanya otomatis langsung tersimpan ke Google Spreadsheet Anda!
@@ -85,28 +85,28 @@ Agar aplikasi web di Vercel atau localhost dapat membaca & menulis ke spreadshee
 
 ## ☁️ Langkah 4: Deploy Aplikasi ke Vercel (Gratis & Cepat)
 
-Konfigurasi [`vercel.json`](file:///c:/Users/infokes/Documents/yusuf-playground/prudential/vercel.json) sudah disiapkan di root proyek ini. Anda bisa men-deploy dengan 2 cara:
+Konfigurasi [`vercel.json`](../vercel.json) sudah disiapkan di root proyek ini. Anda bisa men-deploy dengan 2 cara:
 
 ### Cara A: Deploy via GitHub (Paling Direkomendasikan)
-1. Buat repositori baru di akun GitHub Anda (misal: `pruprospect-pro`).
+1. Buat repositori baru di akun GitHub Anda (misal: `agentprospect-pro`).
 2. Push proyek ini ke GitHub:
    ```bash
    git add .
    git commit -m "feat: google sheets database integration and vercel ready"
    git branch -M main
-   git remote add origin https://github.com/USERNAME/pruprospect-pro.git
+   git remote add origin https://github.com/USERNAME/agentprospect-pro.git
    git push -u origin main
    ```
 3. Buka dashboard [Vercel](https://vercel.com) dan login (bisa login dengan akun GitHub).
 4. Klik **Add New...** ➔ **Project**.
-5. Pilih repositori `pruprospect-pro` dari daftar GitHub Anda ➔ Klik **Import**.
+5. Pilih repositori `agentprospect-pro` dari daftar GitHub Anda ➔ Klik **Import**.
 6. Konfigurasi Project:
    - **Framework Preset**: `Other` (otomatis terdeteksi).
    - **Root Directory**: `./`.
    - Biarkan setting build default kosong (karena ini web app murni tanpa bundler berat).
 7. Klik **Deploy**.
 8. Dalam 30-45 detik, website Anda sudah aktif dengan URL publik gratis, misalnya:
-   `https://pruprospect-pro.vercel.app`
+   `https://agentprospect-pro.vercel.app`
 9. Buka link Vercel Anda di smartphone atau laptop, klik **⚙️ Tautkan Google Spreadsheet**, masukkan Web App URL Anda sekali saja (tersimpan di browser). Aplikasi siap dipakai di lapangan kapan saja!
 
 ---
@@ -117,7 +117,7 @@ Jika Anda memiliki Node.js terpasang di komputer:
 npx vercel
 ```
 - Ikuti petunjuk di terminal untuk login.
-- Pilih `Set up and deploy "~/prudential"? [Y/n]` ➔ Tekan `Y`.
+- Pilih `Set up and deploy "~/agentprospect"? [Y/n]` ➔ Tekan `Y`.
 - Untuk deploy langsung ke domain produksi:
   ```bash
   npx vercel --prod

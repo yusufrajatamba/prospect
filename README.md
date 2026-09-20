@@ -1,6 +1,6 @@
-# 🌟 PruProspect Pro (Project 100 & Portfolio Management)
+# 🌟 AgentProspect Pro (Project 100 & Portfolio Management)
 
-Aplikasi Web Manajemen Calon Nasabah (Project 100), Pipeline Penjualan 9 Tahap, Portofolio Polis Nasabah In-Force, Panduan Penanganan Keberatan (Playbook), dan Target Produksi MDRT bagi Agen Asuransi Prudential.
+Aplikasi Web Manajemen Calon Nasabah (Project 100), Pipeline Penjualan 9 Tahap, Portofolio Polis Nasabah In-Force, Panduan Penanganan Keberatan (Playbook), dan Target Produksi MDRT bagi Agen Asuransi Profesional.
 
 Terintegrasi secara real-time dua arah (**CRUD**) dengan **Google Spreadsheet** (melalui Google Apps Script Web App) dan siap dideploy langsung ke **Vercel**.
 
@@ -13,7 +13,7 @@ Terintegrasi secara real-time dua arah (**CRUD**) dengan **Google Spreadsheet** 
    - Tampilan ganda: **List Tabel** interaktif & **Kanban Pipeline Board**.
    - Integrasi 1-klik buka percakapan WhatsApp dengan pesan salam otomatis.
 
-2. **Pipeline Penjualan 9 Tahap Prudential**:
+2. **Pipeline Penjualan 9 Tahap Agen Asuransi**:
    - 1. Bank Nama (Suspect)
    - 2. Pendekatan Awal (Approach)
    - 3. Janji Temu (Appointment)
@@ -48,7 +48,7 @@ Terintegrasi secara real-time dua arah (**CRUD**) dengan **Google Spreadsheet** 
 ## 📂 Struktur Proyek
 
 ```
-prudential/
+agentprospect/
 ├── backend/                  # Kontroler & routing backend lokal Node.js
 │   ├── controllers/
 │   ├── middleware/
@@ -114,4 +114,4 @@ prudential/
    - **Execute as**: `Me`
    - **Who has access**: `Anyone`
 5. Salin URL Web App yang berakhiran `/exec`.
-6. Di website PruProspect Pro Anda, klik **⚙️ Tautkan Google Spreadsheet**, tempelkan URL tersebut, dan klik **Simpan & Aktifkan**.
+6. Di website AgentProspect Pro Anda, klik **⚙️ Tautkan Google Spreadsheet**, tempelkan URL tersebut, dan klik **Simpan & Aktifkan**.

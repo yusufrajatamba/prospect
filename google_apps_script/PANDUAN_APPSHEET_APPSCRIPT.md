@@ -1,6 +1,6 @@
-# Panduan Lengkap: Implementasi Prudential Agent Suite di Google Sheets + AppSheet + Apps Script
+# Panduan Lengkap: Implementasi AgentProspect Suite di Google Sheets + AppSheet + Apps Script
 
-Dokumen ini berisi panduan terstruktur langkah-demi-langkah untuk membangun aplikasi asisten penjualan agen Prudential menggunakan **Google Sheets** sebagai database utama, **AppSheet** sebagai antarmuka aplikasi seluler (Android & iPhone) serta web, dan **Google Apps Script (GAS)** untuk otomasi perhitungan dan notifikasi.
+Dokumen ini berisi panduan terstruktur langkah-demi-langkah untuk membangun aplikasi asisten penjualan agen asuransi menggunakan **Google Sheets** sebagai database utama, **AppSheet** sebagai antarmuka aplikasi seluler (Android & iPhone) serta web, dan **Google Apps Script (GAS)** untuk otomasi perhitungan dan notifikasi.
 
 ---
 
@@ -36,13 +36,13 @@ Dokumen ini berisi panduan terstruktur langkah-demi-langkah untuk membangun apli
 Anda **tidak perlu** membuat kolom dan rumus satu per satu secara manual. Skrip setup otomatis telah kami sediakan:
 
 1. Buka spreadsheet Anda:  
-   👉 [Prudential - Google Spreadsheet](https://docs.google.com/spreadsheets/d/1ykj3cCMPYfhUI0n7H0cnY2TzdfXrEo4hG5HHp2-bejA/edit?gid=0#gid=0)
+   👉 [AgentProspect - Google Spreadsheet](https://docs.google.com/spreadsheets/d/1ykj3cCMPYfhUI0n7H0cnY2TzdfXrEo4hG5HHp2-bejA/edit?gid=0#gid=0)
 2. Klik menu **Extensions (Ekstensi)** ➔ **Apps Script**.
 3. Hapus kode lama di file `Code.gs`, lalu salin (*copy-paste*) seluruh kode terbaru dari file:  
-   [`google_apps_script/Code.gs`](file:///c:/Users/infokes/Documents/yusuf-playground/prudential/google_apps_script/Code.gs)
+   [`google_apps_script/Code.gs`](Code.gs)
 4. Klik ikon **Save (Simpan / Ctrl+S)**.
 5. Pada dropdown fungsi di atas editor Apps Script, pilih fungsi:  
-   `setupPrudentialSheets` ➔ klik tombol **Run (Jalankan)**.
+   `setupAgentSheets` ➔ klik tombol **Run (Jalankan)**.
 6. Berikan izin otorisasi (*Review Permissions ➔ Pilih Akun Google Anda ➔ Advanced ➔ Go to Untitled (unsafe) ➔ Allow*).
 7. Tunggu beberapa detik hingga muncul popup konfirmasi:  
    `"Setup Berhasil Selesai! Struktur sheet baru telah siap & terintegrasi..."`
@@ -57,7 +57,7 @@ Anda **tidak perlu** membuat kolom dan rumus satu per satu secara manual. Skrip 
 * **Tab 5: `Target_Produksi_MDRT`**: Dashboard target Rp 600 Juta APE, 50 Polis Baru, dan Star Club Trip yang membaca data real-time dari tabel polis.
 * **Tab 6: `Panduan_Keberatan`**: Terisi lengkap **8 Skenario Keberatan Teruji** (Sudah ada BPJS/kantor, uang diputar di bisnis, premi mahal, takut agen berhenti, klaim susah, asuransi syariah, dll) beserta skrip percakapan.
 * **Tab 7: `Akun_Agen`**: Database akun agen terdaftar, nomor WhatsApp, kata sandi (password), kantor agency, kode agen, role, dan tanggal terdaftar.
-* **Tab 8: `Master_Data`**: Referensi dropdown pilihan tahap penjualan, relasi, dan produk Prudential.
+* **Tab 8: `Master_Data`**: Referensi dropdown pilihan tahap penjualan, relasi, dan produk asuransi.
 
 ---
 
@@ -163,13 +163,13 @@ Untuk mempermudah sapaan dan pengingat premi saat agen berada di lapangan:
        "https://wa.me/",
        IF(STARTSWITH([No_WhatsApp_Nasabah], "0"), CONCATENATE("62", RIGHT([No_WhatsApp_Nasabah], LEN([No_WhatsApp_Nasabah]) - 1)), [No_WhatsApp_Nasabah]),
        "?text=",
-       ENCODEURL(CONCATENATE("Yth. Bapak/Ibu ", [Nama_Pemegang_Polis], ", kami mengingatkan polis Prudential No. ", [Nomor_Polis], " (", [Produk_Prudential], ") akan jatuh tempo. Terima kasih atas kepercayaan Bapak/Ibu."))
+       ENCODEURL(CONCATENATE("Yth. Bapak/Ibu ", [Nama_Pemegang_Polis], ", kami mengingatkan polis No. ", [Nomor_Polis], " (", [Produk_Asuransi], ") akan jatuh tempo. Terima kasih atas kepercayaan Bapak/Ibu."))
      )
      ```
 
 ---
 
-## 7. Keunggulan Solusi Ini untuk Kebutuhan Agen Prudential
+## 7. Keunggulan Solusi Ini untuk Kebutuhan Agen Asuransi
 
 1. **Dapat Diinstal di Smartphone**: Agen cukup mengunduh aplikasi **AppSheet** dari App Store / Google Play Store, lalu login dengan akun Google. Aplikasi langsung muncul di layar utama HP.
 2. **Berjalan Lancar Saat Offline**: Data dapat diinput di lokasi yang minim sinyal (misalnya basement rumah sakit atau kantor nasabah) dan otomatis tersinkronisasi saat tersambung internet kembali.

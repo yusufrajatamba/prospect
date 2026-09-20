@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - CFP® & OJK STANDARD FINANCIAL PLANNING CALCULATOR
+// AGENTPROSPECT PRO - CFP® & OJK STANDARD FINANCIAL PLANNING CALCULATOR
 // Komprehensif: Dana Darurat, UP Jiwa (HLV & DIME), Sakit Kritis, Pendidikan, Pensiun
 // ==========================================================================
 
@@ -495,7 +495,7 @@ _Prinsip: Uang santunan didepositokan pada yield bersih riil ${d.realYield.toFix
 UP Jiwa Rekomendasi: *${this.formatRupiah(d.dimeTotal)}*
 _Mencakup pelunasan seluruh hutang/kredit, pengganti nafkah ${d.incomeYears} tahun, dan kepastian dana pendidikan anak._
 
-Mari kita diskusikan bagaimana solusi proteksi Prudential (PRUWarisan / PRUCinta) dapat mengunci nilai pertanggungan ini secara efisien.`;
+Mari kita diskusikan bagaimana solusi proteksi asuransi jiwa ini dapat mengunci nilai pertanggungan secara efisien.`;
     } else if (type === 'ci') {
       const d = this.lastCIData;
       msg = `*AUDIT PROTEKSI SAKIT KRITIS (CRITICAL ILLNESS RECOVERY FUND)*
@@ -510,7 +510,7 @@ Tahukah Bapak/Ibu bahwa fasilitas BPJS/kantor hanya membayar biaya rumah sakit, 
 • Potensi Kehilangan Nafkah: ${this.formatRupiah(d.incomeLoss)}
 • Cadangan Terapi Khusus: ${this.formatRupiah(d.altTherapy)}
 
-*Rekomendasi Santunan Tunai PRUCritical:*
+*Rekomendasi Santunan Tunai Dana Sakit Kritis:*
 *${this.formatRupiah(d.recommendedCoverage)}* (Cair Tunai Langsung)
 
 Dana tunai ini menjamin dapur keluarga tetap ngebul, cicilan aman, dan pasien dapat fokus sembuh tanpa stres finansial.`;
@@ -531,7 +531,7 @@ Berikut estimasi persiapan dana pendidikan tinggi buah hati tercinta:
 Kebutuhan Dana Kuliah: *${this.formatRupiah(d.futureCost)}*
 Alokasi Tabungan Proteksi: *${this.formatRupiah(d.monthlySaving)} / bulan*
 
-Dengan program proteksi pendidikan PRUCerah, jika terjadi musibah pada orang tua, setoran tabungan diteruskan oleh Prudential dan dana kuliah anak tetap cair pasti tepat waktu.`;
+Dengan program proteksi pendidikan, jika terjadi musibah pada orang tua, setoran tabungan diteruskan oleh perusahaan asuransi dan dana kuliah anak tetap cair pasti tepat waktu.`;
     } else if (type === 'pension') {
       const d = this.lastRetData;
       msg = `*ANALISA DANA PENSIUN SEJAHTERA & MANDIRI*

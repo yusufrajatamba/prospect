@@ -1,7 +1,7 @@
 /**
  * ============================================================================
- * PRUPROSPECT PRO - GOOGLE APPS SCRIPT (GAS) AUTOMATION SUITE
- * Sistem Manajemen Calon Nasabah (Project 100) & Portofolio Agen Prudential
+ * AGENTPROSPECT PRO - GOOGLE APPS SCRIPT (GAS) AUTOMATION SUITE
+ * Sistem Manajemen Calon Nasabah (Project 100) & Portofolio Agen Asuransi
  * ============================================================================
  */
 
@@ -21,9 +21,9 @@ const SHEETS = {
 
 /**
  * 1. FUNGSI SETUP OTOMATIS: MEMBUAT SELURUH SHEET, HEADER & DATA VALIDASI
- * Jalankan fungsi ini 1 kali dari menu Apps Script: Run -> setupPrudentialSheets
+ * Jalankan fungsi ini 1 kali dari menu Apps Script: Run -> setupAgentSheets
  */
-function setupPrudentialSheets() {
+function setupAgentSheets() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
 
   // 1. Sheet Master Data (Pilihan Dropdown)
@@ -109,7 +109,7 @@ function setupMasterDataSheet(ss) {
   sheet.clear();
 
   const headers = [
-    ['Tahap_Pipeline', 'Kategori_Pasar', 'Relasi_Hubungan', 'Produk_Prudential', 'Frekuensi_Bayar', 'Kategori_Keberatan']
+    ['Tahap_Pipeline', 'Kategori_Pasar', 'Relasi_Hubungan', 'Produk_Asuransi', 'Frekuensi_Bayar', 'Kategori_Keberatan']
   ];
   sheet.getRange(1, 1, 1, headers[0].length).setValues(headers)
     .setBackground('#062135').setFontColor('#ffffff').setFontWeight('bold');
@@ -136,13 +136,13 @@ function setupMasterDataSheet(ss) {
   ];
 
   const products = [
-    'PRUPrime Healthcare Plus Pro (Rawat Inap 1 Bed)',
-    'PRUSolusi Sehat Plus Pro (PSSP Syariah)',
-    'PRUCritical Benefit 88 (Sakit Kritis Tradisional)',
-    'PRUCritical Protection (PCB 88 Syariah)',
-    'PRUWarisan (Kepastian Warisan Finansial)',
-    'PRUCinta Syariah (Jiwa & Kritis Tradisional)',
-    'PRULink Generasi Baru (Unit Link Proteksi)'
+    'Prime Healthcare Plus Pro (Rawat Inap 1 Bed)',
+    'Solusi Sehat Plus Pro (PSSP Syariah)',
+    'Critical Benefit 88 (Sakit Kritis Tradisional)',
+    'Critical Protection (PCB 88 Syariah)',
+    'Kepastian Warisan Finansial',
+    'Proteksi Jiwa & Kritis Syariah',
+    'Generasi Baru (Unit Link Proteksi)'
   ];
 
   const frequencies = ['Bulanan', 'Kuartalan (3 Bulan)', 'Semesteran (6 Bulan)', 'Tahunan'];
@@ -440,7 +440,7 @@ function setupPolisSheet(ss) {
 
   const headers = [
     'Nomor_Polis', 'ID_Prospek', 'Nama_Pemegang_Polis', 'Nama_Tertanggung', 'No_WhatsApp_Nasabah',
-    'Produk_Prudential', 'Besaran_Premi', 'Frekuensi_Bayar', 'Nominal_APE',
+    'Produk_Asuransi', 'Besaran_Premi', 'Frekuensi_Bayar', 'Nominal_APE',
     'Uang_Pertanggungan', 'Tanggal_Mulai_Polis', 'Jatuh_Tempo_Berikutnya',
     'Status_Polis', 'Hari_Menuju_Jatuh_Tempo', 'Tautan_Reminder_WA', 'Catatan_Plan'
   ];
@@ -479,7 +479,7 @@ function setupPolisSheet(ss) {
 
   // Rumus WhatsApp Reminder di Kolom O:
   sheet.getRange('O2').setFormula(
-    '=IF(E2<>""; "https://wa.me/" & IF(LEFT(E2;1)="0"; "62"&MID(E2;2;20); E2) & "?text=" & ENCODEURL("Yth. Bapak/Ibu " & C2 & ", kami mengingatkan polis Prudential No. " & A2 & " (" & F2 & ") akan jatuh tempo pada " & TEXT(L2; "dd mmmm yyyy") & ". Terima kasih atas kepercayaan Bapak/Ibu."); "")'
+    '=IF(E2<>""; "https://wa.me/" & IF(LEFT(E2;1)="0"; "62"&MID(E2;2;20); E2) & "?text=" & ENCODEURL("Yth. Bapak/Ibu " & C2 & ", kami mengingatkan polis No. " & A2 & " (" & F2 & ") akan jatuh tempo pada " & TEXT(L2; "dd mmmm yyyy") & ". Terima kasih atas kepercayaan Bapak/Ibu."); "")'
   );
 
   sheet.setFrozenRows(1);
@@ -509,7 +509,7 @@ function setupPlaybookSheet(ss) {
       '“Saya sudah ada BPJS Kesehatan dan asuransi dari kantor”',
       'Apresiasi fasilitas kantor. Jangan menjelekkan perusahaan nasabah, posisikan asuransi pribadi sebagai pondasi seumur hidup saat pensiun atau resign.',
       'Fasilitas kantor menempel pada jabatan, bukan pribadi. Saat pensiun di usia 55 atau sakit kritis berkepanjangan yang menyebabkan PHK, proteksi kantor terputus. Membuka polis baru di usia 55+ dengan riwayat sakit sangat mahal atau ditolak.',
-      '“Luar biasa Bapak/Ibu! Itu membuktikan perusahaan tempat Bapak/Ibu berkarier sangat bonafide. Namun izinkan saya bertanya satu hal: fasilitas kantor menempel pada pribadi atau status karyawan? Jika suatu saat pensiun di usia 55 atau terjadi risiko sakit kritis berkepanjangan, fasilitas kantor otomatis terputus. Menyiapkan PRUPrime Healthcare Plus Pro sejak dini adalah gembok pengaman permanen seumur hidup dengan kamar 1 bed privat. Boleh kita hitung opsi premi hematnya?”'
+      '“Luar biasa Bapak/Ibu! Itu membuktikan perusahaan tempat Bapak/Ibu berkarier sangat bonafide. Namun izinkan saya bertanya satu hal: fasilitas kantor menempel pada pribadi atau status karyawan? Jika suatu saat pensiun di usia 55 atau terjadi risiko sakit kritis berkepanjangan, fasilitas kantor otomatis terputus. Menyiapkan Prime Healthcare Plus Pro sejak dini adalah gembok pengaman permanen seumur hidup dengan kamar 1 bed privat. Boleh kita hitung opsi premi hematnya?”'
     ],
     [
       'PB_02',
@@ -547,25 +547,25 @@ function setupPlaybookSheet(ss) {
       'PB_06',
       'Kepercayaan & Klaim',
       '“Klaim asuransi katanya susah, ribet, dan banyak dipersulit”',
-      'Bongkar mitos klaim dengan transparansi. Jelaskan komitmen cashless Prudential dan peran agen sebagai pendamping pribadi.',
-      'Prudential Indonesia membayarkan klaim dan manfaat lebih dari Rp 17 triliun per tahun. Penolakan klaim umumnya karena pre-existing condition yang tidak dideklarasikan di awal (non-disclosure) atau masih dalam masa tunggu.',
-      '“Kekhawatiran yang sangat wajar Bapak/Ibu. Kunci klaim lancar ada di 2 hal: kejujuran riwayat kesehatan di formulir awal, dan sistem rumah sakit rekanan. Prudential memiliki jaringan Rumah Sakit rekanan PRUMedical Network terluas dengan sistem gesek kartu cashless (bebas deposit). Ditambah komitmen saya sebagai agen resmi terlisensi AAJI untuk mendampingi seluruh proses administrasi berkas Bapak/Ibu dari awal hingga klaim tuntas.”'
+      'Bongkar mitos klaim dengan transparansi. Jelaskan komitmen cashless rumah sakit rekanan dan peran agen sebagai pendamping pribadi.',
+      'Perusahaan asuransi terpercaya membayarkan klaim dan manfaat triliunan rupiah per tahun. Penolakan klaim umumnya karena pre-existing condition yang tidak dideklarasikan di awal (non-disclosure) atau masih dalam masa tunggu.',
+      '“Kekhawatiran yang sangat wajar Bapak/Ibu. Kunci klaim lancar ada di 2 hal: kejujuran riwayat kesehatan di formulir awal, dan sistem rumah sakit rekanan. Kami memiliki jaringan Rumah Sakit rekanan terluas dengan sistem gesek kartu cashless (bebas deposit). Ditambah komitmen saya sebagai agen resmi terlisensi AAJI untuk mendampingi seluruh proses administrasi berkas Bapak/Ibu dari awal hingga klaim tuntas.”'
     ],
     [
       'PB_07',
       'Kesesuaian Syariah',
       '“Apakah asuransi halal dan sesuai prinsip syariah Islam?”',
       'Edukasi konsep tolong-menolong (Ta’awun) dan bebas dari unsur Riba, Gharar, serta Maysir.',
-      'Prudential Syariah adalah entitas tersendiri yang berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK) serta diawasi oleh Dewan Pengawas Syariah (DPS) yang terafiliasi dengan Dewan Syariah Nasional MUI.',
-      '“Pertanyaan yang sangat mulia Bapak/Ibu. Prudential Syariah beroperasi penuh di bawah pengawasan Dewan Pengawas Syariah (DPS) MUI. Prinsip dasarnya bukan jual-beli risiko komersial, melainkan Ta\'awun (saling tolong-menolong antar-peserta melalui dana tabarru\'). Ketika salah satu peserta diuji musibah sakit, dana kebajikan bersama akan meringankan beban mereka secara halal dan berkah.”'
+      'Asuransi Syariah adalah entitas yang berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK) serta diawasi oleh Dewan Pengawas Syariah (DPS) yang terafiliasi dengan Dewan Syariah Nasional MUI.',
+      '“Pertanyaan yang sangat mulia Bapak/Ibu. Asuransi Syariah beroperasi penuh di bawah pengawasan Dewan Pengawas Syariah (DPS) MUI. Prinsip dasarnya bukan jual-beli risiko komersial, melainkan Ta\'awun (saling tolong-menolong antar-peserta melalui dana tabarru\'). Ketika salah satu peserta diuji musibah sakit, dana kebajikan bersama akan meringankan beban mereka secara halal dan berkah.”'
     ],
     [
       'PB_08',
       'Agen & Layanan',
       '“Saya takut jika agennya tidak aktif lagi (agen musiman / resign)”',
-      'Tunjukkan profesionalisme penuh waktu, lisensi AAJI/CFP®, dan sistem jaminan kepengurusan polis nasabah yatim (orphan policy) dari Prudential.',
+      'Tunjukkan profesionalisme penuh waktu, lisensi AAJI/CFP®, dan sistem jaminan kepengurusan polis nasabah dari agency kantor pemasaran resmi.',
       'Perusahaan asuransi menanggung kewajiban kontrak polis nasabah secara hukum seumur hidup, terlepas dari status keagenan.',
-      '“Saya sangat mengapresiasi kehati-hatian Bapak/Ibu. Saya berkarier sebagai perencana keuangan profesional dengan sertifikasi resmi dan komitmen jangka panjang. Selain itu, kontrak polis Bapak/Ibu terikat langsung secara hukum dengan PT Prudential Life Assurance yang sudah berdiri lebih dari 175 tahun di dunia dan 28 tahun di Indonesia. Kantor Pemasaran Mandiri kami memiliki tim Customer Care khusus yang selalu melayani Anda kapan pun dibutuhkan.”'
+      '“Saya sangat mengapresiasi kehati-hatian Bapak/Ibu. Saya berkarier sebagai perencana keuangan profesional dengan sertifikasi resmi dan komitmen jangka panjang. Selain itu, kontrak polis Bapak/Ibu terikat langsung secara hukum dengan institusi asuransi resmi yang berizin dan diawasi OJK. Kantor Pemasaran Mandiri kami memiliki tim Customer Care khusus yang selalu melayani Anda kapan pun dibutuhkan.”'
     ]
   ];
 
@@ -592,7 +592,7 @@ function setupMDRTSheet(ss) {
 
   const goalsData = [
     ['G_MDRT_2026', 'MDRT', 'Target Kualifikasi MDRT 2026', 600000000, 'Rp', '2026-12-31', '=SUM(Portofolio_Polis!I2:I500)', '=IF(D2>0; MIN(1; G2/D2); 0)', 'Active'],
-    ['G_CASES_50', 'Cases', '50 Polis Baru In-Force (PruPrime)', 50, 'Polis', '2026-12-31', '=COUNTA(Portofolio_Polis!A2:A500)', '=IF(D3>0; MIN(1; G3/D3); 0)', 'Active'],
+    ['G_CASES_50', 'Cases', '50 Polis Baru In-Force', 50, 'Polis', '2026-12-31', '=COUNTA(Portofolio_Polis!A2:A500)', '=IF(D3>0; MIN(1; G3/D3); 0)', 'Active'],
     ['G_PROJECT_100', 'Contacts', '100 Bank Nama Project 100', 100, 'Nama', '2026-10-31', '=COUNTA(Project100_Prospek!A2:A500)', '=IF(D4>0; MIN(1; G4/D4); 0)', 'Active'],
     ['G_TRIP_PARIS', 'Trip', 'Target Star Club Trip Paris 2026', 250000000, 'Rp', '2026-09-30', '=SUM(Portofolio_Polis!I2:I500)', '=IF(D5>0; MIN(1; G5/D5); 0)', 'Active']
   ];
@@ -671,8 +671,8 @@ function checkDailyPolicyDueDates() {
  */
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
-  ui.createMenu('🚀 Prudential Agent Suite')
-    .addItem('⚙️ Jalankan Setup / Refresh Struktur Sheet', 'setupPrudentialSheets')
+  ui.createMenu('🚀 AgentProspect Suite')
+    .addItem('⚙️ Jalankan Setup / Refresh Struktur Sheet', 'setupAgentSheets')
     .addItem('🔄 Sinkronkan Data (Project 100 <-> Daftar Nasabah & Pipeline)', 'syncAllProspekSheetsManual')
     .addItem('📅 Cek Jatuh Tempo Polis Hari Ini', 'checkDailyPolicyDueDates')
     .addToUi();
@@ -693,7 +693,7 @@ function doGet(e) {
     if (action === 'ping') {
       return jsonResponse({
         status: 'ok',
-        message: 'Koneksi ke Google Spreadsheet Prudential Berhasil!',
+        message: 'Koneksi ke Google Spreadsheet AgentProspect Berhasil!',
         spreadsheetName: ss.getName(),
         spreadsheetId: ss.getId(),
         timestamp: new Date().toISOString()
@@ -776,7 +776,7 @@ function doPost(e) {
         const rowPass = String(row[3] || '').trim();
         const rowId = String(row[0] || '').trim();
 
-        if ((rowPhone === phoneInput || rowId === phoneInput) && (rowPass === passInput || (rowPass === 'password123' && passInput === 'pru123') || (rowPass === 'pru123' && passInput === 'password123'))) {
+        if ((rowPhone === phoneInput || rowId === phoneInput) && (rowPass === passInput || rowPass === 'password123')) {
           return jsonResponse({
             success: true,
             token: rowId,
@@ -784,7 +784,7 @@ function doPost(e) {
               id: rowId,
               name: String(row[1] || ''),
               phone: rowPhone,
-              agency_name: String(row[4] || 'Prudential Agency Office'),
+              agency_name: String(row[4] || 'Agency Office'),
               agent_code: String(row[5] || ''),
               role: String(row[6] || 'Agent')
             },
@@ -801,7 +801,7 @@ function doPost(e) {
       const name = String(p.name || '').trim();
       const phone = String(p.phone || '').trim();
       const password = String(p.password || '').trim();
-      const agencyName = String(p.agency_name || p.agency || 'Prudential Agency Office').trim();
+      const agencyName = String(p.agency_name || p.agency || 'Agency Office').trim();
 
       if (!name || !phone || !password) {
         return jsonResponse({ error: 'Nama lengkap, nomor WhatsApp, dan kata sandi wajib diisi.' });
@@ -821,7 +821,7 @@ function doPost(e) {
       }
 
       const newId = 'usr_' + new Date().getTime();
-      const agentCode = 'PRU-' + (phone.slice(-4) || '001');
+      const agentCode = 'AG-' + (phone.slice(-4) || '001');
       const nowStr = Utilities.formatDate(new Date(), 'GMT+7', 'yyyy-MM-dd HH:mm');
 
       const userRow = [
@@ -1263,7 +1263,7 @@ function doPost(e) {
       const ape = premium * multiplier;
 
       const waPhone = formatPhoneForWA(pol.clientPhone || pol.phone || '');
-      const reminderLink = waPhone ? ('https://wa.me/' + waPhone + '?text=' + encodeURIComponent('Yth. Bapak/Ibu ' + (pol.clientName || pol.holder_name) + ', kami mengingatkan polis Prudential No. ' + pol.policyNumber + ' akan jatuh tempo. Terima kasih.')) : '';
+      const reminderLink = waPhone ? ('https://wa.me/' + waPhone + '?text=' + encodeURIComponent('Yth. Bapak/Ibu ' + (pol.clientName || pol.holder_name) + ', kami mengingatkan polis No. ' + pol.policyNumber + ' akan jatuh tempo. Terima kasih.')) : '';
 
       const polRow = [
         pol.policyNumber || pol.policy_number,
@@ -1271,7 +1271,7 @@ function doPost(e) {
         pol.clientName || pol.holder_name || '',
         pol.insuredName || pol.insured_name || (pol.clientName || pol.holder_name || ''),
         pol.clientPhone || pol.phone || '',
-        pol.productName || pol.product_name || 'PRUSolusi Sehat Plus Pro (PSSP)',
+        pol.productName || pol.product_name || 'Solusi Sehat Plus Pro (PSSP)',
         premium,
         freq,
         ape,
@@ -1741,7 +1741,7 @@ function fetchUserByToken(ss, token) {
           id: String(row[0]),
           name: String(row[1] || ''),
           phone: String(row[2] || ''),
-          agency_name: String(row[4] || 'Prudential Agency Office'),
+          agency_name: String(row[4] || 'Agency Office'),
           agent_code: String(row[5] || ''),
           role: String(row[6] || 'Agent')
         }

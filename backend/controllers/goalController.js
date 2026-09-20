@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - GOAL CONTROLLER (DYNAMIC PRODUCTION GOALS & MDRT)
+// AGENTPROSPECT PRO - GOAL CONTROLLER (DYNAMIC PRODUCTION GOALS & MDRT)
 // ==========================================================================
 
 import { db } from '../database.js';

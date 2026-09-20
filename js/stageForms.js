@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - STAGE SPECIFIC ACTION FORMS MODULE
+// AGENTPROSPECT PRO - STAGE SPECIFIC ACTION FORMS MODULE
 // Alur Kerja & Form Spesifik Lapangan untuk Setiap Tahap Penjualan Agen
 // ==========================================================================
 
@@ -175,10 +175,10 @@ export class StageFormsManager {
 
       case 'fact_finding': { // 4. Bedah Kebutuhan (Multi-Need Assessment)
         const standardNeeds = [
-          { id: 'health_bed', label: 'Rawat Inap Kamar 1 Bed Privat (On-Bill Sesuai Tagihan)', defaultTarget: 'On-Bill Kamar 1 Bed Privat (PRUPrime Healthcare Plus Pro)' },
+          { id: 'health_bed', label: 'Rawat Inap Kamar 1 Bed Privat (On-Bill Sesuai Tagihan)', defaultTarget: 'On-Bill Kamar 1 Bed Privat (Asuransi Kesehatan On-Bill)' },
           { id: 'critical_illness', label: 'Proteksi Penghasilan Sakit Kritis (Critical Illness)', defaultTarget: 'UP Sakit Kritis Rp 500 Juta - Rp 1 Miliar (3-5 thn biaya hidup)' },
-          { id: 'life_legacy', label: 'Penyediaan Dana Warisan Jiwa & Bebas Hutang', defaultTarget: 'UP Jiwa Rp 1 - 2 Miliar (PRUWarisan / PRUCinta)' },
-          { id: 'education', label: 'Kepastian Dana Pendidikan Lanjutan Anak', defaultTarget: 'Dana Kuliah Rp 300 - 500 Juta / Anak (PRUCerah)' },
+          { id: 'life_legacy', label: 'Penyediaan Dana Warisan Jiwa & Bebas Hutang', defaultTarget: 'UP Jiwa Rp 1 - 2 Miliar (Proteksi Warisan Jiwa)' },
+          { id: 'education', label: 'Kepastian Dana Pendidikan Lanjutan Anak', defaultTarget: 'Dana Kuliah Rp 300 - 500 Juta / Anak (Proteksi Pendidikan)' },
           { id: 'pension', label: 'Jaminan Kemandirian Dana Pensiun Sejahtera', defaultTarget: 'Dana Pensiun Rp 2 Miliar di Usia 55 Tahun' },
           { id: 'emergency_fund', label: 'Fondasi Likuiditas Dana Darurat Medis & Musibah', defaultTarget: 'Dana Darurat 6 - 12x Pengeluaran Bulanan' },
           { id: 'syariah_wakaf', label: 'Perlindungan Berbasis Syariah & Wakaf Polis', defaultTarget: 'Wakaf Polis 10% - 30% dari Santunan Asuransi' }
@@ -307,7 +307,7 @@ export class StageFormsManager {
           <form id="stageActionForm">
             <div class="stage-form-header">
               <span class="stage-form-badge">Tahap 5: Presentasi Solusi</span>
-              <h4 class="stage-form-title">Pemaparan Proposal & Ilustrasi Prudential</h4>
+              <h4 class="stage-form-title">Pemaparan Proposal & Ilustrasi Solusi</h4>
               <p class="stage-form-desc">Catat produk yang diajukan beserta nominal premi dan tanggapan calon nasabah.</p>
             </div>
 
@@ -315,12 +315,12 @@ export class StageFormsManager {
               <div class="form-group">
                 <label class="form-label" for="sfProduct">Produk yang Diajukan *</label>
                 <select id="sfProduct" class="form-select" required>
-                  <option value="PRUSolusi Sehat Plus Pro (Kesehatan 1 Bed)" selected>PRUSolusi Sehat Plus Pro (Kesehatan 1 Bed)</option>
-                  <option value="PRUCritical Benefit 88 (Sakit Kritis)">PRUCritical Benefit 88 (Sakit Kritis)</option>
-                  <option value="PRUWarisan (Dana Warisan Pasti)">PRUWarisan (Dana Warisan Pasti)</option>
-                  <option value="PRUCinta Syariah (Jiwa & Kritis)">PRUCinta Syariah (Jiwa & Kritis)</option>
-                  <option value="PRUPrime Healthcare Plus">PRUPrime Healthcare Plus</option>
-                  <option value="PRULink Generasi Baru">PRULink Generasi Baru</option>
+                  <option value="Solusi Sehat Plus Pro (Kesehatan 1 Bed)" selected>Solusi Sehat Plus Pro (Kesehatan 1 Bed)</option>
+                  <option value="Critical Benefit 88 (Sakit Kritis)">Critical Benefit 88 (Sakit Kritis)</option>
+                  <option value="Proteksi Warisan Jiwa (Dana Warisan Pasti)">Proteksi Warisan Jiwa (Dana Warisan Pasti)</option>
+                  <option value="Proteksi Jiwa & Kritis Syariah">Proteksi Jiwa & Kritis Syariah</option>
+                  <option value="Prime Healthcare Plus">Prime Healthcare Plus</option>
+                  <option value="Asuransi Jiwa Link Generasi Baru">Asuransi Jiwa Link Generasi Baru</option>
                 </select>
               </div>
               <div class="form-group">
@@ -418,12 +418,12 @@ export class StageFormsManager {
             <div class="stage-form-header">
               <span class="stage-form-badge">Tahap 7: Closing (SPAJ)</span>
               <h4 class="stage-form-title">Penyelesaian Formulir e-SPAJ & Pembayaran</h4>
-              <p class="stage-form-desc">Pastikan dokumen pengajuan polis lengkap di aplikasi PRUForce sebelum submit ke Underwriting.</p>
+              <p class="stage-form-desc">Pastikan dokumen pengajuan polis lengkap di portal keagenan sebelum submit ke Underwriting.</p>
             </div>
 
             <div class="form-grid-2">
               <div class="form-group">
-                <label class="form-label" for="sfSpajNumber">Nomor Draft / e-SPAJ PRUForce *</label>
+                <label class="form-label" for="sfSpajNumber">Nomor Draft / e-SPAJ *</label>
                 <input type="text" id="sfSpajNumber" class="form-input" placeholder="Contoh: SPAJ-2026-9812" required>
               </div>
               <div class="form-group">
@@ -445,7 +445,7 @@ export class StageFormsManager {
                 </label>
                 <label class="checkbox-label">
                   <input type="checkbox" id="sfCheckSign" checked>
-                  <span>Tanda Tangan Digital Pemegang Polis di PRUForce</span>
+                  <span>Tanda Tangan Digital Pemegang Polis di e-SPAJ</span>
                 </label>
               </div>
             </div>
@@ -458,7 +458,7 @@ export class StageFormsManager {
                   <option value="Virtual Account Mandiri">Virtual Account Mandiri</option>
                   <option value="Virtual Account Permata">Virtual Account Permata</option>
                   <option value="Autodebet Kartu Kredit (Visa/Mastercard)">Autodebet Kartu Kredit (Visa/Mastercard)</option>
-                  <option value="QRIS PRUForce">QRIS PRUForce</option>
+                  <option value="QRIS Digital">QRIS Digital</option>
                 </select>
               </div>
               <div class="form-group">
@@ -495,7 +495,7 @@ export class StageFormsManager {
 
             <div class="form-grid-2">
               <div class="form-group">
-                <label class="form-label" for="sfPolicyNumber">Nomor Polis Resmi Prudential *</label>
+                <label class="form-label" for="sfPolicyNumber">Nomor Polis Resmi *</label>
                 <input type="text" id="sfPolicyNumber" class="form-input" placeholder="Contoh: 12894562" required>
               </div>
               <div class="form-group">
@@ -508,11 +508,11 @@ export class StageFormsManager {
               <div class="form-group">
                 <label class="form-label" for="sfPolicyProduct">Produk Polis Resmi *</label>
                 <select id="sfPolicyProduct" class="form-select" required>
-                  <option value="PRUSolusi Sehat Plus Pro" selected>PRUSolusi Sehat Plus Pro</option>
-                  <option value="PRUCritical Benefit 88">PRUCritical Benefit 88</option>
-                  <option value="PRUWarisan">PRUWarisan</option>
-                  <option value="PRUCinta Syariah">PRUCinta Syariah</option>
-                  <option value="PRUPrime Healthcare Plus">PRUPrime Healthcare Plus</option>
+                  <option value="Solusi Sehat Plus Pro" selected>Solusi Sehat Plus Pro</option>
+                  <option value="Critical Benefit 88">Critical Benefit 88</option>
+                  <option value="Proteksi Warisan Jiwa">Proteksi Warisan Jiwa</option>
+                  <option value="Proteksi Jiwa & Kritis Syariah">Proteksi Jiwa & Kritis Syariah</option>
+                  <option value="Prime Healthcare Plus">Prime Healthcare Plus</option>
                 </select>
               </div>
               <div class="form-group">
@@ -530,7 +530,7 @@ export class StageFormsManager {
                 </label>
                 <label class="checkbox-label">
                   <input type="checkbox" id="sfCheckPruService" checked>
-                  <span>Edukasi aktivasi akun PRUServices & kartu digital RS</span>
+                  <span>Edukasi aktivasi akun portal nasabah & kartu digital RS</span>
                 </label>
                 <label class="checkbox-label">
                   <input type="checkbox" id="sfCheckAutoAddPolicy" checked>
@@ -896,7 +896,7 @@ export class StageFormsManager {
 
         if (outcome === 'agreed') {
           newStage = 'closing';
-          nextActionText = `Siapkan form e-SPAJ via PRUForce untuk ${product}`;
+          nextActionText = `Siapkan form e-SPAJ untuk ${product}`;
         } else if (outcome === 'objection') {
           newStage = 'objection';
           nextActionText = `Edukasi penanganan kendala terkait proposal ${product}`;

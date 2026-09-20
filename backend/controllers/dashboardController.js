@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - DASHBOARD CONTROLLER (METRICS & STATISTICS)
+// AGENTPROSPECT PRO - DASHBOARD CONTROLLER (METRICS & STATISTICS)
 // ==========================================================================
 
 import { db } from '../database.js';

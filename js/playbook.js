@@ -1,6 +1,6 @@
 // ==========================================================================
-// PRUPROSPECT PRO - OBJECTION HANDLING PLAYBOOK MODULE
-// Standar Panduan Penanganan Keberatan Lapangan Prudential + AI Response Coach
+// AGENTPROSPECT PRO - OBJECTION HANDLING PLAYBOOK MODULE
+// Standar Panduan Penanganan Keberatan Lapangan + AI Response Coach
 // ==========================================================================
 
 import { api } from './api.js';
@@ -16,7 +16,7 @@ export const OBJECTION_PLAYBOOK_DATA = [
 
 Boleh saya tanya sedikit Bapak/Ibu, fasilitas asuransi kantor tersebut berlaku selama kita masih aktif bekerja di sana, betul ya? Kira-kira kalau suatu saat kita pensiun atau memutuskan buka usaha sendiri di usia 50 tahun ke atas, apakah perlindungan itu masih ikut bersama kita?
 
-Di asuransi, semakin bertambah usia dan ada riwayat sakit, kita sudah tidak bisa lagi mendaftar baru. Nah, fungsi kartu Prudential swasta ini bukan untuk menyaingi asuransi kantor, melainkan sebagai backup permanen pribadi yang dimiliki seumur hidup, plus memberikan kenyamanan kamar 1 pasien 1 bed (privat) bebas antre rujukan jika terjadi kondisi darurat.”`
+Di asuransi, semakin bertambah usia dan ada riwayat sakit, kita sudah tidak bisa lagi mendaftar baru. Nah, fungsi kartu asuransi swasta ini bukan untuk menyaingi asuransi kantor, melainkan sebagai backup permanen pribadi yang dimiliki seumur hidup, plus memberikan kenyamanan kamar 1 pasien 1 bed (privat) bebas antre rujukan jika terjadi kondisi darurat.”`
   },
   {
     id: 'no_budget',
@@ -28,7 +28,7 @@ Di asuransi, semakin bertambah usia dan ada riwayat sakit, kita sudah tidak bisa
 
 Boleh saya izin bertanya satu hal yang menggelitik? Kira-kira jika saat ini kita menyisihkan 5-10% dari penghasilan bulanan terasa agak ketat, bagaimana jika amit-amit terjadi risiko kesehatan yang mengharuskan kita mengeluarkan 100-300 juta rupiah dalam tempo 3 hari ke depan? Mana yang kira-kira jauh lebih memberatkan keuangan keluarga?
 
-Di Prudential, kita tidak perlu langsung mengambil plan yang mahal. Kita bisa mulai dari fondasi dasar yang sangat terjangkau, yang penting pintu darurat keuangan keluarga sudah terkunci dari risiko kebangkrutan medis.”`
+Di sistem proteksi kami, kita tidak perlu langsung mengambil plan yang mahal. Kita bisa mulai dari fondasi dasar yang sangat terjangkau, yang penting pintu darurat keuangan keluarga sudah terkunci dari risiko kebangkrutan medis.”`
   },
   {
     id: 'discuss_spouse',
@@ -59,12 +59,12 @@ Selain itu, karena Bapak/Ibu masih muda, preminya saat ini adalah premi terendah
     title: '"Apakah asuransi tidak riba / bagaimana hukum syariahnya?"',
     category: 'Kepatuhan Syariah',
     mindset: 'Nasabah memiliki prinsip keagamaan yang kuat dan khawatir dengan unsur ketidakpastian (gharar), judi (maysir), atau bunga (riba).',
-    keyInsight: 'Prudential memiliki unit Prudential Syariah mandiri resmi yang diawasi langsung oleh Dewan Syariah Nasional (DSN - MUI) dengan prinsip tolong-menolong (Ta\'awun).',
+    keyInsight: 'Asuransi Syariah diawasi langsung oleh Dewan Syariah Nasional (DSN - MUI) dengan prinsip tolong-menolong (Ta\'awun).',
     script: `“Pertanyaan yang sangat mulia Bapak/Ibu! Ini bukti kehati-hatian kita dalam menjaga keberkahan nafkah keluarga.
 
-Kabar baiknya, Prudential memiliki entitas berbadan hukum terpisah yaitu PT Prudential Sharia Life Assurance (Prudential Syariah) yang diawasi langsung oleh Dewan Pengawas Syariah dari DSN-MUI (Majelis Ulama Indonesia).
+Kabar baiknya, entitas asuransi syariah diawasi langsung oleh Dewan Pengawas Syariah dari DSN-MUI (Majelis Ulama Indonesia).
 
-Di Prudential Syariah, konsepnya bukan jual-beli risiko, melainkan Ta'awun (Tolong Menolong). Dana premi para peserta dikumpulkan ke dalam rekening Dana Tabarru'. Jika ada peserta yang mengalami musibah sakit atau meninggal, dana tersebut digunakan bersama untuk saling menolong sesama peserta secara adil, transparan, dan bebas dari unsur riba, gharar, maupun maysir.”`
+Di Asuransi Syariah, konsepnya bukan jual-beli risiko, melainkan Ta'awun (Tolong Menolong). Dana premi para peserta dikumpulkan ke dalam rekening Dana Tabarru'. Jika ada peserta yang mengalami musibah sakit atau meninggal, dana tersebut digunakan bersama untuk saling menolong sesama peserta secara adil, transparan, dan bebas dari unsur riba, gharar, maupun maysir.”`
   },
   {
     id: 'claim_trauma',
@@ -74,9 +74,9 @@ Di Prudential Syariah, konsepnya bukan jual-beli risiko, melainkan Ta'awun (Tolo
     keyInsight: '99% klaim ditolak terjadi karena 2 hal: Pre-existing condition (penyakit sudah ada sebelum daftar tapi disembunyikan/tidak jujur saat SPAJ), atau penyakit terjadi dalam masa tunggu (waiting period). Jelaskan komitmen pendampingan Anda.',
     script: `“Saya sangat memahami kekhawatiran Bapak/Ibu. Wajar sekali jika Bapak/Ibu bersikap waspada dan ingin memastikan uang yang disetorkan aman.
 
-Namun faktanya Bapak/Ibu, setiap tahunnya Prudential membayarkan klaim puluhan triliun rupiah di Indonesia secara tertib. Klaim yang bermasalah biasanya terjadi karena 2 hal: riwayat penyakit masa lalu yang tidak diisi jujur saat awal daftar, atau masih dalam masa tunggu (waiting period).
+Namun faktanya Bapak/Ibu, setiap tahunnya industri asuransi jiwa membayarkan klaim puluhan triliun rupiah di Indonesia secara tertib. Klaim yang bermasalah biasanya terjadi karena 2 hal: riwayat penyakit masa lalu yang tidak diisi jujur saat awal daftar, atau masih dalam masa tunggu (waiting period).
 
-Itulah mengapa peran saya sebagai Tenaga Pemasar resmi berlisensi hadir di sini: tugas saya adalah memastikan sejak hari pertama semua data riwayat medis diisi secara transparan agar di kemudian hari klaim berjalan lancar tanpa celah. Dan saat ini proses klaim Rumah Sakit Rekanan Prudential sudah berbasis sistem Cashless digital via PRUForce/PRUServices.”`
+Itulah mengapa peran saya sebagai Tenaga Pemasar resmi berlisensi hadir di sini: tugas saya adalah memastikan sejak hari pertama semua data riwayat medis diisi secara transparan agar di kemudian hari klaim berjalan lancar tanpa celah. Dan saat ini proses klaim Rumah Sakit Rekanan sudah berbasis sistem Cashless digital via portal layanan nasabah.”`
   },
   {
     id: 'too_expensive',
@@ -88,19 +88,19 @@ Itulah mengapa peran saya sebagai Tenaga Pemasar resmi berlisensi hadir di sini:
 
 Seringkali premi terasa besar jika dilihat sebagai angka akumulasi tahunan. Namun jika kita cermati, premi Rp 30.000 - Rp 50.000 per hari sebenarnya setara dengan alokasi harian yang biasa kita keluarkan tanpa terasa.
 
-Bedanya, di Prudential alokasi tersebut mengamankan keuangan keluarga hingga miliaran rupiah jika terjadi musibah rawat inap. Dan yang terpenting, proposal ini sangat fleksibel dan dapat kami sesuaikan tepat sesuai ketersediaan anggaran Bapak/Ibu.”`
+Bedanya, di program proteksi kami alokasi tersebut mengamankan keuangan keluarga hingga miliaran rupiah jika terjadi musibah rawat inap. Dan yang terpenting, proposal ini sangat fleksibel dan dapat kami sesuaikan tepat sesuai ketersediaan anggaran Bapak/Ibu.”`
   },
   {
     id: 'agent_resigns',
     title: '"Nanti kalau agennya berhenti / resign, polis saya bagaimana?"',
     category: 'Kontinuitas Polis',
     mindset: 'Khawatir tidak ada yang mengurus jika agen yang mengajaknya berganti profesi.',
-    keyInsight: 'Kontrak polis adalah antara Pemegang Polis dengan PT Prudential Life Assurance, bukan dengan pribadi agen. Kantor cabang agensi dan Customer Care Prudential selalu siap, plus sistem transfer servicing agent.',
+    keyInsight: 'Kontrak polis adalah antara Pemegang Polis dengan perusahaan asuransi jiwa berizin OJK, bukan dengan pribadi agen. Kantor cabang agensi dan Customer Care selalu siap, plus sistem transfer servicing agent.',
     script: `“Pertanyaan yang sangat penting dan bijak Bapak/Ibu!
 
-Perlu kami sampaikan bahwa kontrak asuransi yang sah dibuat antara Bapak/Ibu dengan PT Prudential Life Assurance (institusi yang telah beroperasi lebih dari 175 tahun secara global). Hak manfaat perlindungan Bapak/Ibu dijamin secara hukum oleh korporasi.
+Perlu kami sampaikan bahwa kontrak asuransi yang sah dibuat antara Bapak/Ibu dengan perusahaan asuransi jiwa resmi yang berizin dan diawasi OJK. Hak manfaat perlindungan Bapak/Ibu dijamin secara hukum oleh korporasi.
 
-Secara profesional, saya mendedikasikan karier ini untuk jangka panjang dan agensi kami memiliki tim operasional yang lengkap. Selain itu, Prudential memiliki mekanisme penunjukan Servicing Agent resmi serta layanan Customer Line dan kantor agensi di seluruh kota besar di Indonesia.”`
+Secara profesional, saya mendedikasikan karier ini untuk jangka panjang dan agensi kami memiliki tim operasional yang lengkap. Selain itu, perusahaan asuransi memiliki mekanisme penunjukan Servicing Agent resmi serta layanan Customer Line dan kantor agensi di seluruh kota besar di Indonesia.”`
   }
 ];
 
@@ -363,7 +363,7 @@ export class PlaybookManager {
 
           <div style="position: relative; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--r-sm); padding: 0.85rem; margin-bottom: 0.75rem;">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;">
-              <span style="font-size: 0.725rem; font-weight: 700; color: var(--pru-red); text-transform: uppercase;">Rekomendasi Skrip Respon Prudential:</span>
+              <span style="font-size: 0.725rem; font-weight: 700; color: var(--pru-red); text-transform: uppercase;">Rekomendasi Skrip Respon Sales Coach:</span>
               <div style="display: flex; gap: 0.35rem;">
                 ${deleteBtn}
                 <button class="btn btn-outline btn-sm btn-copy-script" style="padding: 0.2rem 0.5rem; font-size: 0.7rem;">

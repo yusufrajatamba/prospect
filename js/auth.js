@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - AGENT AUTHENTICATION & PROFILE MODULE
+// AGENTPROSPECT PRO - AGENT AUTHENTICATION & PROFILE MODULE
 // ==========================================================================
 
 import { api } from './api.js';
@@ -176,7 +176,7 @@ export class AuthManager {
       this.currentUser = res.user;
       this.renderUserBadge();
       this.closeAuthModal();
-      this.app.showToast(`Pendaftaran berhasil! Selamat datang di PruProspect Pro, ${this.currentUser.name}.`);
+      this.app.showToast(`Pendaftaran berhasil! Selamat datang di AgentProspect Pro, ${this.currentUser.name}.`);
       this.app.onUserLoggedIn(this.currentUser);
     } catch (err) {
       alert('Pendaftaran gagal: ' + err.message);
@@ -214,13 +214,13 @@ export class AuthManager {
       if (menuCodeEl) {
         menuCodeEl.textContent = this.currentUser.phone ? `No. HP: ${this.currentUser.phone}` : `Kode: ${this.currentUser.agent_code || '-'}`;
       }
-      if (menuAgencyEl) menuAgencyEl.textContent = this.currentUser.agency_name || 'Prudential Indonesia';
+      if (menuAgencyEl) menuAgencyEl.textContent = this.currentUser.agency_name || 'Agency Indonesia';
     } else {
       if (avatarEl) avatarEl.textContent = '?';
       if (nameEl) nameEl.textContent = 'Belum Login';
       if (menuNameEl) menuNameEl.textContent = 'Tamu (Guest)';
       if (menuCodeEl) menuCodeEl.textContent = 'Silakan Login';
-      if (menuAgencyEl) menuAgencyEl.textContent = 'Prudential Life Assurance';
+      if (menuAgencyEl) menuAgencyEl.textContent = 'Agency Office';
     }
   }
 

@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - MAIN SERVER ENTRYPOINT
+// AGENTPROSPECT PRO - MAIN SERVER ENTRYPOINT
 // Clean separation: API Router (backend/) + Static File Server (frontend/)
 // ==========================================================================
 
@@ -101,7 +101,7 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(config.port, () => {
   console.log('========================================================');
-  console.log(`🚀 PruProspect Pro Running on http://localhost:${config.port}`);
+  console.log(`🚀 AgentProspect Pro Running on http://localhost:${config.port}`);
   console.log(`   Architecture: Modular Backend (backend/) + SPA Frontend`);
   console.log(`   Database: SQLite (${config.dbPath})`);
   console.log('========================================================');

@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - IN-FORCE POLICY & CLIENT PORTFOLIO MODULE
+// AGENTPROSPECT PRO - IN-FORCE POLICY & CLIENT PORTFOLIO MODULE
 // ==========================================================================
 
 import { api } from './api.js';
@@ -240,7 +240,7 @@ export class PolicyManager {
     }
 
     const message = `Halo Bapak/Ibu ${policy.holder_name}, salam hangat dan semoga sehat selalu sekeluarga.\n\n` +
-      `Saya ingin menyapa sekaligus menanyakan kabar kepuasan layanan dan proteksi asuransi Prudential Anda untuk polis No. *${policy.policy_number}* (${policy.product_name}).\n\n` +
+      `Saya ingin menyapa sekaligus menanyakan kabar kepuasan layanan dan proteksi asuransi Anda untuk polis No. *${policy.policy_number}* (${policy.product_name}).\n\n` +
       `Apakah ada hal yang dapat saya bantu terkait administrasi, cek manfaat, atau pertanyaan seputar klaim asuransi? Jangan sungkan menghubungi saya kapan pun. Terima kasih! 🙏`;
 
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;

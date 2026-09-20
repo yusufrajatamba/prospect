@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - FINANCIAL CALCULATION / QUOTES CONTROLLER
+// AGENTPROSPECT PRO - FINANCIAL CALCULATION / QUOTES CONTROLLER
 // ==========================================================================
 
 import { db } from '../database.js';

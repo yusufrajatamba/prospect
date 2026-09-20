@@ -1,19 +1,19 @@
 {
-  "name": "pruprospect-pro",
+  "name": "agentprospect-pro",
   "version": "2.0.0",
-  "description": "Prudential Agent CRM, Project 100 Pipeline, Policy Portfolio & Financial Need Analysis",
+  "description": "Insurance Agent CRM, Project 100 Pipeline, Policy Portfolio & Financial Need Analysis",
   "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "keywords": [
-    "prudential",
+    "agentprospect",
     "insurance",
     "crm",
     "mdrt",
     "project-100"
   ],
-  "author": "Prudential Agent",
+  "author": "Insurance Agent",
   "license": "ISC"
 }

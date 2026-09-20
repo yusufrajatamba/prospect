@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - AUTHENTICATION & UTILITY MIDDLEWARE
+// AGENTPROSPECT PRO - AUTHENTICATION & UTILITY MIDDLEWARE
 // ==========================================================================
 
 import { db } from '../database.js';

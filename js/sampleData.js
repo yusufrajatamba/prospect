@@ -1,5 +1,5 @@
-// Master Data & Konfigurasi PruProspect
-// Standar Desain Korporat Prudential Indonesia (Minimalis & Profesional)
+// Master Data & Konfigurasi AgentProspect
+// Standar Desain Korporat Agency (Minimalis & Profesional)
 
 // 5 Fase Utama Pipeline (Proporsional & Fit Layar)
 export const CORE_PIPELINE_STAGES = [
@@ -98,6 +98,6 @@ export const WA_TEMPLATES = [
   {
     id: 'ask_referral',
     title: 'Permohonan Referensi Nasabah',
-    text: `Halo {nama}, terima kasih banyak atas kepercayaannya mempercayakan proteksi keluarga di Prudential. Apabila berkenan, bolehkah saya dibantu 2-3 nama kerabat atau rekan kerja yang sekiranya juga memerlukan informasi perencanaan proteksi serupa? Saya akan menghubungi dengan sopan dan profesional. Terima kasih.`
+    text: `Halo {nama}, terima kasih banyak atas kepercayaannya mempercayakan proteksi keluarga kepada kami. Apabila berkenan, bolehkah saya dibantu 2-3 nama kerabat atau rekan kerja yang sekiranya juga memerlukan informasi perencanaan proteksi serupa? Saya akan menghubungi dengan sopan dan profesional. Terima kasih.`
   }
 ];

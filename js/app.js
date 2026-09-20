@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - MAIN APPLICATION CONTROLLER
+// AGENTPROSPECT PRO - MAIN APPLICATION CONTROLLER
 // Clean, Proportionate & Fast Life Insurance Sales Suite
 // ==========================================================================
 
@@ -10,7 +10,7 @@ import { PolicyManager } from './policies.js';
 import { PlaybookManager } from './playbook.js';
 import { StageFormsManager } from './stageForms.js';
 
-class PruProspectApp {
+class AgentProspectApp {
   constructor() {
     this.api = api;
     this.prospects = [];
@@ -61,7 +61,7 @@ class PruProspectApp {
 
     const codeEl = document.getElementById('agentCodeDisplay');
     if (codeEl) {
-      codeEl.textContent = user.phone ? `WhatsApp: ${user.phone} • ${user.agency_name || 'Prudential'}` : (user.agency_name || 'Prudential Indonesia');
+      codeEl.textContent = user.phone ? `WhatsApp: ${user.phone} • ${user.agency_name || 'Agency'}` : (user.agency_name || 'Agency Indonesia');
     }
 
     const dateEl = document.getElementById('topCurrentDate');
@@ -518,7 +518,7 @@ class PruProspectApp {
       feedback.style.color = '#065f46';
       feedback.innerHTML = `
         <strong>✅ KONEKSI BERHASIL!</strong><br>
-        Spreadsheet: <strong>${res.spreadsheetName || 'Prudential Suite'}</strong><br>
+        Spreadsheet: <strong>${res.spreadsheetName || 'Database Agen'}</strong><br>
         <span style="font-size: 0.72rem; color: #047857;">Endpoint merespons dengan status 200 OK. Klik "Simpan & Aktifkan" untuk mulai sinkronisasi data.</span>
       `;
     } catch (err) {
@@ -675,7 +675,7 @@ class PruProspectApp {
   // --------------------------------------------------------------------------
   getTargets() {
     try {
-      const saved = localStorage.getItem('pru_agent_targets');
+      const saved = localStorage.getItem('agent_targets') || localStorage.getItem('pru_agent_targets');
       if (saved) return JSON.parse(saved);
     } catch {}
     return {
@@ -686,7 +686,7 @@ class PruProspectApp {
   }
 
   saveTargets(targets) {
-    localStorage.setItem('pru_agent_targets', JSON.stringify(targets));
+    localStorage.setItem('agent_targets', JSON.stringify(targets));
     this.renderTargetPage();
     this.showToast('Target penjualan berhasil diperbarui!');
   }
@@ -1797,5 +1797,6 @@ class PruProspectApp {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  window.pruApp = new PruProspectApp();
+  window.agentApp = new AgentProspectApp();
+  window.pruApp = window.agentApp;
 });

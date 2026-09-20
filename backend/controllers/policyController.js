@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - POLICY CONTROLLER (IN-FORCE CONTRACTS)
+// AGENTPROSPECT PRO - POLICY CONTROLLER (IN-FORCE CONTRACTS)
 // ==========================================================================
 
 import { db } from '../database.js';

@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - DATABASE INITIALIZATION & SCHEMA (SQLITE)
+// AGENTPROSPECT PRO - DATABASE INITIALIZATION & SCHEMA (SQLITE)
 // ==========================================================================
 
 import { DatabaseSync } from 'node:sqlite';
@@ -251,7 +251,7 @@ function seedDefaultPlaybook(now) {
 
 Namun izinkan saya bertanya satu hal: fasilitas asuransi kantor tersebut menempel pada nama Bapak/Ibu secara pribadi, atau menempel pada status jabatan karyawan?
 
-Jika suatu saat Bapak/Ibu pensiun di usia 55 atau terjadi risiko sakit kritis berkepanjangan yang menyebabkan PHK, proteksi kantor tentu terputus. Di usia 55+ tahun atau setelah ada riwayat sakit, membuka asuransi baru biayanya sangat tinggi atau bahkan ditolak. Karena itu, para profesional bijak menyiapkan PRUPrime Healthcare Plus Pro sebagai 'pondasi pribadi' seumur hidup dengan kamar 1 bed privat. Boleh kita hitung opsi premi hematnya?”`,
+Jika suatu saat Bapak/Ibu pensiun di usia 55 atau terjadi risiko sakit kritis berkepanjangan yang menyebabkan PHK, proteksi kantor tentu terputus. Di usia 55+ tahun atau setelah ada riwayat sakit, membuka asuransi baru biayanya sangat tinggi atau bahkan ditolak. Karena itu, para profesional bijak menyiapkan asuransi kesehatan kamar 1 bed privat sebagai 'pondasi pribadi' seumur hidup. Boleh kita hitung opsi premi hematnya?”`,
       is_custom: 0
     },
     {
@@ -265,7 +265,7 @@ Jika suatu saat Bapak/Ibu pensiun di usia 55 atau terjadi risiko sakit kritis be
 
 Namun izinkan saya berbagi sudut pandang perencana keuangan: ketika Bapak/Ibu membangun gedung komersial senilai puluhan miliar, apakah merasa perlu memasang instalasi pemadam kebakaran dan pintu darurat?
 
-Tentu ya. Bisnis Bapak/Ibu adalah gedungnya, dan Prudential adalah sistem pemadam kebakarannya. Kita tidak ingin saat musibah medis datang dengan tagihan Rp 500 juta, Bapak/Ibu terpaksa menjual aset saham atau menarik modal kerja di saat harga sedang turun. Cukup sisihkan 5% cashflow, maka 95% aset lainnya terlindungi seutuhnya.”`,
+Tentu ya. Bisnis Bapak/Ibu adalah gedungnya, dan asuransi adalah sistem pemadam kebakarannya. Kita tidak ingin saat musibah medis datang dengan tagihan Rp 500 juta, Bapak/Ibu terpaksa menjual aset saham atau menarik modal kerja di saat harga sedang turun. Cukup sisihkan 5% cashflow, maka 95% aset lainnya terlindungi seutuhnya.”`,
       is_custom: 0
     },
     {
@@ -279,7 +279,7 @@ Tentu ya. Bisnis Bapak/Ibu adalah gedungnya, dan Prudential adalah sistem pemada
 
 Namun mari kita telaah bersama: jika untuk menyisihkan premi Rp 30.000 hingga Rp 50.000 per hari—setara secangkir kopi—kita merasa perlu berpikir panjang, bayangkan betapa beratnya beban keluarga jika tiba-tiba pihak rumah sakit meminta deposit tunai Rp 100 juta dalam 24 jam karena tindakan operasi darurat?
 
-Asuransi hadir bukan untuk menambah beban belanja, melainkan memindahkan risiko ratusan juta tersebut ke pundak Prudential dengan premi terukur yang disesuaikan dengan kapasitas Bapak/Ibu saat ini.”`,
+Asuransi hadir bukan untuk menambah beban belanja, melainkan memindahkan risiko ratusan juta tersebut ke perusahaan asuransi dengan premi terukur yang disesuaikan dengan kapasitas Bapak/Ibu saat ini.”`,
       is_custom: 0
     },
     {
@@ -287,11 +287,11 @@ Asuransi hadir bukan untuk menambah beban belanja, melainkan memindahkan risiko 
       user_id: 'system',
       title: '“Premi hangus kalau saya sehat walafiat / Merasa rugi ikut asuransi”',
       category: 'Premi & Biaya',
-      mindset: 'Calon nasabah menginginkan jaminan modal kembali. Tawarkan solusi produk tradisional atau Syariah Prudential yang memiliki fitur Guaranteed Return of Premium (PRUCinta / PRUWarisan).',
-      key_insight: 'Kita membeli helm atau tabung pemadam api bukan berharap terjadi kecelakaan, melainkan demi ketenangan pikiran. Selain itu, Prudential memiliki program PRUCinta Syariah di mana premi dikembalikan 100% bila nasabah sehat hingga akhir masa pertanggungan.',
+      mindset: 'Calon nasabah menginginkan jaminan modal kembali. Tawarkan solusi produk tradisional atau Syariah yang memiliki fitur Guaranteed Return of Premium.',
+      key_insight: 'Kita membeli helm atau tabung pemadam api bukan berharap terjadi kecelakaan, melainkan demi ketenangan pikiran. Selain itu, tersedia program proteksi syariah di mana premi dikembalikan 100% bila nasabah sehat hingga akhir masa pertanggungan.',
       script: `“Sangat wajar jika Bapak/Ibu berpikir demikian. Kabar baiknya, industri asuransi modern telah bertransformasi!
 
-Prudential menghadirkan PRUCinta Syariah: jika selama masa perlindungan 20 tahun Bapak/Ibu senantiasa diberikan kesehatan prima oleh Tuhan Yang Maha Esa, maka 100% total premi yang telah disetorkan akan dikembalikan utuh tanpa potongan.
+Tersedia program asuransi syariah khusus: jika selama masa perlindungan 20 tahun Bapak/Ibu senantiasa diberikan kesehatan prima oleh Tuhan Yang Maha Esa, maka 100% total premi yang telah disetorkan akan dikembalikan utuh tanpa potongan.
 
 Artinya, jika terjadi risiko, keluarga menerima Uang Pertanggungan hingga miliaran rupiah. Jika sehat walafiat, seluruh uang kembali 100%. Jadi tidak ada istilah uang hangus. Boleh kita hitung simulasinya?”`,
       is_custom: 0
@@ -301,11 +301,11 @@ Artinya, jika terjadi risiko, keluarga menerima Uang Pertanggungan hingga miliar
       user_id: 'system',
       title: '“Klaim asuransi katanya dipersulit dan banyak syarat tersembunyi”',
       category: 'Kepercayaan & Klaim',
-      mindset: 'Pahami kekhawatiran nasabah akibat berita miring. Edukasikan prinsip keterbukaan penuh (Utmost Good Faith) dan tunjukkan integritas pembayaran klaim Prudential Indonesia.',
-      key_insight: 'Prudential Indonesia membayarkan klaim lebih dari Rp 16 Triliun setiap tahunnya. Mayoritas klaim tertunda disebabkan karena adanya riwayat medis terdahulu yang tidak dideklarasikan saat pendaftaran (pre-existing condition) atau masa tunggu polis.',
+      mindset: 'Pahami kekhawatiran nasabah akibat berita miring. Edukasikan prinsip keterbukaan penuh (Utmost Good Faith) dan tunjukkan integritas pembayaran klaim perusahaan asuransi jiwa terpercaya.',
+      key_insight: 'Industri asuransi jiwa terpercaya membayarkan klaim puluhan triliun rupiah setiap tahunnya. Mayoritas klaim tertunda disebabkan karena adanya riwayat medis terdahulu yang tidak dideklarasikan saat pendaftaran (pre-existing condition) atau masa tunggu polis.',
       script: `“Saya sangat berterima kasih Bapak/Ibu telah menyampaikan kekhawatiran ini secara terbuka. Berita klaim yang dipersulit seringkali membuat kita ragu.
 
-Faktanya, Prudential Indonesia membayarkan klaim dan manfaat lebih dari Rp 16 Triliun setiap tahunnya kepada ratusan ribu keluarga di Indonesia.
+Faktanya, industri asuransi jiwa membayarkan klaim dan manfaat puluhan triliun rupiah setiap tahunnya kepada ratusan ribu keluarga di Indonesia.
 
 Penolakan klaim umumnya terjadi hanya karena dua hal: ada riwayat penyakit yang disembunyikan saat mendaftar, atau klaim diajukan pada masa tunggu awal polis. Tugas saya sebagai konsultan resmi Bapak/Ibu adalah memastikan pengisian Surat Pengajuan Asuransi Jiwa (SPAJ) dilakukan secara 100% jujur dan transparan, sehingga saat risiko terjadi, hak klaim Bapak/Ibu dijamin cair lancar tanpa kendala hukum.”`,
       is_custom: 0
@@ -330,12 +330,12 @@ Ketika seseorang sudah divonis kanker, jantung, atau stroke, berapapun uang yang
       title: '“Apakah asuransi sesuai dengan kaidah hukum Syariah?”',
       category: 'Syariah',
       mindset: 'Tunjukkan penghormatan pada prinsip spiritual nasabah. Jelaskan akad Tabarru (tolong-menolong) yang diawasi langsung oleh Dewan Syariah Nasional MUI.',
-      key_insight: 'Prudential Syariah beroperasi secara terpisah dengan izin OJK dan Dewan Pengawas Syariah (DPS) DSN-MUI. Menggunakan akad hibah tolong-menolong (Ta’awun), bebas dari unsur Riba, Gharar, dan Maisir, serta memiliki fitur wakaf manfaat asuransi.',
+      key_insight: 'Asuransi Syariah beroperasi secara terpisah dengan izin OJK dan Dewan Pengawas Syariah (DPS) DSN-MUI. Menggunakan akad hibah tolong-menolong (Ta’awun), bebas dari unsur Riba, Gharar, dan Maisir, serta memiliki fitur wakaf manfaat asuransi.',
       script: `“Pertanyaan yang sangat mulia Bapak/Ibu. Sebagai Muslim, memastikan setiap ikhtiar finansial kita sesuai syariat adalah kewajiban utama.
 
-Prudential Syariah adalah entitas resmi tersendiri yang diawasi langsung oleh Dewan Syariah Nasional Majelis Ulama Indonesia (DSN-MUI). Sistem kami tidak menggunakan jual-beli risiko, melainkan akad Tabarru’ di mana seluruh peserta saling menolong saat ada saudara peserta lain tertimpa musibah.
+Asuransi Syariah diawasi langsung oleh Dewan Syariah Nasional Majelis Ulama Indonesia (DSN-MUI). Sistem kami tidak menggunakan jual-beli risiko, melainkan akad Tabarru’ di mana seluruh peserta saling menolong saat ada saudara peserta lain tertimpa musibah.
 
-Bahkan, polis Prudential Syariah dilengkapi fitur Wakaf Manfaat Asuransi resmi ke lembaga nazhir bersertifikasi BWI, sehingga menjadi amal jariyah yang pahalanya terus mengalir abadi.”`,
+Bahkan, polis asuransi syariah dilengkapi fitur Wakaf Manfaat Asuransi resmi ke lembaga nazhir bersertifikasi BWI, sehingga menjadi amal jariyah yang pahalanya terus mengalir abadi.”`,
       is_custom: 0
     },
     {
@@ -343,13 +343,13 @@ Bahkan, polis Prudential Syariah dilengkapi fitur Wakaf Manfaat Asuransi resmi k
       user_id: 'system',
       title: '“Bagaimana kalau agen yang melayani saya berhenti atau resign di kemudian hari?”',
       category: 'Agen & Pelayanan',
-      mindset: 'Tunjukkan komitmen profesionalitas jangka panjang dan sistem korporasi Prudential yang memiliki perlindungan nasabah berlapis.',
-      key_insight: 'Kontrak polis dibuat antara nasabah dengan korporasi PT Prudential Life Assurance (usia 175+ tahun), bukan perorangan agen. Prudential memiliki Customer Line resmi, kantor agensi di seluruh kota, dan sistem penunjukan Servicing Agent otomatis.',
+      mindset: 'Tunjukkan komitmen profesionalitas jangka panjang dan sistem korporasi asuransi yang memiliki perlindungan nasabah berlapis.',
+      key_insight: 'Kontrak polis dibuat antara nasabah dengan korporasi asuransi jiwa berizin OJK, bukan perorangan agen. Perusahaan asuransi memiliki Customer Line resmi, kantor agensi di seluruh kota, dan sistem penunjukan Servicing Agent otomatis.',
       script: `“Kekhawatiran yang sangat masuk akal Bapak/Ibu. Banyak nasabah merasa cemas jika agen mereka tidak aktif lagi.
 
-Perlu kami sampaikan bahwa kontrak asuransi yang sah dibuat antara Bapak/Ibu dengan PT Prudential Life Assurance yang telah berdiri lebih dari 175 tahun secara global. Hak manfaat perlindungan Bapak/Ibu dijamin secara hukum oleh korporasi.
+Perlu kami sampaikan bahwa kontrak asuransi yang sah dibuat antara Bapak/Ibu dengan perusahaan asuransi jiwa resmi yang berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK). Hak manfaat perlindungan Bapak/Ibu dijamin secara hukum oleh korporasi.
 
-Secara profesional, saya mendedikasikan karier ini untuk jangka panjang dan agensi kami memiliki tim operasional yang lengkap. Selain itu, Prudential memiliki mekanisme penunjukan Servicing Agent resmi serta kantor layanan di seluruh kota besar di Indonesia.”`,
+Secara profesional, saya mendedikasikan karier ini untuk jangka panjang dan agensi kami memiliki tim operasional yang lengkap. Selain itu, perusahaan asuransi memiliki mekanisme penunjukan Servicing Agent resmi serta kantor layanan di seluruh kota besar di Indonesia.”`,
       is_custom: 0
     }
   ];

@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - CENTRALIZED REST API ROUTER
+// AGENTPROSPECT PRO - CENTRALIZED REST API ROUTER
 // ==========================================================================
 
 import { sendJson, authenticate } from '../middleware/auth.js';

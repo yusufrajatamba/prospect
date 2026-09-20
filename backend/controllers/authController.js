@@ -1,5 +1,5 @@
 // ==========================================================================
-// PRUPROSPECT PRO - AUTH CONTROLLER
+// AGENTPROSPECT PRO - AUTH CONTROLLER
 // ==========================================================================
 
 import { db } from '../database.js';
@@ -19,7 +19,7 @@ export async function handleLogin(req, res) {
     WHERE phone = ? OR email = ? OR agent_code = ?
   `).get(loginKey, loginKey, loginKey);
 
-  if (!user || (user.password !== password && !(user.password === 'password123' && password === 'pru123') && !(user.password === 'pru123' && password === 'password123'))) {
+  if (!user || user.password !== password) {
     return sendJson(res, 401, { error: 'Nomor telepon atau kata sandi tidak cocok dengan akun terdaftar.' });
   }
 
@@ -29,7 +29,7 @@ export async function handleLogin(req, res) {
     name: user.name,
     phone: user.phone || '',
     email: user.email || '',
-    agency_name: user.agency_name || 'Prudential Agency Office',
+    agency_name: user.agency_name || 'Agency Office',
     role: user.role || 'Agent'
   };
 
@@ -47,7 +47,7 @@ export async function handleRegister(req, res) {
   name = (name || '').trim();
   phone = (phone || '').trim();
   password = (password || '').trim();
-  agency_name = (agency_name || 'Prudential Agency Office').trim();
+  agency_name = (agency_name || 'Agency Office').trim();
 
   if (!name || !phone || !password) {
     return sendJson(res, 400, { error: 'Nama lengkap, nomor telepon/WhatsApp, dan kata sandi wajib diisi.' });
@@ -59,34 +59,35 @@ export async function handleRegister(req, res) {
     return sendJson(res, 409, { error: 'Nomor telepon ini sudah terdaftar. Silakan langsung masuk.' });
   }
 
-  const newUserId = `usr_${Date.now()}`;
-  const autoAgentCode = agent_code || `PRU-${phone.slice(-4) || Math.floor(1000 + Math.random() * 9000)}`;
-  const autoEmail = email || `${phone.replace(/\D/g, '')}@agen.pru`;
-  const now = new Date().toISOString();
+  const userId = `usr_${Date.now()}`;
+  const generatedCode = agent_code || `AG-${phone.slice(-4)}`;
+  const userEmail = email || `${phone}@agentprospect.id`;
+  const createdAt = new Date().toISOString();
 
   db.prepare(`
-    INSERT INTO users (id, agent_code, name, phone, email, password, agency_name, role, created_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(newUserId, autoAgentCode, name, phone, autoEmail, password, agency_name, 'Agent', now);
+    INSERT INTO users (id, agent_code, name, email, phone, password, agency_name, role, created_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, 'Agent', ?)
+  `).run(userId, generatedCode, name, userEmail, phone, password, agency_name, createdAt);
 
+  // Buat default goals untuk agen baru
   db.prepare(`
-    INSERT INTO agent_goals (id, user_id, yearly_ape_target, monthly_prospect_target, daily_contacts_target, weekly_appointments_target)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `).run(`goal_${Date.now()}`, newUserId, 600000000, 20, 10, 3);
+    INSERT OR IGNORE INTO agent_goals (id, user_id, yearly_ape_target, monthly_prospect_target, daily_contacts_target, weekly_appointments_target)
+    VALUES (?, ?, 600000000, 20, 10, 3)
+  `).run(`goal_${Date.now()}`, userId);
 
-  const safeUser = {
-    id: newUserId,
-    agent_code: autoAgentCode,
+  const newUser = {
+    id: userId,
+    agent_code: generatedCode,
     name,
     phone,
-    email: autoEmail,
+    email: userEmail,
     agency_name,
     role: 'Agent'
   };
 
   return sendJson(res, 201, {
-    token: newUserId,
-    user: safeUser,
+    token: userId,
+    user: newUser,
     message: 'Pendaftaran agen berhasil!'
   });
 }
@@ -103,7 +104,7 @@ export function handleGetMe(req, res) {
       name: user.name,
       phone: user.phone || '',
       email: user.email || '',
-      agency_name: user.agency_name || 'Prudential Agency Office',
+      agency_name: user.agency_name || 'Agency Office',
       role: user.role || 'Agent'
     }
   });

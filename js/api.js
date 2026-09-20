@@ -1,16 +1,16 @@
 // ==========================================================================
-// PRUPROSPECT PRO - HYBRID API & GOOGLE SHEETS DATABASE SERVICE
+// AGENTPROSPECT PRO - HYBRID API & GOOGLE SHEETS DATABASE SERVICE
 // ==========================================================================
 
 class ApiService {
   constructor() {
-    this.tokenKey = 'pru_agent_token_v2';
-    this.sheetUrlKey = 'pru_google_sheet_url';
+    this.tokenKey = 'agent_token_v2';
+    this.sheetUrlKey = 'agent_google_sheet_url';
   }
 
   // Token Management
   getToken() {
-    return localStorage.getItem(this.tokenKey);
+    return localStorage.getItem(this.tokenKey) || localStorage.getItem('pru_agent_token_v2');
   }
 
   setToken(token) {
@@ -19,16 +19,20 @@ class ApiService {
 
   removeToken() {
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem('pru_agent_token_v2');
+    localStorage.removeItem('pru_current_user_profile');
+    localStorage.removeItem('agent_current_user_profile');
   }
 
   // Google Sheet Web App Management
   getSheetUrl() {
-    return (localStorage.getItem(this.sheetUrlKey) || 'https://script.google.com/macros/s/AKfycbw1Sg2FiW-xPr3wiBHOjHQo7FoMGvnmeS3bmoLLj-FVa6AZzyXLU5nJP10vE7HJ98Dm1A/exec').trim();
+    return (localStorage.getItem(this.sheetUrlKey) || localStorage.getItem('pru_google_sheet_url') || 'https://script.google.com/macros/s/AKfycbw1Sg2FiW-xPr3wiBHOjHQo7FoMGvnmeS3bmoLLj-FVa6AZzyXLU5nJP10vE7HJ98Dm1A/exec').trim();
   }
 
   setSheetUrl(url) {
     if (!url || !url.trim()) {
       localStorage.removeItem(this.sheetUrlKey);
+      localStorage.removeItem('pru_google_sheet_url');
     } else {
       localStorage.setItem(this.sheetUrlKey, url.trim());
     }
@@ -223,7 +227,7 @@ class ApiService {
     const name = (agentData.name || '').trim();
     const phone = (agentData.phone || '').trim();
     const password = (agentData.password || '').trim();
-    const agency_name = (agentData.agency_name || agentData.agency || 'Prudential Agency Office').trim();
+    const agency_name = (agentData.agency_name || agentData.agency || 'Agency Office').trim();
 
     // 1. Prioritaskan Google Apps Script Web App (Simpan langsung ke sheet Akun_Agen)
     if (this.hasSheetUrl()) {
@@ -234,7 +238,7 @@ class ApiService {
         if (data && data.token) {
           this.setToken(data.token);
           if (data.user) {
-            localStorage.setItem('pru_current_user_profile', JSON.stringify(data.user));
+            localStorage.setItem('agent_current_user_profile', JSON.stringify(data.user));
           }
           return data;
         }
@@ -263,7 +267,7 @@ class ApiService {
       }
 
       // 3. Fallback jika backend offline: simpan akun di localStorage browser
-      const localAgents = JSON.parse(localStorage.getItem('pru_registered_agents') || '[]');
+      const localAgents = JSON.parse(localStorage.getItem('agent_registered_agents') || localStorage.getItem('pru_registered_agents') || '[]');
       if (localAgents.some(a => a.phone === phone)) {
         throw new Error('Nomor telepon ini sudah terdaftar. Silakan langsung masuk.');
       }
@@ -271,16 +275,16 @@ class ApiService {
       const newId = `usr_${Date.now()}`;
       const newAgent = {
         id: newId,
-        agent_code: `PRU-${phone.slice(-4) || '999'}`,
+        agent_code: `AG-${phone.slice(-4) || '999'}`,
         name,
         phone,
-        email: `${phone.replace(/\D/g, '')}@agen.pru`,
+        email: `${phone.replace(/\D/g, '')}@agentprospect.id`,
         password,
         agency_name,
         role: 'Agent'
       };
       localAgents.push(newAgent);
-      localStorage.setItem('pru_registered_agents', JSON.stringify(localAgents));
+      localStorage.setItem('agent_registered_agents', JSON.stringify(localAgents));
 
       const safe = { ...newAgent };
       delete safe.password;
@@ -530,8 +534,8 @@ class ApiService {
         objection,
         category,
         mindset: `Validasi kekhawatiran calon nasabah tentang ${category}. Berikan empati mendalam tanpa membantah secara agresif. Posisikan asuransi sebagai perlindungan cinta untuk keluarga.`,
-        key_insight: `Fakta Finansial: Risiko kehidupan (sakit, kecelakaan, tutup usia) terjadi tanpa pemberitahuan. Memiliki proteksi Prudential sejak dini mengunci tarif premi terendah dan melindungi aset produktif keluarga.`,
-        script: `“Bapak/Ibu, saya sangat memahami dan menghargai pandangan Bapak/Ibu mengenai hal ini. Banyak nasabah prioritas saya awalnya memiliki pemikiran serupa sebelum mereka melihat bagaimana polis Prudential hadir bukan untuk menambah beban, melainkan menjadi benteng pelindung finansial keluarga tercinta saat musibah tak terduga datang. Boleh saya tunjukkan bagaimana skema ini bekerja khusus untuk keluarga Bapak/Ibu?”`
+        key_insight: `Fakta Finansial: Risiko kehidupan (sakit, kecelakaan, tutup usia) terjadi tanpa pemberitahuan. Memiliki proteksi asuransi sejak dini mengunci tarif premi terendah dan melindungi aset produktif keluarga.`,
+        script: `“Bapak/Ibu, saya sangat memahami dan menghargai pandangan Bapak/Ibu mengenai hal ini. Banyak nasabah prioritas saya awalnya memiliki pemikiran serupa sebelum mereka melihat bagaimana asuransi hadir bukan untuk menambah beban, melainkan menjadi benteng pelindung finansial keluarga tercinta saat musibah tak terduga datang. Boleh saya tunjukkan bagaimana skema ini bekerja khusus untuk keluarga Bapak/Ibu?”`
       };
     }
 
