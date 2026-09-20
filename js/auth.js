@@ -79,7 +79,7 @@ export class AuthManager {
     if (menuBtnOpenAuth) {
       menuBtnOpenAuth.addEventListener('click', () => {
         if (dropdownMenu) dropdownMenu.classList.remove('active');
-        this.openAuthModal();
+        this.logout(false);
       });
     }
 
@@ -98,7 +98,7 @@ export class AuthManager {
 
     const btnOpenAuth = document.getElementById('btnOpenAuth');
     if (btnOpenAuth) {
-      btnOpenAuth.addEventListener('click', () => this.openAuthModal());
+      btnOpenAuth.addEventListener('click', () => this.showAuthScreen());
     }
   }
 
@@ -106,7 +106,7 @@ export class AuthManager {
     const token = api.getToken();
     if (!token) {
       this.renderUserBadge();
-      this.openAuthModal();
+      this.showAuthScreen();
       return;
     }
 
@@ -114,12 +114,13 @@ export class AuthManager {
       const res = await api.getMe();
       this.currentUser = res.user;
       this.renderUserBadge();
+      this.hideAuthScreen();
       this.app.onUserLoggedIn(this.currentUser);
     } catch {
       api.removeToken();
       this.currentUser = null;
       this.renderUserBadge();
-      this.openAuthModal();
+      this.showAuthScreen();
     }
   }
 
@@ -182,12 +183,15 @@ export class AuthManager {
     }
   }
 
-  logout() {
-    if (confirm('Apakah Anda yakin ingin keluar dari akun agen ini?')) {
+  logout(askConfirm = true) {
+    if (!askConfirm || confirm('Apakah Anda yakin ingin keluar dari akun agen ini?')) {
       api.removeToken();
       this.currentUser = null;
       this.renderUserBadge();
-      this.openAuthModal();
+      this.showAuthScreen();
+      if (this.app && typeof this.app.onUserLoggedOut === 'function') {
+        this.app.onUserLoggedOut();
+      }
       this.app.showToast('Anda telah keluar.');
     }
   }
@@ -220,13 +224,27 @@ export class AuthManager {
     }
   }
 
+  showAuthScreen() {
+    const screen = document.getElementById('authScreen');
+    const app = document.getElementById('appContainer');
+    if (screen) screen.style.display = 'flex';
+    if (app) app.style.display = 'none';
+    // Close any leftover active modals
+    document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+  }
+
+  hideAuthScreen() {
+    const screen = document.getElementById('authScreen');
+    const app = document.getElementById('appContainer');
+    if (screen) screen.style.display = 'none';
+    if (app) app.style.display = 'block';
+  }
+
   openAuthModal() {
-    const modal = document.getElementById('modalAuth');
-    if (modal) modal.classList.add('active');
+    this.showAuthScreen();
   }
 
   closeAuthModal() {
-    const modal = document.getElementById('modalAuth');
-    if (modal) modal.classList.remove('active');
+    this.hideAuthScreen();
   }
 }

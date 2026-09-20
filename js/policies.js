@@ -47,6 +47,11 @@ export class PolicyManager {
   }
 
   async loadPolicies() {
+    if (!this.app?.authManager?.currentUser) {
+      this.policies = [];
+      this.render();
+      return;
+    }
     try {
       const res = await api.getPolicies();
       this.policies = res.policies || [];

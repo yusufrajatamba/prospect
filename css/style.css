@@ -2647,8 +2647,50 @@ body {
 }
 
 /* ==========================================================================
-   PORTAL AGEN PRUDENTIAL - MODERN AUTH MODAL REVAMP
+   PORTAL AGEN PRUDENTIAL - FULL SCREEN AUTH GATEKEEPER
    ========================================================================== */
+.auth-full-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: radial-gradient(circle at 50% 20%, #0e2942 0%, #06192a 60%, #030d17 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+  min-height: 100vh;
+}
+
+.auth-card-wrapper {
+  width: 100%;
+  max-width: 440px;
+  margin: auto;
+  animation: authFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-brand-banner {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.auth-footer-note {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+@keyframes authFadeIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 .auth-modal-card {
   border-radius: 16px !important;
   overflow: hidden;

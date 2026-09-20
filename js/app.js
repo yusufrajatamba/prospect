@@ -79,7 +79,41 @@ class PruProspectApp {
     await this.refreshDashboardStats();
   }
 
+  onUserLoggedOut() {
+    this.prospects = [];
+    if (this.policyManager) {
+      this.policyManager.policies = [];
+      this.policyManager.render();
+    }
+    this.render();
+    this.populateProspectDropdowns();
+    this.renderKPIs({
+      total: 0,
+      hot: 0,
+      followup_today: 0,
+      closing: 0,
+      pipeline: {}
+    });
+    this.renderMDRT({
+      total_ape: 0,
+      cases_count: 0
+    });
+    this.updateSidebarBadges({
+      total: 0,
+      hot: 0,
+      followup_today: 0,
+      closing: 0
+    });
+    // Close any open modals
+    document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+  }
+
   async refreshProspects() {
+    if (!this.authManager?.currentUser) {
+      this.prospects = [];
+      this.render();
+      return;
+    }
     try {
       const res = await api.getProspects();
       this.prospects = res.prospects || [];
@@ -92,6 +126,9 @@ class PruProspectApp {
   }
 
   async refreshDashboardStats() {
+    if (!this.authManager?.currentUser) {
+      return;
+    }
     try {
       const stats = await api.getDashboardStats();
       this.renderKPIs(stats);
