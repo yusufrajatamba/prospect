@@ -621,28 +621,8 @@ function setupAkunAgenSheet(ss) {
     'Kantor_Pemasaran', 'Kode_Agen', 'Role', 'Tanggal_Terdaftar'
   ];
 
-  if (sheet.getLastRow() === 0) {
-    sheet.getRange(1, 1, 1, headers.length).setValues([headers])
-      .setBackground('#062135').setFontColor('#ffffff').setFontWeight('bold');
-
-    // Data Akun Default (Budi & Rina)
-    const defaultUsers = [
-      [
-        'usr_budi_01', 'Budi Pratama, CFP®', '081234567890', 'password123',
-        'KPM Pru Stars Jakarta', 'PRU-001', 'Senior Agency Partner',
-        Utilities.formatDate(new Date(), 'GMT+7', 'yyyy-MM-dd HH:mm')
-      ],
-      [
-        'usr_rina_02', 'Rina Amelia', '081987654321', 'password123',
-        'KPM Pru Prima Bandung', 'PRU-002', 'Financial Consultant',
-        Utilities.formatDate(new Date(), 'GMT+7', 'yyyy-MM-dd HH:mm')
-      ]
-    ];
-    sheet.getRange(2, 1, defaultUsers.length, headers.length).setValues(defaultUsers);
-  } else {
-    sheet.getRange(1, 1, 1, headers.length).setValues([headers])
-      .setBackground('#062135').setFontColor('#ffffff').setFontWeight('bold');
-  }
+  sheet.getRange(1, 1, 1, headers.length).setValues([headers])
+    .setBackground('#062135').setFontColor('#ffffff').setFontWeight('bold');
 
   sheet.setFrozenRows(1);
   sheet.autoResizeColumns(1, headers.length);
@@ -1749,12 +1729,6 @@ function fetchUserByToken(ss, token) {
   if (!token) return { error: 'Token tidak disertakan' };
   const sheet = ss.getSheetByName(SHEETS.USER);
   if (!sheet) {
-    // Fallback default demo account
-    if (token === 'usr_budi_01') {
-      return {
-        user: { id: 'usr_budi_01', name: 'Budi Pratama, CFP®', phone: '081234567890', agency_name: 'KPM Pru Stars Jakarta', role: 'Senior Agency Partner' }
-      };
-    }
     return { error: 'Sheet Akun_Agen tidak ditemukan' };
   }
 
@@ -1773,12 +1747,6 @@ function fetchUserByToken(ss, token) {
         }
       };
     }
-  }
-
-  if (token === 'usr_budi_01') {
-    return {
-      user: { id: 'usr_budi_01', name: 'Budi Pratama, CFP®', phone: '081234567890', agency_name: 'KPM Pru Stars Jakarta', role: 'Senior Agency Partner' }
-    };
   }
 
   return { error: 'Akun agen tidak ditemukan.' };

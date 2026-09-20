@@ -75,22 +75,6 @@ export class AuthManager {
     }
 
     // Dropdown Action Items
-    const menuBtnDemoBudi = document.getElementById('menuBtnDemoBudi');
-    if (menuBtnDemoBudi) {
-      menuBtnDemoBudi.addEventListener('click', () => {
-        if (dropdownMenu) dropdownMenu.classList.remove('active');
-        this.quickLogin('081234567890', 'password123');
-      });
-    }
-
-    const menuBtnDemoRina = document.getElementById('menuBtnDemoRina');
-    if (menuBtnDemoRina) {
-      menuBtnDemoRina.addEventListener('click', () => {
-        if (dropdownMenu) dropdownMenu.classList.remove('active');
-        this.quickLogin('081987654321', 'password123');
-      });
-    }
-
     const menuBtnOpenAuth = document.getElementById('menuBtnOpenAuth');
     if (menuBtnOpenAuth) {
       menuBtnOpenAuth.addEventListener('click', () => {
@@ -107,17 +91,6 @@ export class AuthManager {
       });
     }
 
-    // Modal quick login buttons if present
-    const btnDemoBudi = document.getElementById('btnDemoBudi');
-    if (btnDemoBudi) {
-      btnDemoBudi.addEventListener('click', () => this.quickLogin('081234567890', 'password123'));
-    }
-
-    const btnDemoRina = document.getElementById('btnDemoRina');
-    if (btnDemoRina) {
-      btnDemoRina.addEventListener('click', () => this.quickLogin('081987654321', 'password123'));
-    }
-
     const btnLogout = document.getElementById('btnLogout');
     if (btnLogout) {
       btnLogout.addEventListener('click', () => this.logout());
@@ -132,8 +105,8 @@ export class AuthManager {
   async checkAuthStatus() {
     const token = api.getToken();
     if (!token) {
-      // Default ke demo Budi Pratama (081234567890) saat pertama kali buka
-      await this.quickLogin('081234567890', 'password123', true);
+      this.renderUserBadge();
+      this.openAuthModal();
       return;
     }
 
@@ -144,6 +117,8 @@ export class AuthManager {
       this.app.onUserLoggedIn(this.currentUser);
     } catch {
       api.removeToken();
+      this.currentUser = null;
+      this.renderUserBadge();
       this.openAuthModal();
     }
   }

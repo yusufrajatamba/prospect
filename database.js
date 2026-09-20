@@ -161,12 +161,6 @@ export function initDatabase() {
   // Seed default objection playbook if empty
   seedPlaybookIfEmpty();
 
-  // Check if seed data exists
-  const checkUser = db.prepare('SELECT COUNT(*) as count FROM users').get();
-  if (checkUser.count === 0) {
-    seedInitialData();
-  }
-
   // Seed default goals if empty
   seedGoalsIfEmpty();
 }
@@ -271,23 +265,10 @@ function seedGoalsIfEmpty() {
 }
 
 function seedInitialData() {
-  console.log('Seeding initial demo agents and prospects...');
+  // No-op: Demo accounts removed
+}
 
-  // Agent 1: Budi Pratama (Jakarta)
-  const agent1Id = 'usr_budi_01';
-  db.prepare(`
-    INSERT INTO users (id, agent_code, name, email, password, agency_name, role, created_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    agent1Id,
-    'PRU-001',
-    'Budi Pratama, CFP®',
-    'budi@prudential.id',
-    'pru123',
-    'KPM Pru Stars Jakarta',
-    'Senior Financial Consultant',
-    new Date().toISOString()
-  );
+function _unusedLegacySeed() {
 
   // Agent 1 Goals
   db.prepare(`

@@ -57,17 +57,11 @@ class PruProspectApp {
     if (avatarEl) avatarEl.textContent = initials;
 
     const nameEl = document.getElementById('agentDisplayName');
-    if (nameEl) nameEl.textContent = user.name || 'Budi Pratama, CFP®';
+    if (nameEl) nameEl.textContent = user.name || 'Portal Agen';
 
     const codeEl = document.getElementById('agentCodeDisplay');
-    if (codeEl) codeEl.textContent = `Kode: ${user.agent_code || 'PRU-001'} • ${user.agency_name || 'Jakarta'}`;
-
-    // Highlight active switcher button
-    document.querySelectorAll('.btn-account-switch').forEach(btn => btn.classList.remove('active'));
-    if (user.id === 'usr_budi_01') {
-      document.getElementById('menuBtnDemoBudi')?.classList.add('active');
-    } else if (user.id === 'usr_rina_02') {
-      document.getElementById('menuBtnDemoRina')?.classList.add('active');
+    if (codeEl) {
+      codeEl.textContent = user.phone ? `WhatsApp: ${user.phone} • ${user.agency_name || 'Prudential'}` : (user.agency_name || 'Prudential Indonesia');
     }
 
     const dateEl = document.getElementById('topCurrentDate');

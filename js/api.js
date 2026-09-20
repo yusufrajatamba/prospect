@@ -215,39 +215,7 @@ class ApiService {
         return { token: safe.id, user: safe, message: 'Login berhasil (Mode Lokal)!' };
       }
 
-      // Cek Akun Demo Budi
-      if ((cleanPhone === '081234567890' || cleanPhone === 'budi@prudential.id' || cleanPhone === 'PRU-001') && 
-          (cleanPass === 'pru123' || cleanPass === 'password123')) {
-        const budiUser = {
-          id: 'usr_budi_01',
-          agent_code: 'PRU-001',
-          name: 'Budi Pratama, CFP®',
-          phone: '081234567890',
-          email: 'budi@prudential.id',
-          agency_name: 'KPM Pru Stars Jakarta',
-          role: 'Senior Agency Partner'
-        };
-        this.setToken('usr_budi_01');
-        return { token: 'usr_budi_01', user: budiUser, message: 'Login Budi Pratama berhasil!' };
-      }
-
-      // Cek Akun Demo Rina
-      if ((cleanPhone === '081987654321' || cleanPhone === 'rina@prudential.id' || cleanPhone === 'PRU-002') && 
-          (cleanPass === 'pru123' || cleanPass === 'password123')) {
-        const rinaUser = {
-          id: 'usr_rina_02',
-          agent_code: 'PRU-002',
-          name: 'Rina Amelia',
-          phone: '081987654321',
-          email: 'rina@prudential.id',
-          agency_name: 'KPM Pru Prima Bandung',
-          role: 'Financial Consultant'
-        };
-        this.setToken('usr_rina_02');
-        return { token: 'usr_rina_02', user: rinaUser, message: 'Login Rina Amelia berhasil!' };
-      }
-
-      throw new Error('Nomor telepon atau kata sandi tidak cocok. Gunakan akun demo (081234567890 / password123) atau daftarkan akun baru.');
+      throw new Error('Nomor telepon atau kata sandi tidak cocok. Silakan periksa kembali atau daftarkan akun baru.');
     }
   }
 
@@ -335,22 +303,6 @@ class ApiService {
     try {
       return await this.request('/api/auth/me');
     } catch {
-      // 3. Fallback offline berdasarkan token aktif
-      const token = this.getToken();
-      if (token === 'usr_rina_02') {
-        return {
-          user: {
-            id: 'usr_rina_02',
-            agent_code: 'PRU-002',
-            name: 'Rina Amelia',
-            phone: '081987654321',
-            email: 'rina@prudential.id',
-            agency_name: 'KPM Pru Prima Bandung',
-            role: 'Financial Consultant'
-          }
-        };
-      }
-
       const localAgents = JSON.parse(localStorage.getItem('pru_registered_agents') || '[]');
       const found = localAgents.find(a => a.id === token);
       if (found) {
@@ -359,18 +311,7 @@ class ApiService {
         return { user: safe };
       }
 
-      // Default ke Budi Pratama
-      return {
-        user: {
-          id: 'usr_budi_01',
-          agent_code: 'PRU-001',
-          name: 'Budi Pratama, CFP®',
-          phone: '081234567890',
-          email: 'budi@prudential.id',
-          agency_name: 'KPM Pru Stars Jakarta',
-          role: 'Senior Agency Partner'
-        }
-      };
+      throw new Error('Sesi akun tidak ditemukan.');
     }
   }
 

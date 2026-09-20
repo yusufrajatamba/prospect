@@ -197,8 +197,6 @@ function runMigrations() {
   // 4. Data Backfill
   try {
     db.exec(`
-      UPDATE users SET phone = '081234567890' WHERE id = 'usr_budi_01' AND (phone IS NULL OR phone = '');
-      UPDATE users SET phone = '081987654321' WHERE id = 'usr_rina_02' AND (phone IS NULL OR phone = '');
       UPDATE policies SET client_name = COALESCE(client_name, holder_name, 'Nasabah') WHERE client_name IS NULL;
       UPDATE policies SET client_phone = COALESCE(client_phone, phone, '-') WHERE client_phone IS NULL;
       UPDATE policies SET start_date = COALESCE(start_date, issued_date, created_at, '2026-01-01') WHERE start_date IS NULL;
@@ -218,47 +216,11 @@ function runMigrations() {
 }
 
 function seedInitialData() {
-  const existingUser = db.prepare('SELECT id FROM users WHERE id = ?').get('usr_budi_01');
-  if (!existingUser) {
-    const now = new Date().toISOString();
+  // No-op: Demo accounts removed
+}
 
-    // 1. Seed User Budi Pratama
-    db.prepare(`
-      INSERT INTO users (id, agent_code, name, phone, email, password, agency_name, role, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run('usr_budi_01', 'PRU-001', 'Budi Pratama, CFP®', '081234567890', 'budi@prudential.id', 'password123', 'KPM Pru Stars Jakarta', 'Senior Agency Partner', now);
-
-    // 2. Seed User Rina Amelia
-    db.prepare(`
-      INSERT INTO users (id, agent_code, name, phone, email, password, agency_name, role, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run('usr_rina_02', 'PRU-002', 'Rina Amelia', '081987654321', 'rina@prudential.id', 'password123', 'KPM Pru Prima Bandung', 'Financial Consultant', now);
-
-    // 3. Goals for Budi
-    db.prepare(`
-      INSERT INTO agent_goals (id, user_id, yearly_ape_target, monthly_prospect_target, daily_contacts_target, weekly_appointments_target)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `).run('goal_budi', 'usr_budi_01', 600000000, 25, 10, 4);
-
-    // 4. Seed Dynamic Production Goals for Budi
-    const initialGoals = [
-      { id: 'g_mdrt_2026', title: 'Target Kualifikasi MDRT 2026', category: 'MDRT', target_val: 600000000, unit: 'Rp', period: 'Tahunan', deadline: '2026-12-31' },
-      { id: 'g_cases_50', title: '50 Polis Baru In-Force (PruPrime)', category: 'Cases', target_val: 50, unit: 'Kasus', period: 'Tahunan', deadline: '2026-12-31' },
-      { id: 'g_trip_paris', title: 'Target Star Club Trip Paris 2026', category: 'Trip', target_val: 250000000, unit: 'Rp', period: 'Semester', deadline: '2026-09-30' },
-      { id: 'g_project_100', title: 'Penyelesaian Database Project 100', category: 'Contacts', target_val: 100, unit: 'Orang', period: 'Bulanan', deadline: '2026-10-31' }
-    ];
-
-    const insertGoalStmt = db.prepare(`
-      INSERT INTO production_goals (id, user_id, title, category, target_val, current_val, unit, period, deadline, status, created_at)
-      VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, 'Active', ?)
-    `);
-    initialGoals.forEach(g => {
-      insertGoalStmt.run(g.id, 'usr_budi_01', g.title, g.category, g.target_val, g.unit, g.period, g.deadline, now);
-    });
-
-    // 5. Objection Playbook Items (8 Core Heuristics)
-    seedDefaultPlaybook(now);
-  }
+function _unusedLegacySeed() {
+  // Demo seed removed
 }
 
 export function resetAllProspectAndPolicyData() {
