@@ -26,7 +26,7 @@ class ApiService {
 
   // Google Sheet Web App Management
   getSheetUrl() {
-    return (localStorage.getItem(this.sheetUrlKey) || localStorage.getItem('pru_google_sheet_url') || 'https://script.google.com/macros/s/AKfycbw1Sg2FiW-xPr3wiBHOjHQo7FoMGvnmeS3bmoLLj-FVa6AZzyXLU5nJP10vE7HJ98Dm1A/exec').trim();
+    return (localStorage.getItem(this.sheetUrlKey) || localStorage.getItem('pru_google_sheet_url') || 'https://script.google.com/macros/s/AKfycbwyQX3kqdj4miBc5JyrwLIe-GqtylPjrGYSmXZqWpUsC5hP_sFu0Bg-seJOAm6LLwpy3g/exec').trim();
   }
 
   setSheetUrl(url) {
