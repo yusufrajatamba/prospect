@@ -652,30 +652,7 @@
               <span>PORTAL AGEN RESMI</span>
             </div>
             <h3 id="authModalTitle" style="margin: 0.25rem 0 0.2rem; font-size: 1.15rem; font-weight: 800; color: #ffffff;">Autentikasi Portal Agen</h3>
-            <p style="margin: 0; font-size: 0.75rem; color: #94a3b8;">Masuk atau daftarkan akun untuk mengakses database pribadi Anda.</p>
-          </div>
-        </div>
-
-        <!-- Segmented Tab Switcher (Modern Pill Slider) -->
-        <div class="auth-tab-container">
-          <div class="auth-tabs-segmented">
-            <button type="button" id="tabShowLogin" class="auth-tab-pill active">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-                <polyline points="10 17 15 12 10 7"/>
-                <line x1="15" y1="12" x2="3" y2="12"/>
-              </svg>
-              <span>Masuk</span>
-            </button>
-            <button type="button" id="tabShowRegister" class="auth-tab-pill">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="8.5" cy="7" r="4"/>
-                <line x1="20" y1="8" x2="20" y2="14"/>
-                <line x1="23" y1="11" x2="17" y2="11"/>
-              </svg>
-              <span>Daftar Agen Baru</span>
-            </button>
+            <p style="margin: 0; font-size: 0.75rem; color: #94a3b8;">Masukkan kredensial akun agen Anda untuk mengakses sistem.</p>
           </div>
         </div>
 
@@ -719,69 +696,22 @@
           </form>
         </div>
 
-        <!-- Register Pane -->
+        <!-- Register Pane: Admin-only notice -->
         <div id="registerPane" class="modal-body auth-modal-body" style="display: none;">
-          <form id="registerForm">
-            <div class="form-group">
-              <label class="form-label" for="regName">Nama Lengkap Agen *</label>
-              <div class="input-with-icon-wrap">
-                <span class="input-leading-icon">
-                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                  </svg>
-                </span>
-                <input type="text" id="regName" class="form-input form-input-with-icon" placeholder="Contoh: Yusuf Raja Tamba" required autocomplete="name">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="regPhone">Nomor Telepon / WhatsApp *</label>
-              <div class="input-with-icon-wrap">
-                <span class="input-leading-icon">
-                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                  </svg>
-                </span>
-                <input type="tel" id="regPhone" class="form-input form-input-with-icon" placeholder="Contoh: 082276471331" required autocomplete="tel">
-              </div>
-              <div class="auth-input-hint">Cukup nomor HP/WA aktif, tidak perlu nomor lisensi agen.</div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="regPassword">Kata Sandi *</label>
-              <div class="input-with-icon-wrap">
-                <span class="input-leading-icon">
-                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                  </svg>
-                </span>
-                <input type="password" id="regPassword" class="form-input form-input-with-icon" placeholder="Minimal 6 karakter" required autocomplete="new-password">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="regAgency">Kantor Pemasaran (KPM) / Agency (Opsional)</label>
-              <div class="input-with-icon-wrap">
-                <span class="input-leading-icon">
-                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 21h18M3 7v14M21 7v14M6 11h2M6 15h2M11 11h2M11 15h2M16 11h2M16 15h2M12 3l9 4H3l9-4z"/>
-                  </svg>
-                </span>
-                <input type="text" id="regAgency" class="form-input form-input-with-icon" placeholder="Contoh: Agency Office">
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary auth-submit-btn">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="8.5" cy="7" r="4"/>
-                <polyline points="17 11 19 13 23 9"/>
+          <div style="text-align: center; padding: 1.5rem 0.5rem;">
+            <div style="width: 52px; height: 52px; background: #1e293b; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#64748b" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
               </svg>
-              <span>Daftarkan Akun Agen</span>
-            </button>
-          </form>
+            </div>
+            <h4 style="margin: 0 0 0.5rem; color: #f1f5f9; font-size: 1rem; font-weight: 700;">Pendaftaran Terbatas</h4>
+            <p style="margin: 0 0 1rem; color: #64748b; font-size: 0.82rem; line-height: 1.6;">Akun agen hanya dapat dibuat oleh <strong style="color: #94a3b8;">Administrator</strong> melalui Google Spreadsheet.<br>Hubungi atasan atau admin kantor Anda untuk mendapatkan akses.</p>
+            <div style="background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 0.75rem 1rem; text-align: left;">
+              <p style="margin: 0 0 0.35rem; font-size: 0.72rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em;">Cara Mendapatkan Akun:</p>
+              <p style="margin: 0; font-size: 0.78rem; color: #64748b; line-height: 1.7;">1. Minta admin buka tab <strong style="color: #94a3b8;">Akun_Agen</strong> di Google Spreadsheet<br>2. Admin tambahkan baris baru: nama, nomor HP, dan kata sandi<br>3. Gunakan nomor HP dan kata sandi tersebut untuk masuk</p>
+            </div>
+          </div>
         </div>
       </div>
 

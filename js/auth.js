@@ -26,31 +26,23 @@ export class AuthManager {
       });
     }
 
-    // Form Register
-    const registerForm = document.getElementById('registerForm');
-    if (registerForm) {
-      registerForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        this.handleRegister();
-      });
-    }
-
-    // Toggle between Login and Register tabs
+    // Tab: "Info" tab (Tentang Akun) - still wired for UX but no form submit
     const tabShowLogin = document.getElementById('tabShowLogin');
     const tabShowRegister = document.getElementById('tabShowRegister');
-    if (tabShowLogin && tabShowRegister) {
+    if (tabShowLogin) {
       tabShowLogin.addEventListener('click', () => {
-        tabShowLogin.classList.add('active');
-        tabShowRegister.classList.remove('active');
+        if (tabShowLogin) tabShowLogin.classList.add('active');
+        if (tabShowRegister) tabShowRegister.classList.remove('active');
         const lp = document.getElementById('loginPane');
         const rp = document.getElementById('registerPane');
         if (lp) lp.style.display = 'block';
         if (rp) rp.style.display = 'none';
       });
-
+    }
+    if (tabShowRegister) {
       tabShowRegister.addEventListener('click', () => {
-        tabShowRegister.classList.add('active');
-        tabShowLogin.classList.remove('active');
+        if (tabShowRegister) tabShowRegister.classList.add('active');
+        if (tabShowLogin) tabShowLogin.classList.remove('active');
         const lp = document.getElementById('loginPane');
         const rp = document.getElementById('registerPane');
         if (lp) lp.style.display = 'none';
