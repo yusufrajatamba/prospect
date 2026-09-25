@@ -1601,12 +1601,23 @@ function fetchProspects(ss) {
     }
 
     const nHeaders = nData[0] || [];
-    const nColOwner = nHeaders.indexOf('Pemilik_Kontak') !== -1 ? nHeaders.indexOf('Pemilik_Kontak') : (nHeaders.indexOf('Pemilik') !== -1 ? nHeaders.indexOf('Pemilik') : -1);
-    const nColRel = nHeaders.indexOf('Relasi_Hubungan') !== -1 ? nHeaders.indexOf('Relasi_Hubungan') : (nColOwner !== -1 ? 4 : 3);
-    const nColJob = nHeaders.indexOf('Pekerjaan') !== -1 ? nHeaders.indexOf('Pekerjaan') : (nColOwner !== -1 ? 5 : 4);
-    const nColAddr = nHeaders.indexOf('Alamat_Domisili') !== -1 ? nHeaders.indexOf('Alamat_Domisili') : (nColOwner !== -1 ? 6 : 5);
-    const nColWa = nHeaders.indexOf('Tautan_WhatsApp') !== -1 ? nHeaders.indexOf('Tautan_WhatsApp') : (nColOwner !== -1 ? 7 : 6);
-    const nColDate = nHeaders.indexOf('Tanggal_Terdaftar') !== -1 ? nHeaders.indexOf('Tanggal_Terdaftar') : (nHeaders.length - 1);
+    let nColOwner = nHeaders.indexOf('Pemilik_Kontak') !== -1 ? nHeaders.indexOf('Pemilik_Kontak') : (nHeaders.indexOf('Pemilik') !== -1 ? nHeaders.indexOf('Pemilik') : -1);
+    
+    // Deteksi jika header baris 1 masih format lama (tanpa Pemilik_Kontak), tapi data baris 2 kolom D berisi 'Yusuf' / 'Rosma'
+    let isShiftedColD = false;
+    if (nColOwner === -1 && nData.length > 1) {
+      const sampleVal = String(nData[1][3] || '').trim();
+      if (sampleVal === 'Yusuf' || sampleVal === 'Rosma') {
+        nColOwner = 3;
+        isShiftedColD = true;
+      }
+    }
+
+    const nColRel = isShiftedColD ? 4 : (nHeaders.indexOf('Relasi_Hubungan') !== -1 ? nHeaders.indexOf('Relasi_Hubungan') : (nColOwner !== -1 ? 4 : 3));
+    const nColJob = isShiftedColD ? 5 : (nHeaders.indexOf('Pekerjaan') !== -1 ? nHeaders.indexOf('Pekerjaan') : (nColOwner !== -1 ? 5 : 4));
+    const nColAddr = isShiftedColD ? 6 : (nHeaders.indexOf('Alamat_Domisili') !== -1 ? nHeaders.indexOf('Alamat_Domisili') : (nColOwner !== -1 ? 6 : 5));
+    const nColWa = isShiftedColD ? 7 : (nHeaders.indexOf('Tautan_WhatsApp') !== -1 ? nHeaders.indexOf('Tautan_WhatsApp') : (nColOwner !== -1 ? 7 : 6));
+    const nColDate = isShiftedColD ? 8 : (nHeaders.indexOf('Tanggal_Terdaftar') !== -1 ? nHeaders.indexOf('Tanggal_Terdaftar') : (nHeaders.length - 1));
 
     const prospects = [];
     for (let i = 1; i < nData.length; i++) {
@@ -1616,13 +1627,28 @@ function fetchProspects(ss) {
       const pId = String(row[0] || ('p_' + i));
       const pipe = pMap[pId] || {};
 
+      let ownerVal = 'Yusuf';
+      if (nColOwner !== -1 && row[nColOwner]) {
+        ownerVal = String(row[nColOwner]);
+      } else if (pipe.owner) {
+        ownerVal = String(pipe.owner);
+      }
+      if (pId.startsWith('p_r_') || String(row[3]).trim().toLowerCase() === 'rosma') {
+        ownerVal = 'Rosma';
+      }
+
+      let relVal = String(row[nColRel] || 'Teman');
+      if (relVal.toLowerCase() === 'yusuf' || relVal.toLowerCase() === 'rosma') {
+        relVal = String(row[nColRel + 1] || 'Teman');
+      }
+
       prospects.push({
         id: pId,
         name: String(row[1] || pipe.name || ''),
         phone: String(row[2] || ''),
-        owner: (nColOwner !== -1 && row[nColOwner]) ? String(row[nColOwner]) : (pipe.owner || 'Yusuf'),
-        relationship: String(row[nColRel] || 'Teman'),
-        relation: String(row[nColRel] || 'Teman'),
+        owner: ownerVal,
+        relationship: relVal,
+        relation: relVal,
         job: String(row[nColJob] || ''),
         address: String(row[nColAddr] || ''),
         waLink: String(row[nColWa] || pipe.waLink || ''),

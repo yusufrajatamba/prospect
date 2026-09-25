@@ -13,6 +13,10 @@
  * 6. Klik tombol 'Run' (Jalankan). Seluruh 1.065 kontak (Yusuf & Rosma) akan masuk rapi & tervalidasi!
  */
 
+function generateImportContactsGs() {
+  return importAllValidContactsFromVcf();
+}
+
 function importAllValidContactsFromVcf() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   
@@ -72,22 +76,38 @@ function importAllValidContactsFromVcf() {
     ];
   });
 
-  // Tulis ke Daftar_Calon_Nasabah mulai baris 2 (Ganti data lama agar bersih & tersusun rapi)
+  // Tulis Header Resmi & Data ke Daftar_Calon_Nasabah (9 Kolom)
   if (sheetNasabah) {
+    const headersN = [
+      'ID_Prospek', 'Nama_Lengkap', 'Nomor_WhatsApp', 'Pemilik_Kontak',
+      'Relasi_Hubungan', 'Pekerjaan', 'Alamat_Domisili', 'Tautan_WhatsApp', 'Tanggal_Terdaftar'
+    ];
+    sheetNasabah.getRange(1, 1, 1, headersN.length).setValues([headersN])
+      .setBackground('#062135').setFontColor('#ffffff').setFontWeight('bold');
+
     const lastRowN = Math.max(sheetNasabah.getLastRow(), 2);
     if (lastRowN > 1) {
-      sheetNasabah.getRange(2, 1, lastRowN - 1, 9).clearContent();
+      sheetNasabah.getRange(2, 1, lastRowN - 1, headersN.length).clearContent();
     }
-    sheetNasabah.getRange(2, 1, rowsNasabah.length, 9).setValues(rowsNasabah);
+    sheetNasabah.getRange(2, 1, rowsNasabah.length, headersN.length).setValues(rowsNasabah);
+    sheetNasabah.setFrozenRows(1);
   }
 
-  // Tulis ke Pipeline_Penjualan mulai baris 2
+  // Tulis Header Resmi & Data ke Pipeline_Penjualan (10 Kolom)
   if (sheetPipeline) {
+    const headersP = [
+      'ID_Prospek', 'Nama_Lengkap', 'Pemilik_Kontak', 'Tahap_Pipeline', 'Kategori_Pasar',
+      'Target_Kontak_Berikutnya', 'Terakhir_Dihubungi', 'Kendala_Keberatan_Terakhir', 'Catatan_Pribadi', 'Tautan_WhatsApp'
+    ];
+    sheetPipeline.getRange(1, 1, 1, headersP.length).setValues([headersP])
+      .setBackground('#062135').setFontColor('#ffffff').setFontWeight('bold');
+
     const lastRowP = Math.max(sheetPipeline.getLastRow(), 2);
     if (lastRowP > 1) {
-      sheetPipeline.getRange(2, 1, lastRowP - 1, 10).clearContent();
+      sheetPipeline.getRange(2, 1, lastRowP - 1, headersP.length).clearContent();
     }
-    sheetPipeline.getRange(2, 1, rowsPipeline.length, 10).setValues(rowsPipeline);
+    sheetPipeline.getRange(2, 1, rowsPipeline.length, headersP.length).setValues(rowsPipeline);
+    sheetPipeline.setFrozenRows(1);
   }
 
   // Fallback tulis ke sheet Legacy Project100_Prospek jika ada (15 Kolom)

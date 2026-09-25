@@ -325,31 +325,50 @@ class ApiService {
   async getProspects() {
     if (this.hasSheetUrl()) {
       const res = await this.sheetRequest('getProspects', {}, 'GET');
-      const normalized = (res.prospects || []).map(p => ({
-        id: p.id,
-        name: p.name,
-        phone: p.phone || '',
-        owner: p.owner || 'Yusuf',
-        address: p.address || '',
-        relation: p.relation || p.relationship || 'Teman',
-        relationship: p.relation || p.relationship || 'Teman',
-        job: p.job || '',
-        estimatedIncome: p.estimatedIncome || p.estimated_income || '',
-        temperature: p.temperature || 'warm',
-        stage: p.stage || 'suspect',
-        stageDisplay: p.stageDisplay || '',
-        needs: Array.isArray(p.needs) ? p.needs : [],
-        qualifications: p.qualifications || {
-          money: Boolean(p.money_qualified),
-          authority: Boolean(p.authority_qualified),
-          need: Boolean(p.need_qualified)
-        },
-        targetFollowUp: p.targetFollowUp || p.target_follow_up || '',
-        lastContactDate: p.lastContactDate || p.last_contact_date || '-',
-        lastObjection: p.lastObjection || p.last_objection || '-',
-        notes: p.notes || '',
-        history: Array.isArray(p.history) ? p.history : []
-      }));
+      const normalized = (res.prospects || []).map(p => {
+        let isRosma = false;
+        if (p.owner && String(p.owner).toLowerCase().includes('rosma')) isRosma = true;
+        else if (p.id && String(p.id).startsWith('p_r_')) isRosma = true;
+        else if (p.relation && String(p.relation).toLowerCase() === 'rosma') isRosma = true;
+        else if (p.relationship && String(p.relationship).toLowerCase() === 'rosma') isRosma = true;
+
+        let relation = p.relation || p.relationship || 'Teman';
+        let job = p.job || '';
+        let address = p.address || '';
+
+        // Jika sheet lama menggeser kolom (di mana relation berisi 'Yusuf' / 'Rosma')
+        if (relation.toLowerCase() === 'yusuf' || relation.toLowerCase() === 'rosma') {
+          relation = job || 'Teman';
+          job = address || '';
+          address = '';
+        }
+
+        return {
+          id: p.id,
+          name: p.name,
+          phone: p.phone || '',
+          owner: isRosma ? 'Rosma' : 'Yusuf',
+          address: address,
+          relation: relation,
+          relationship: relation,
+          job: job,
+          estimatedIncome: p.estimatedIncome || p.estimated_income || '',
+          temperature: p.temperature || 'warm',
+          stage: p.stage || 'suspect',
+          stageDisplay: p.stageDisplay || '',
+          needs: Array.isArray(p.needs) ? p.needs : [],
+          qualifications: p.qualifications || {
+            money: Boolean(p.money_qualified),
+            authority: Boolean(p.authority_qualified),
+            need: Boolean(p.need_qualified)
+          },
+          targetFollowUp: p.targetFollowUp || p.target_follow_up || '',
+          lastContactDate: p.lastContactDate || p.last_contact_date || '-',
+          lastObjection: p.lastObjection || p.last_objection || '-',
+          notes: p.notes || '',
+          history: Array.isArray(p.history) ? p.history : []
+        };
+      });
       return { prospects: normalized };
     }
 
