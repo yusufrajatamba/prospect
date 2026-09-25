@@ -174,7 +174,10 @@
             <span class="metric-item-val" id="kpiTotalProspects">0</span>
             <span class="metric-item-sub">Orang</span>
           </div>
-          <div class="mini-progress-bar">
+          <div style="font-size: 0.68rem; color: var(--color-slate-500); margin-top: 0.15rem; display: flex; gap: 0.4rem;">
+            <span id="kpiSubYusuf">👨 Yusuf: 0</span> • <span id="kpiSubRosma">👩 Rosma: 0</span>
+          </div>
+          <div class="mini-progress-bar" style="margin-top: 0.3rem;">
             <div class="mini-progress-fill" id="kpiProgressBar" style="width: 0%;"></div>
           </div>
         </div>
@@ -240,7 +243,7 @@
 
       <!-- Toolbar Strip -->
       <div class="toolbar-strip">
-        <div class="toolbar-left">
+        <div class="toolbar-left" style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
           <!-- View Switcher (Clean Pill Style) -->
           <div class="view-tabs">
             <button class="view-tab active" data-view="table">
@@ -256,13 +259,38 @@
               <span>Jadwal Kontak</span>
             </button>
           </div>
+
+          <!-- Owner Segmented Filter (Yusuf vs Rosma) -->
+          <div class="owner-filter-tabs" id="ownerFilterTabs">
+            <button type="button" class="owner-pill active" data-owner="all" title="Semua calon nasabah">
+              <span class="owner-pill-icon">👥</span>
+              <span>Semua</span>
+              <span class="owner-pill-badge" id="countOwnerAll">1.065</span>
+            </button>
+            <button type="button" class="owner-pill owner-yusuf" data-owner="Yusuf" title="Calon nasabah dari Yusuf">
+              <span class="owner-pill-icon">👨</span>
+              <span>Yusuf</span>
+              <span class="owner-pill-badge" id="countOwnerYusuf">635</span>
+            </button>
+            <button type="button" class="owner-pill owner-rosma" data-owner="Rosma" title="Calon nasabah dari Rosma (Istri)">
+              <span class="owner-pill-icon">👩</span>
+              <span>Rosma</span>
+              <span class="owner-pill-badge" id="countOwnerRosma">430</span>
+            </button>
+          </div>
         </div>
 
         <!-- Filters Right -->
-        <div class="filters-group" style="display: flex; gap: 0.5rem; align-items: center;">
+        <div class="filters-group" style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
           <div class="search-field">
-            <input type="text" id="searchInput" placeholder="Cari nama, pekerjaan, kendala...">
+            <input type="text" id="searchInput" placeholder="Cari nama, relasi, pekerjaan, kendala...">
           </div>
+
+          <select id="filterOwner" class="filter-select" title="Filter Pemilik / Sumber Calon Nasabah">
+            <option value="all">👥 Semua Pemilik (Yusuf & Rosma)</option>
+            <option value="Yusuf">👨 Calon Nasabah Yusuf</option>
+            <option value="Rosma">👩 Calon Nasabah Rosma</option>
+          </select>
 
           <select id="filterTemperature" class="filter-select">
             <option value="all">Semua Kategori Pasar</option>
@@ -287,6 +315,7 @@
           <thead>
             <tr>
               <th>Nama & Relasi</th>
+              <th>Pemilik</th>
               <th>Kontak & Domisili</th>
               <th>Pekerjaan</th>
               <th>Tahap Pipeline</th>
@@ -850,17 +879,24 @@
             </div>
           </div>
 
-          <div class="form-grid-2">
+          <div class="form-grid-3" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem;">
+            <div class="form-group">
+              <label class="form-label" for="formOwner">Pemilik / Sumber Kontak *</label>
+              <select id="formOwner" class="form-select" required>
+                <option value="Yusuf" selected>👨 Yusuf (Suami)</option>
+                <option value="Rosma">👩 Rosma (Istri)</option>
+              </select>
+            </div>
             <div class="form-group">
               <label class="form-label" for="formRelation">Hubungan / Relasi *</label>
               <select id="formRelation" class="form-select" required></select>
             </div>
             <div class="form-group">
-              <label class="form-label" for="formTemperature">Kategori Kedekatan Pasar *</label>
+              <label class="form-label" for="formTemperature">Kedekatan Pasar *</label>
               <select id="formTemperature" class="form-select" required>
-                <option value="warm" selected>Pasar Menengah (Teman / Rekan Kerja)</option>
-                <option value="hot">Pasar Dekat (Keluarga Inti / Sahabat Karib)</option>
-                <option value="cold">Pasar Baru (Kenalan Baru / Referensi)</option>
+                <option value="warm" selected>Pasar Menengah (Warm)</option>
+                <option value="hot">Pasar Dekat (Hot)</option>
+                <option value="cold">Pasar Baru (Cold)</option>
               </select>
             </div>
           </div>
@@ -924,6 +960,7 @@
             <div class="prospect-hero-info">
               <div class="prospect-hero-name-row">
                 <h2 id="heroName" class="prospect-hero-name">Nama Prospek</h2>
+                <span id="heroOwnerBadge" class="badge badge-owner-yusuf">👨 Yusuf</span>
                 <span id="heroTempBadge" class="badge badge-priority-high">Pasar Dekat</span>
                 <span id="heroRelationBadge" class="badge badge-relation">Teman</span>
               </div>
@@ -993,6 +1030,10 @@
             <div class="detail-info-card">
               <span class="detail-info-label">Nomor WhatsApp</span>
               <strong id="detailPhoneVal" class="detail-info-val">-</strong>
+            </div>
+            <div class="detail-info-card">
+              <span class="detail-info-label">Pemilik Kontak</span>
+              <strong id="detailOwnerVal" class="detail-info-val">-</strong>
             </div>
             <div class="detail-info-card">
               <span class="detail-info-label">Pekerjaan / Profesi</span>

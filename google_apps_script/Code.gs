@@ -20,6 +20,18 @@ const SHEETS = {
 };
 
 /**
+ * Menu Kustom saat Google Spreadsheet dibuka
+ */
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('🌟 AgentProspect Pro')
+    .addItem('⚡ Impor 1.065 Kontak VCF Valid (Yusuf & Rosma)', 'importAllValidContactsFromVcf')
+    .addItem('🔄 Sinkronkan Seluruh Sheet', 'syncAllProspekSheetsManual')
+    .addItem('🧹 Rapikan Urutan Baris Data', 'realignAllSheetsManual')
+    .addToUi();
+}
+
+/**
  * 1. FUNGSI SETUP OTOMATIS: MEMBUAT SELURUH SHEET, HEADER & DATA VALIDASI
  * Jalankan fungsi ini 1 kali dari menu Apps Script: Run -> setupAgentSheets
  */
@@ -109,7 +121,7 @@ function setupMasterDataSheet(ss) {
   sheet.clear();
 
   const headers = [
-    ['Tahap_Pipeline', 'Kategori_Pasar', 'Relasi_Hubungan', 'Produk_Asuransi', 'Frekuensi_Bayar', 'Kategori_Keberatan']
+    ['Tahap_Pipeline', 'Kategori_Pasar', 'Relasi_Hubungan', 'Pemilik_Kontak', 'Produk_Asuransi', 'Frekuensi_Bayar', 'Kategori_Keberatan']
   ];
   sheet.getRange(1, 1, 1, headers[0].length).setValues(headers)
     .setBackground('#062135').setFontColor('#ffffff').setFontWeight('bold');
@@ -135,6 +147,8 @@ function setupMasterDataSheet(ss) {
     'Rekan Bisnis / Vendor', 'Referensi Nasabah', 'Kenalan Baru'
   ];
 
+  const contactOwners = ['Yusuf', 'Rosma'];
+
   const products = [
     'Prime Healthcare Plus Pro (Rawat Inap 1 Bed)',
     'Solusi Sehat Plus Pro (PSSP Syariah)',
@@ -156,13 +170,14 @@ function setupMasterDataSheet(ss) {
     'Kesesuaian Syariah'
   ];
 
-  const maxRows = Math.max(pipelineStages.length, relations.length, products.length, frequencies.length, objectionCats.length);
+  const maxRows = Math.max(pipelineStages.length, relations.length, contactOwners.length, products.length, frequencies.length, objectionCats.length);
   const data = [];
   for (let i = 0; i < maxRows; i++) {
     data.push([
       pipelineStages[i] || '',
       marketCategories[i] || '',
       relations[i] || '',
+      contactOwners[i] || '',
       products[i] || '',
       frequencies[i] || '',
       objectionCats[i] || ''
@@ -181,7 +196,7 @@ function setupDaftarNasabahSheet(ss) {
   if (!sheet) sheet = ss.insertSheet(SHEETS.NASABAH);
 
   const headers = [
-    'ID_Prospek', 'Nama_Lengkap', 'Nomor_WhatsApp', 'Relasi_Hubungan',
+    'ID_Prospek', 'Nama_Lengkap', 'Nomor_WhatsApp', 'Pemilik_Kontak', 'Relasi_Hubungan',
     'Pekerjaan', 'Alamat_Domisili',
     'Tautan_WhatsApp', 'Tanggal_Terdaftar'
   ];
@@ -189,19 +204,23 @@ function setupDaftarNasabahSheet(ss) {
   sheet.getRange(1, 1, 1, headers.length).setValues([headers])
     .setBackground('#062135').setFontColor('#ffffff').setFontWeight('bold');
 
-  // Validasi Dropdown Relasi (Kolom D) dari Master Data
   const masterSheet = ss.getSheetByName(SHEETS.MASTER);
   if (masterSheet) {
+    // Validasi Pemilik Kontak (Kolom D: Yusuf / Rosma)
+    const ownerRule = SpreadsheetApp.newDataValidation().requireValueInRange(masterSheet.getRange('D2:D5'), true).build();
+    sheet.getRange('D2:D1500').setDataValidation(ownerRule);
+
+    // Validasi Relasi (Kolom E)
     const relRule = SpreadsheetApp.newDataValidation().requireValueInRange(masterSheet.getRange('C2:C15'), true).build();
-    sheet.getRange('D2:D500').setDataValidation(relRule);
+    sheet.getRange('E2:E1500').setDataValidation(relRule);
   }
 
-  // Format Tanggal Terdaftar (Kolom H)
-  sheet.getRange('H2:H500').setNumberFormat('yyyy-mm-dd hh:mm');
+  // Format Tanggal Terdaftar (Kolom I)
+  sheet.getRange('I2:I1500').setNumberFormat('yyyy-mm-dd hh:mm');
 
-  // Rumus Tautan WhatsApp Otomatis di Kolom G:
-  sheet.getRange('G2').setFormula(
-    '=IF(C2<>""; "https://wa.me/" & IF(LEFT(C2;1)="0"; "62"&MID(C2;2;20); C2) & "?text=" & ENCODEURL("Halo Bapak/Ibu " & B2 & ", salam silaturahmi dari saya. Semoga kabar sehat selalu."); "")'
+  // Rumus Tautan WhatsApp Otomatis di Kolom H:
+  sheet.getRange('H2').setFormula(
+    '=IF(C2<>""; "https://wa.me/" & IF(LEFT(C2;1)="0"; "62"&MID(C2;2;20); C2) & "?text=" & ENCODEURL("Halo Bapak/Ibu " & B2 & ", salam silaturahmi dari saya " & D2 & ". Semoga kabar sehat selalu."); "")'
   );
 
   sheet.setFrozenRows(1);
@@ -216,7 +235,7 @@ function setupPipelinePenjualanSheet(ss) {
   if (!sheet) sheet = ss.insertSheet(SHEETS.PIPELINE);
 
   const headers = [
-    'ID_Prospek', 'Nama_Lengkap', 'Tahap_Pipeline', 'Kategori_Pasar',
+    'ID_Prospek', 'Nama_Lengkap', 'Pemilik_Kontak', 'Tahap_Pipeline', 'Kategori_Pasar',
     'Target_Kontak_Berikutnya', 'Terakhir_Dihubungi', 'Kendala_Keberatan_Terakhir',
     'Catatan_Pribadi', 'Tautan_WhatsApp'
   ];
@@ -226,26 +245,35 @@ function setupPipelinePenjualanSheet(ss) {
 
   const masterSheet = ss.getSheetByName(SHEETS.MASTER);
   if (masterSheet) {
-    // Tahap Pipeline (Kolom C)
-    const stageRule = SpreadsheetApp.newDataValidation().requireValueInRange(masterSheet.getRange('A2:A12'), true).build();
-    sheet.getRange('C2:C500').setDataValidation(stageRule);
+    // Pemilik Kontak (Kolom C)
+    const ownerRule = SpreadsheetApp.newDataValidation().requireValueInRange(masterSheet.getRange('D2:D5'), true).build();
+    sheet.getRange('C2:C1500').setDataValidation(ownerRule);
 
-    // Kategori Pasar (Kolom D)
+    // Tahap Pipeline (Kolom D)
+    const stageRule = SpreadsheetApp.newDataValidation().requireValueInRange(masterSheet.getRange('A2:A12'), true).build();
+    sheet.getRange('D2:D1500').setDataValidation(stageRule);
+
+    // Kategori Pasar (Kolom E)
     const pasarRule = SpreadsheetApp.newDataValidation().requireValueInRange(masterSheet.getRange('B2:B5'), true).build();
-    sheet.getRange('D2:D500').setDataValidation(pasarRule);
+    sheet.getRange('E2:E1500').setDataValidation(pasarRule);
   }
 
-  // Format Tanggal (Kolom E & F)
-  sheet.getRange('E2:F500').setNumberFormat('yyyy-mm-dd');
+  // Format Tanggal (Kolom F & G)
+  sheet.getRange('F2:G1500').setNumberFormat('yyyy-mm-dd');
 
   // Rumus Otomatis Nama Lengkap terhubung dari Sheet Calon Nasabah di Kolom B:
   sheet.getRange('B2').setFormula(
     '=IFERROR(VLOOKUP(A2; \'' + SHEETS.NASABAH + '\'!A:B; 2; FALSE); "")'
   );
 
-  // Rumus Tautan WhatsApp di Kolom I (dari sheet Daftar_Calon_Nasabah Kolom G):
-  sheet.getRange('I2').setFormula(
-    '=IFERROR(VLOOKUP(A2; \'' + SHEETS.NASABAH + '\'!A:G; 7; FALSE); "")'
+  // Rumus Pemilik Kontak di Kolom C:
+  sheet.getRange('C2').setFormula(
+    '=IFERROR(VLOOKUP(A2; \'' + SHEETS.NASABAH + '\'!A:D; 4; FALSE); "Yusuf")'
+  );
+
+  // Rumus Tautan WhatsApp di Kolom J (dari sheet Daftar_Calon_Nasabah Kolom H):
+  sheet.getRange('J2').setFormula(
+    '=IFERROR(VLOOKUP(A2; \'' + SHEETS.NASABAH + '\'!A:H; 8; FALSE); "")'
   );
 
   sheet.setFrozenRows(1);
@@ -854,6 +882,107 @@ function doPost(e) {
     }
 
     // --- 1. PROSPECTS CRUD (TERINTEGRASI 2 SHEET) ---
+    if (action === 'batchCreateProspects') {
+      const lock = LockService.getScriptLock();
+      lock.waitLock(30000);
+      try {
+        const list = payload.contacts || payload.data || [];
+        if (!list || list.length === 0) {
+          return jsonResponse({ error: 'Daftar kontak kosong.' });
+        }
+        let sheetNasabah = ss.getSheetByName(SHEETS.NASABAH);
+        let sheetPipeline = ss.getSheetByName(SHEETS.PIPELINE);
+        let sheetLegacy = ss.getSheetByName(SHEETS.PROSPEK);
+
+        if (!sheetNasabah) {
+          setupDaftarNasabahSheet(ss);
+          sheetNasabah = ss.getSheetByName(SHEETS.NASABAH);
+        }
+        if (!sheetPipeline) {
+          setupPipelinePenjualanSheet(ss);
+          sheetPipeline = ss.getSheetByName(SHEETS.PIPELINE);
+        }
+
+        const nowStr = Utilities.formatDate(new Date(), 'GMT+7', 'yyyy-MM-dd HH:mm');
+        const rowsNasabah = [];
+        const rowsPipeline = [];
+        const rowsLegacy = [];
+
+        list.forEach((p, idx) => {
+          const newId = p.id || ('p_' + (new Date().getTime() + idx));
+          const waPhone = formatPhoneForWA(p.phone || '');
+          const waSender = p.owner === 'Rosma' ? 'Rosma' : 'Yusuf';
+          const waLink = waPhone ? ('https://wa.me/' + waPhone + '?text=' + encodeURIComponent('Halo Bapak/Ibu ' + (p.name || '') + ', salam silaturahmi dari saya ' + waSender + '.')) : '';
+          
+          rowsNasabah.push([
+            newId,
+            p.name || 'Calon Nasabah',
+            p.phone || '',
+            p.owner || 'Yusuf',
+            p.relation || p.relationship || 'Kenalan Baru',
+            p.job || '',
+            p.address || '',
+            waLink,
+            p.regDate || nowStr
+          ]);
+
+          rowsPipeline.push([
+            newId,
+            p.name || 'Calon Nasabah',
+            p.owner || 'Yusuf',
+            p.stage ? mapStageToDisplay(p.stage) : '1. Bank Nama (Suspect)',
+            p.marketCategory || mapTempToDisplay(p.temperature || 'warm'),
+            p.targetFollowUp || '',
+            p.lastContactDate || '-',
+            p.lastObjection || '-',
+            p.notes || '',
+            waLink
+          ]);
+
+          if (sheetLegacy) {
+            rowsLegacy.push([
+              newId,
+              p.name || 'Calon Nasabah',
+              p.phone || '',
+              p.owner || 'Yusuf',
+              p.relation || p.relationship || 'Kenalan Baru',
+              p.marketCategory || mapTempToDisplay(p.temperature || 'warm'),
+              p.job || '',
+              p.address || '',
+              p.stage ? mapStageToDisplay(p.stage) : '1. Bank Nama (Suspect)',
+              p.targetFollowUp || '',
+              p.lastContactDate || '-',
+              p.lastObjection || '-',
+              p.notes || '',
+              waLink,
+              p.regDate || nowStr
+            ]);
+          }
+        });
+
+        if (sheetNasabah && rowsNasabah.length > 0) {
+          const nextRowN = getFirstEmptyRow(sheetNasabah, 1);
+          sheetNasabah.getRange(nextRowN, 1, rowsNasabah.length, 9).setValues(rowsNasabah);
+        }
+        if (sheetPipeline && rowsPipeline.length > 0) {
+          const nextRowP = getFirstEmptyRow(sheetPipeline, 1);
+          sheetPipeline.getRange(nextRowP, 1, rowsPipeline.length, 10).setValues(rowsPipeline);
+        }
+        if (sheetLegacy && rowsLegacy.length > 0) {
+          const nextRowL = getFirstEmptyRow(sheetLegacy, 1);
+          sheetLegacy.getRange(nextRowL, 1, rowsLegacy.length, 15).setValues(rowsLegacy);
+        }
+
+        return jsonResponse({
+          success: true,
+          count: list.length,
+          message: list.length + ' calon nasabah berhasil ditambahkan dalam batch!'
+        });
+      } finally {
+        lock.releaseLock();
+      }
+    }
+
     if (action === 'createProspect') {
       const p = payload.data || payload;
       const newId = 'p_' + new Date().getTime();
@@ -871,15 +1000,17 @@ function doPost(e) {
       }
 
       const waPhone = formatPhoneForWA(p.phone || '');
-      const waLink = waPhone ? ('https://wa.me/' + waPhone + '?text=' + encodeURIComponent('Halo Bapak/Ibu ' + (p.name || '') + ', salam silaturahmi dari saya.')) : '';
+      const waSender = p.owner === 'Rosma' ? 'Rosma' : 'Yusuf';
+      const waLink = waPhone ? ('https://wa.me/' + waPhone + '?text=' + encodeURIComponent('Halo Bapak/Ibu ' + (p.name || '') + ', salam silaturahmi dari saya ' + waSender + '.')) : '';
       const nowStr = Utilities.formatDate(new Date(), 'GMT+7', 'yyyy-MM-dd HH:mm');
 
-      // 1. Simpan ke Sheet 1: Daftar_Calon_Nasabah (8 Kolom: ID, Nama, No WA, Relasi, Pekerjaan, Alamat, Link WA, Tanggal)
+      // 1. Simpan ke Sheet 1: Daftar_Calon_Nasabah (9 Kolom: ID, Nama, No WA, Pemilik, Relasi, Pekerjaan, Alamat, Link WA, Tanggal)
       if (sheetNasabah) {
         const rowNasabah = [
           newId,
           p.name || 'Calon Nasabah',
           p.phone || '',
+          p.owner || 'Yusuf',
           p.relation || p.relationship || 'Teman',
           p.job || '',
           p.address || '',
@@ -890,11 +1021,12 @@ function doPost(e) {
         sheetNasabah.getRange(rowIdxN, 1, 1, rowNasabah.length).setValues([rowNasabah]);
       }
 
-      // 2. Simpan ke Sheet 2: Pipeline_Penjualan (9 Kolom: ID, Nama, Tahap, Kategori, Target, Kontak Terakhir, Kendala, Catatan, Link WA)
+      // 2. Simpan ke Sheet 2: Pipeline_Penjualan (10 Kolom: ID, Nama, Pemilik, Tahap, Kategori, Target, Kontak Terakhir, Kendala, Catatan, Link WA)
       if (sheetPipeline) {
         const rowPipeline = [
           newId,
           p.name || 'Calon Nasabah',
+          p.owner || 'Yusuf',
           mapStageToDisplay(p.stage || 'suspect'),
           mapTempToDisplay(p.temperature || 'warm'),
           p.targetFollowUp || p.target_follow_up || '',
@@ -907,12 +1039,13 @@ function doPost(e) {
         sheetPipeline.getRange(rowIdxP, 1, 1, rowPipeline.length).setValues([rowPipeline]);
       }
 
-      // 3. Fallback / Sync ke Sheet Legacy Project100_Prospek (14 Kolom)
+      // 3. Fallback / Sync ke Sheet Legacy Project100_Prospek (15 Kolom)
       if (sheetLegacy) {
         const rowLegacy = [
           newId,
           p.name || 'Calon Nasabah',
           p.phone || '',
+          p.owner || 'Yusuf',
           p.relation || p.relationship || 'Teman',
           mapTempToDisplay(p.temperature || 'warm'),
           p.job || '',
@@ -1435,13 +1568,14 @@ function fetchProspects(ss) {
 
     // Buat lookup map dari sheet pipeline berdasarkan ID_Prospek
     const pHeaders = (pData && pData[0]) || [];
-    const pColStage = pHeaders.indexOf('Tahap_Pipeline') !== -1 ? pHeaders.indexOf('Tahap_Pipeline') : 2;
-    const pColTemp = pHeaders.indexOf('Kategori_Pasar') !== -1 ? pHeaders.indexOf('Kategori_Pasar') : 3;
-    const pColTarget = pHeaders.indexOf('Target_Kontak_Berikutnya') !== -1 ? pHeaders.indexOf('Target_Kontak_Berikutnya') : 4;
-    const pColLast = pHeaders.indexOf('Terakhir_Dihubungi') !== -1 ? pHeaders.indexOf('Terakhir_Dihubungi') : 5;
-    const pColObj = pHeaders.indexOf('Kendala_Keberatan_Terakhir') !== -1 ? pHeaders.indexOf('Kendala_Keberatan_Terakhir') : 6;
-    const pColNotes = pHeaders.indexOf('Catatan_Pribadi') !== -1 ? pHeaders.indexOf('Catatan_Pribadi') : 7;
-    const pColWa = pHeaders.indexOf('Tautan_WhatsApp') !== -1 ? pHeaders.indexOf('Tautan_WhatsApp') : 8;
+    const pColOwner = pHeaders.indexOf('Pemilik_Kontak') !== -1 ? pHeaders.indexOf('Pemilik_Kontak') : (pHeaders.indexOf('Pemilik') !== -1 ? pHeaders.indexOf('Pemilik') : -1);
+    const pColStage = pHeaders.indexOf('Tahap_Pipeline') !== -1 ? pHeaders.indexOf('Tahap_Pipeline') : (pColOwner !== -1 ? 3 : 2);
+    const pColTemp = pHeaders.indexOf('Kategori_Pasar') !== -1 ? pHeaders.indexOf('Kategori_Pasar') : (pColOwner !== -1 ? 4 : 3);
+    const pColTarget = pHeaders.indexOf('Target_Kontak_Berikutnya') !== -1 ? pHeaders.indexOf('Target_Kontak_Berikutnya') : (pColOwner !== -1 ? 5 : 4);
+    const pColLast = pHeaders.indexOf('Terakhir_Dihubungi') !== -1 ? pHeaders.indexOf('Terakhir_Dihubungi') : (pColOwner !== -1 ? 6 : 5);
+    const pColObj = pHeaders.indexOf('Kendala_Keberatan_Terakhir') !== -1 ? pHeaders.indexOf('Kendala_Keberatan_Terakhir') : (pColOwner !== -1 ? 7 : 6);
+    const pColNotes = pHeaders.indexOf('Catatan_Pribadi') !== -1 ? pHeaders.indexOf('Catatan_Pribadi') : (pColOwner !== -1 ? 8 : 7);
+    const pColWa = pHeaders.indexOf('Tautan_WhatsApp') !== -1 ? pHeaders.indexOf('Tautan_WhatsApp') : (pColOwner !== -1 ? 9 : 8);
 
     const pMap = {};
     for (let j = 1; j < pData.length; j++) {
@@ -1449,6 +1583,7 @@ function fetchProspects(ss) {
       if (pRow[0]) {
         pMap[String(pRow[0])] = {
           name: String(pRow[1] || ''),
+          owner: pColOwner !== -1 ? String(pRow[pColOwner] || 'Yusuf') : 'Yusuf',
           stageDisplay: String(pRow[pColStage] || ''),
           stage: mapDisplayToStage(pRow[pColStage]),
           tempDisplay: String(pRow[pColTemp] || ''),
@@ -1466,9 +1601,11 @@ function fetchProspects(ss) {
     }
 
     const nHeaders = nData[0] || [];
-    const nColJob = nHeaders.indexOf('Pekerjaan') !== -1 ? nHeaders.indexOf('Pekerjaan') : 4;
-    const nColAddr = nHeaders.indexOf('Alamat_Domisili') !== -1 ? nHeaders.indexOf('Alamat_Domisili') : (nHeaders.indexOf('Estimasi_Penghasilan') !== -1 ? 6 : 5);
-    const nColWa = nHeaders.indexOf('Tautan_WhatsApp') !== -1 ? nHeaders.indexOf('Tautan_WhatsApp') : (nHeaders.indexOf('Estimasi_Penghasilan') !== -1 ? 7 : 6);
+    const nColOwner = nHeaders.indexOf('Pemilik_Kontak') !== -1 ? nHeaders.indexOf('Pemilik_Kontak') : (nHeaders.indexOf('Pemilik') !== -1 ? nHeaders.indexOf('Pemilik') : -1);
+    const nColRel = nHeaders.indexOf('Relasi_Hubungan') !== -1 ? nHeaders.indexOf('Relasi_Hubungan') : (nColOwner !== -1 ? 4 : 3);
+    const nColJob = nHeaders.indexOf('Pekerjaan') !== -1 ? nHeaders.indexOf('Pekerjaan') : (nColOwner !== -1 ? 5 : 4);
+    const nColAddr = nHeaders.indexOf('Alamat_Domisili') !== -1 ? nHeaders.indexOf('Alamat_Domisili') : (nColOwner !== -1 ? 6 : 5);
+    const nColWa = nHeaders.indexOf('Tautan_WhatsApp') !== -1 ? nHeaders.indexOf('Tautan_WhatsApp') : (nColOwner !== -1 ? 7 : 6);
     const nColDate = nHeaders.indexOf('Tanggal_Terdaftar') !== -1 ? nHeaders.indexOf('Tanggal_Terdaftar') : (nHeaders.length - 1);
 
     const prospects = [];
@@ -1483,8 +1620,9 @@ function fetchProspects(ss) {
         id: pId,
         name: String(row[1] || pipe.name || ''),
         phone: String(row[2] || ''),
-        relationship: String(row[3] || 'Teman'),
-        relation: String(row[3] || 'Teman'),
+        owner: (nColOwner !== -1 && row[nColOwner]) ? String(row[nColOwner]) : (pipe.owner || 'Yusuf'),
+        relationship: String(row[nColRel] || 'Teman'),
+        relation: String(row[nColRel] || 'Teman'),
         job: String(row[nColJob] || ''),
         address: String(row[nColAddr] || ''),
         waLink: String(row[nColWa] || pipe.waLink || ''),

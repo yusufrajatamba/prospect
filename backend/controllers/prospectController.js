@@ -32,6 +32,7 @@ export function handleListProspects(req, res, currentUser) {
       id: p.id,
       name: p.name,
       phone: p.phone,
+      owner: p.owner || 'Yusuf',
       address: p.address,
       relation: p.relation,
       job: p.job,
@@ -58,7 +59,7 @@ export function handleListProspects(req, res, currentUser) {
 export async function handleCreateProspect(req, res, currentUser) {
   const body = await parseJsonBody(req);
   const {
-    name, phone, address, relation, job, estimatedIncome,
+    name, phone, owner, address, relation, job, estimatedIncome,
     temperature, stage, qualifications, targetFollowUp, notes, needs
   } = body;
 
@@ -69,18 +70,20 @@ export async function handleCreateProspect(req, res, currentUser) {
   const id = `p_${Date.now()}`;
   const now = new Date().toISOString();
   const needsJson = JSON.stringify(needs || []);
+  const prospectOwner = (owner === 'Rosma' ? 'Rosma' : 'Yusuf');
 
   db.prepare(`
     INSERT INTO prospects (
-      id, user_id, name, phone, address, relation, job, estimated_income,
+      id, user_id, name, phone, owner, address, relation, job, estimated_income,
       temperature, stage, money_qualified, authority_qualified, need_qualified,
       target_follow_up, last_contact_date, last_objection, notes, needs_json, created_at, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '-', '-', ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '-', '-', ?, ?, ?, ?)
   `).run(
     id,
     currentUser.id,
     name,
     phone,
+    prospectOwner,
     address ?? '',
     relation ?? 'Lainnya',
     job ?? '',
@@ -111,7 +114,7 @@ export async function handleUpdateProspect(req, res, currentUser, prospectId) {
 
   const body = await parseJsonBody(req);
   const {
-    name, phone, address, relation, job, estimatedIncome,
+    name, phone, owner, address, relation, job, estimatedIncome,
     temperature, stage, qualifications, targetFollowUp, notes, needs
   } = body;
 
@@ -122,6 +125,7 @@ export async function handleUpdateProspect(req, res, currentUser, prospectId) {
     UPDATE prospects SET
       name = COALESCE(?, name),
       phone = COALESCE(?, phone),
+      owner = COALESCE(?, owner),
       address = COALESCE(?, address),
       relation = COALESCE(?, relation),
       job = COALESCE(?, job),
@@ -139,6 +143,7 @@ export async function handleUpdateProspect(req, res, currentUser, prospectId) {
   `).run(
     name ?? null,
     phone ?? null,
+    owner ?? null,
     address ?? null,
     relation ?? null,
     job ?? null,

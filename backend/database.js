@@ -42,6 +42,7 @@ export function initDatabase() {
       user_id TEXT NOT NULL,
       name TEXT NOT NULL,
       phone TEXT NOT NULL,
+      owner TEXT DEFAULT 'Yusuf',
       address TEXT,
       relation TEXT,
       job TEXT,
@@ -193,6 +194,7 @@ function runMigrations() {
   // 3. Prospects Migrations
   ensureColumn('prospects', 'updated_at', 'TEXT');
   ensureColumn('prospects', 'needs_json', "TEXT DEFAULT '[]'");
+  ensureColumn('prospects', 'owner', "TEXT DEFAULT 'Yusuf'");
 
   // 4. Data Backfill
   try {

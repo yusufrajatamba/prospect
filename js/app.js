@@ -23,6 +23,7 @@ class AgentProspectApp {
 
     // Filters
     this.searchQuery = '';
+    this.selectedOwner = 'all'; // 'all', 'Yusuf', 'Rosma'
     this.selectedTemperature = 'all';
     this.selectedRelation = 'all';
 
@@ -305,6 +306,29 @@ class AgentProspectApp {
       });
     }
 
+    // Owner Filter (Pills & Dropdown Sync)
+    document.querySelectorAll('.owner-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.owner-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        this.selectedOwner = pill.dataset.owner || 'all';
+        const filterOwner = document.getElementById('filterOwner');
+        if (filterOwner) filterOwner.value = this.selectedOwner;
+        this.renderView();
+      });
+    });
+
+    const filterOwnerSelect = document.getElementById('filterOwner');
+    if (filterOwnerSelect) {
+      filterOwnerSelect.addEventListener('change', (e) => {
+        this.selectedOwner = e.target.value;
+        document.querySelectorAll('.owner-pill').forEach(p => {
+          p.classList.toggle('active', p.dataset.owner === this.selectedOwner);
+        });
+        this.renderView();
+      });
+    }
+
     // Search & Filters
     document.getElementById('searchInput').addEventListener('input', (e) => {
       this.searchQuery = e.target.value.toLowerCase();
@@ -323,9 +347,14 @@ class AgentProspectApp {
 
     document.getElementById('btnResetFilters').addEventListener('click', () => {
       document.getElementById('searchInput').value = '';
+      if (document.getElementById('filterOwner')) document.getElementById('filterOwner').value = 'all';
+      document.querySelectorAll('.owner-pill').forEach(p => {
+        p.classList.toggle('active', p.dataset.owner === 'all');
+      });
       document.getElementById('filterTemperature').value = 'all';
       document.getElementById('filterRelation').value = 'all';
       this.searchQuery = '';
+      this.selectedOwner = 'all';
       this.selectedTemperature = 'all';
       this.selectedRelation = 'all';
       this.renderView();
@@ -828,10 +857,16 @@ class AgentProspectApp {
         const matchAddress = (p.address || '').toLowerCase().includes(query);
         const matchPhone = (p.phone || '').includes(query);
         const matchRelation = (p.relation || '').toLowerCase().includes(query);
+        const matchOwner = (p.owner || '').toLowerCase().includes(query);
         const matchObjection = (p.lastObjection || '').toLowerCase().includes(query);
-        if (!matchName && !matchJob && !matchAddress && !matchPhone && !matchRelation && !matchObjection) {
+        if (!matchName && !matchJob && !matchAddress && !matchPhone && !matchRelation && !matchOwner && !matchObjection) {
           return false;
         }
+      }
+
+      if (this.selectedOwner !== 'all') {
+        const pOwner = p.owner || 'Yusuf';
+        if (pOwner !== this.selectedOwner) return false;
       }
 
       if (this.selectedTemperature !== 'all' && p.temperature !== this.selectedTemperature) return false;
@@ -841,7 +876,39 @@ class AgentProspectApp {
     });
   }
 
+  updateOwnerPillCounts() {
+    let countYusuf = 0;
+    let countRosma = 0;
+    this.prospects.forEach(p => {
+      if ((p.owner || 'Yusuf') === 'Rosma') countRosma++;
+      else countYusuf++;
+    });
+
+    const elAll = document.getElementById('countOwnerAll');
+    if (elAll) elAll.textContent = this.prospects.length.toLocaleString('id-ID');
+
+    const elY = document.getElementById('countOwnerYusuf');
+    if (elY) elY.textContent = countYusuf.toLocaleString('id-ID');
+
+    const elR = document.getElementById('countOwnerRosma');
+    if (elR) elR.textContent = countRosma.toLocaleString('id-ID');
+
+    const subY = document.getElementById('kpiSubYusuf');
+    if (subY) subY.textContent = `👨 Yusuf: ${countYusuf.toLocaleString('id-ID')}`;
+
+    const subR = document.getElementById('kpiSubRosma');
+    if (subR) subR.textContent = `👩 Rosma: ${countRosma.toLocaleString('id-ID')}`;
+
+    const optAll = document.querySelector('#filterOwner option[value="all"]');
+    if (optAll) optAll.textContent = `👥 Semua Pemilik (${this.prospects.length.toLocaleString('id-ID')})`;
+    const optY = document.querySelector('#filterOwner option[value="Yusuf"]');
+    if (optY) optY.textContent = `👨 Calon Nasabah Yusuf (${countYusuf.toLocaleString('id-ID')})`;
+    const optR = document.querySelector('#filterOwner option[value="Rosma"]');
+    if (optR) optR.textContent = `👩 Calon Nasabah Rosma (${countRosma.toLocaleString('id-ID')})`;
+  }
+
   render() {
+    this.updateOwnerPillCounts();
     this.renderAlertBanner();
     this.renderView();
   }
@@ -1155,9 +1222,17 @@ class AgentProspectApp {
       stageSelectOptions += `<option value="${s.id}" ${s.id === (prospect.stage || 'suspect') ? 'selected' : ''}>${s.label}</option>`;
     });
 
+    const isRosma = (prospect.owner === 'Rosma');
+    const ownerBadge = isRosma
+      ? `<span class="badge badge-owner-rosma" style="font-size: 0.6rem; padding: 0.1rem 0.35rem;" title="Calon Nasabah Rosma (Istri)">👩 Rosma</span>`
+      : `<span class="badge badge-owner-yusuf" style="font-size: 0.6rem; padding: 0.1rem 0.35rem;" title="Calon Nasabah Yusuf">👨 Yusuf</span>`;
+
     card.innerHTML = `
-      <div class="card-top-row">
-        <span class="card-name">${prospect.name}</span>
+      <div class="card-top-row" style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.35rem;">
+        <div style="display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; flex: 1;">
+          <span class="card-name" style="font-size: 0.85rem; font-weight: 700;">${prospect.name}</span>
+          ${ownerBadge}
+        </div>
         ${tempBadge}
       </div>
 
@@ -1262,7 +1337,7 @@ class AgentProspectApp {
 
     const filtered = this.getFilteredProspects();
     if (filtered.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; padding: 2rem; color: #94a3b8;">Tidak ada data prospek.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="10" style="text-align: center; padding: 2rem; color: #94a3b8;">Tidak ada data prospek.</td></tr>`;
       return;
     }
 
@@ -1271,6 +1346,11 @@ class AgentProspectApp {
     filtered.forEach(p => {
       const tr = document.createElement('tr');
       const stageObj = SALES_STAGES.find(s => s.id === p.stage) || SALES_STAGES[0];
+
+      const isRosma = (p.owner === 'Rosma');
+      const ownerBadge = isRosma
+        ? `<span class="badge badge-owner-rosma" title="Calon Nasabah Rosma (Istri)">👩 Rosma</span>`
+        : `<span class="badge badge-owner-yusuf" title="Calon Nasabah Yusuf">👨 Yusuf</span>`;
 
       let tempBadge = '';
       if (p.temperature === 'hot') tempBadge = `<span class="badge badge-hot">Pasar Dekat</span>`;
@@ -1292,6 +1372,9 @@ class AgentProspectApp {
         <td>
           <strong style="color: var(--color-slate-900);">${p.name}</strong>
           <div><span class="badge badge-relation" style="font-size: 0.65rem;">${p.relation || '-'}</span></div>
+        </td>
+        <td>
+          ${ownerBadge}
         </td>
         <td>
           <div>${p.phone}</div>
@@ -1343,7 +1426,8 @@ class AgentProspectApp {
     const todayArr = [];
     const upcomingArr = [];
 
-    this.prospects.forEach(p => {
+    const activeList = this.getFilteredProspects();
+    activeList.forEach(p => {
       if (p.targetFollowUp) {
         if (p.targetFollowUp < todayStr) overdueArr.push(p);
         else if (p.targetFollowUp === todayStr) todayArr.push(p);
@@ -1356,11 +1440,19 @@ class AgentProspectApp {
     document.getElementById('badgeUpcomingCount').textContent = upcomingArr.length;
 
     const renderCard = (p, isOverdue = false) => {
+      const isRosma = (p.owner === 'Rosma');
+      const ownerBadge = isRosma
+        ? `<span class="badge badge-owner-rosma" style="font-size: 0.58rem; padding: 0.05rem 0.35rem;">👩 Rosma</span>`
+        : `<span class="badge badge-owner-yusuf" style="font-size: 0.58rem; padding: 0.05rem 0.35rem;">👨 Yusuf</span>`;
+
       const card = document.createElement('div');
       card.style = "background: var(--color-slate-50); border: 1px solid var(--border-subtle); border-radius: var(--r-sm); padding: 0.75rem; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;";
       card.innerHTML = `
         <div>
-          <div style="font-weight: 700; font-size: 0.85rem; color: var(--color-slate-900);">${p.name}</div>
+          <div style="display: flex; align-items: center; gap: 0.35rem;">
+            <span style="font-weight: 700; font-size: 0.85rem; color: var(--color-slate-900);">${p.name}</span>
+            ${ownerBadge}
+          </div>
           <div style="font-size: 0.725rem; color: var(--color-slate-500);">${p.relation} • ${p.job || '-'}</div>
           <div style="font-size: 0.7rem; color: ${isOverdue ? '#dc2626' : 'var(--pru-red)'}; font-weight: 600; margin-top: 0.15rem;">
             Target: ${this.formatShortDate(p.targetFollowUp)}
@@ -1394,6 +1486,12 @@ class AgentProspectApp {
     document.getElementById('prospectForm').reset();
     document.getElementById('formProspectId').value = '';
     
+    // Default pemilik kontak sesuai filter aktif (jika filter Yusuf/Rosma sedang dipilih)
+    const formOwner = document.getElementById('formOwner');
+    if (formOwner) {
+      formOwner.value = (this.selectedOwner !== 'all' ? this.selectedOwner : 'Yusuf');
+    }
+
     // Default tahap penjualan ke "1. Daftar Nama" (suspect)
     const formStage = document.getElementById('formStage');
     if (formStage) formStage.value = 'suspect';
@@ -1414,6 +1512,7 @@ class AgentProspectApp {
     document.getElementById('formProspectId').value = p.id;
     document.getElementById('formName').value = p.name || '';
     document.getElementById('formPhone').value = p.phone || '';
+    if (document.getElementById('formOwner')) document.getElementById('formOwner').value = p.owner || 'Yusuf';
     if (document.getElementById('formRelation')) document.getElementById('formRelation').value = p.relation || 'Teman';
     if (document.getElementById('formTemperature')) document.getElementById('formTemperature').value = p.temperature || 'warm';
     if (document.getElementById('formJob')) document.getElementById('formJob').value = p.job || '';
@@ -1429,6 +1528,7 @@ class AgentProspectApp {
     const idInput = document.getElementById('formProspectId').value;
     const name = document.getElementById('formName').value.trim();
     const phone = document.getElementById('formPhone').value.trim();
+    const owner = document.getElementById('formOwner')?.value || 'Yusuf';
     const relation = document.getElementById('formRelation')?.value || 'Teman';
     const temperature = document.getElementById('formTemperature')?.value || 'warm';
     const job = document.getElementById('formJob')?.value.trim() || '';
@@ -1446,16 +1546,16 @@ class AgentProspectApp {
     try {
       if (idInput) {
         await api.updateProspect(idInput, {
-          name, phone, relation, temperature, job,
+          name, phone, owner, relation, temperature, job,
           address, stage, targetFollowUp, notes, qualifications
         });
-        this.showToast(`Data ${name} berhasil diperbarui.`);
+        this.showToast(`Data ${name} (${owner}) berhasil diperbarui.`);
       } else {
         await api.createProspect({
-          name, phone, relation, temperature, job,
+          name, phone, owner, relation, temperature, job,
           address, stage, targetFollowUp, notes, qualifications
         });
-        this.showToast(`Calon nasabah ${name} berhasil ditambahkan!`);
+        this.showToast(`Calon nasabah ${name} (${owner}) berhasil ditambahkan!`);
       }
 
       this.closeModal('modalProspectForm');
@@ -1523,6 +1623,13 @@ class AgentProspectApp {
     document.getElementById('heroJobLocation').textContent = `${p.job || '-'} (${p.address || 'Domisili -'})`;
     document.getElementById('heroNotes').textContent = p.notes || '-';
 
+    const isRosma = (p.owner || '').toLowerCase().includes('rosma');
+    const heroOwnerBadge = document.getElementById('heroOwnerBadge');
+    if (heroOwnerBadge) {
+      heroOwnerBadge.className = isRosma ? 'badge badge-owner-rosma' : 'badge badge-owner-yusuf';
+      heroOwnerBadge.textContent = isRosma ? '👩 Rosma' : '👨 Yusuf';
+    }
+
     const tempBadge = document.getElementById('heroTempBadge');
     if (tempBadge) {
       if (p.temperature === 'hot') {
@@ -1550,6 +1657,8 @@ class AgentProspectApp {
     // Detailed Info Card Values
     const phoneVal = document.getElementById('detailPhoneVal');
     if (phoneVal) phoneVal.textContent = p.phone || '-';
+    const ownerVal = document.getElementById('detailOwnerVal');
+    if (ownerVal) ownerVal.textContent = isRosma ? 'Rosma (Istri)' : 'Yusuf';
     const jobVal = document.getElementById('detailJobVal');
     if (jobVal) jobVal.textContent = p.job || '-';
     const addrVal = document.getElementById('detailAddressVal');

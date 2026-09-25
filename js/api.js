@@ -329,6 +329,7 @@ class ApiService {
         id: p.id,
         name: p.name,
         phone: p.phone || '',
+        owner: p.owner || 'Yusuf',
         address: p.address || '',
         relation: p.relation || p.relationship || 'Teman',
         relationship: p.relation || p.relationship || 'Teman',
