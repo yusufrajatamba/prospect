@@ -6,7 +6,9 @@
   "main": "server.js",
   "scripts": {
     "build": "echo 'Build successful'",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js",
+    "import:contacts": "node scripts/generate_import_gs.cjs"
   },
   "keywords": [
     "agentprospect",
